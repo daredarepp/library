@@ -1,29 +1,30 @@
 /* Body styling */
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 /* Header styling */
 
 .header {
-  width: 100%;
   background-color: #0277bd;
-  }
+}
 
-.nav {
+.navi {
   list-style-type: none;
   margin: 0;
   padding: 0;
   display: inline-block;
 }
-.nav li {
+
+.navi li {
   display: inline;
 }
+
 li a {
   display: inline-block;
   padding: 10px 15px;
@@ -32,46 +33,34 @@ li a {
 
 li a:hover {
   background-color: rgba(0, 0, 0, 0.205);
+  text-decoration: none;
 }
+
 li a:link, li a:visited {
   color: white;
 }
 
-.criteria {
-  /* display: inline-block; */
-  width: 310px;
-  margin: 0 auto;
-}
 
 /* Main section styling */
 
-.main-wrapper {
-  /* box-sizing: border-box; */
-  background-color: rgba(128, 128, 128, 0.164);
-  width: 1200px;
-  margin: 0px auto;
-  padding: 35px;
-}
-
 .catalog_small {
-  width: 800px;
-  height: 400px;
-  margin: 15px auto;
-  padding: 15px;
   background-color: white;
-  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.411);
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.411);
+  margin-top: 15px;
 }
 
 .sign_in {
-  width: 800px;
-  height: 400px;
-  margin: 50px auto;
-  padding: 15px;
   background-color: white;
-  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.411);
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.411);
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 h3 {
   font-weight: normal;
   text-align: center;
+  margin: 0px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.507);
+  color: white;
 }
