@@ -6,12 +6,21 @@
 
 body {
   margin: 0;
+  background-color: rgba(192, 192, 192, 0.315);
+}
+
+/* Typography */
+
+h1, h2, h3, h4 {
+  font-weight: normal;
+  text-align: center;
+  margin: 0px;
 }
 
 /* Header styling */
 
 .header {
-  background-color: #0277bd;
+  background-color: rgb(2, 119, 189);
 }
 
 .navi {
@@ -40,27 +49,74 @@ li a:link, li a:visited {
   color: white;
 }
 
+.header h2{
+  color: white;
+  position: relative;
+  bottom: 20px;
+}
+
 
 /* Main section styling */
 
-.catalog_small {
+
+div.catalog_small {
   background-color: white;
-  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.411);
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.411);
   margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
-.sign_in {
+.preview_images {
+  padding: 15px;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+
+.preview_images img {
+  width: 30%;
+  max-width: 30%;
+  max-height: 430px;
+}
+
+
+a#see_full_catalog {
+  display: inline-block;
+  margin: 5px;
+  font-size: 17px;
+}
+
+a#see_full_catalog:hover {
+  text-decoration: none;
+}
+
+div.sign_in {
   background-color: white;
-  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.411);
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.411);
   margin-top: 15px;
   margin-bottom: 15px;
 }
 
-h3 {
-  font-weight: normal;
+.form_sign_in{
   text-align: center;
-  margin: 0px;
-  padding: 5px;
-  background-color: rgba(0, 0, 0, 0.507);
-  color: white;
+  padding: 25px;
 }
+
+.form_sign_in h4 {
+  margin: 10px;
+}
+
+.form_sign_in input {
+  margin: 5px;
+}
+
+/* window headers */
+div > h3 {
+  padding: 5px;
+  border-bottom:3px solid rgba(170, 170, 170, 0.548);
+  color: rgb(105, 105, 105);
+}
+
+
+

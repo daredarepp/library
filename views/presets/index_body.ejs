@@ -1,19 +1,36 @@
 <!-- Include the header -->
 <% include header.ejs %>
+    <div class = "row">
+        <div class="col-md-8 col-md-offset-2 main-wrapper">
 
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2 catalog_small">
-            <h3>Small catalog</h3>
-            <p>Small catalog here...</p>
-        </div>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 catalog_small">
+                    <h3>Catalog</h3>
+                    <div class = "preview_images">
+                        <img src="/images/books/Death Wave.jpg">
+                        <img src="/images/books/Apes And Angels.jpg">
+                        <img src="/images/books/The Name Of The Wind.jpg">
+                        <img src="/images/books/The Wise Man's Fear.jpg">
+                    </div>
+                    <button>Scroll</button>
+                    <a href="/catalog" id="see_full_catalog">See full catalog</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 sign_in">
+                    <h3>Sign in</h3>
+                    <div class="form_sign_in">
+                        <h4>Sign in with your account.</h4>
+                        <label for = "username">Username:</label>
+                        <input type = "text" id="username"></input><br>
+                        <label for = "password">Password:</label>
+                        <input type = "password" id = "password"></input><br>
+                        <input type = "submit" value="Submit"></input>
+                    </div>
+                </div>
+            </div>
+
+        </div>  
     </div>
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2 sign_in">
-            <h3>Sign-in window</h3>
-            <p>Sign in here...</p>
-        </div>
-
-    </div>    
-    
 <!--Closing tag for the fluid container  -->
 </div>
