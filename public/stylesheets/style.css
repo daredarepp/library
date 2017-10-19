@@ -21,12 +21,13 @@ h1, h2, h3, h4 {
   font-weight: normal;
   text-align: center;
   margin: 0px;
+  font-family: "Antic";
 }
 
 i.material-icons {
   position: absolute;
   left: 10px;
-  color: rgba(0, 0, 0, 0.589);
+  color: rgba(0, 0, 0, 0.425);
 }
 
 
@@ -37,6 +38,7 @@ i.material-icons {
 
 .header {
   background-color: rgb(2, 119, 189);
+  font-family: "Antic";
 }
 
 /* main title */
@@ -67,27 +69,24 @@ ul.navi {
 
 .navi a:hover {
   background-color: rgba(0, 0, 0, 0.205);
-  
 }
 
 
 
 /* Main section styling */
 
-/* windows headers */
+/* windows headings */
 #catalog_small > h2, #sign_in > h2 {
   font-size: 24px;
   padding: 12px;
-  color: rgba(0, 0, 0, 0.705);
-  background-color: rgba(170, 170, 170, 0.212);
-  /* border-bottom: 2px solid gray; */
-  /* border-top: 3px solid gray; */
+  color: rgba(0, 0, 0, 0.525);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.425);
 }
 
 /* Catalog small window */
 #catalog_small {
   background-color: white;
-  box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.411);
+  box-shadow: 0px 2px 20px 1px rgba(0, 0, 0, 0.411);
   margin-top: 30px;
   margin-bottom: 15px;
   text-align: center;
@@ -95,7 +94,7 @@ ul.navi {
 }
 
 div#preview_images {
-  padding: 15px;
+  padding: 25px 15px 15px;
   white-space: nowrap;
   overflow-x: hidden;
   width: 100%;
@@ -110,7 +109,7 @@ div#preview_images img {
 a#arrow_left, a#arrow_right {
   text-decoration: none;
   display: inline-block;
-  background-color: rgb(170, 170, 170);
+  background-color: rgba(255, 255, 255, 0.609);
   padding: 10px;
   border-radius: 35px;
   position: absolute;
@@ -120,7 +119,7 @@ a#arrow_left, a#arrow_right {
 }
 
 a#arrow_left:hover, a#arrow_right:hover {
-  background-color: white;
+  background-color: white;  
 }
 
 a#arrow_left {
@@ -135,6 +134,7 @@ a#see_full_catalog {
   display: inline-block;
   margin: 5px;
   font-size: 17px;
+  color: rgb(2, 119, 189);
 }
 
 a#see_full_catalog:hover {
@@ -144,7 +144,7 @@ a#see_full_catalog:hover {
 /* Sign in window */
 #sign_in {
   background-color: white;
-  box-shadow: 0px 0px 20px 1px rgba(0, 0, 0, 0.411);
+  box-shadow: 0px 2px 20px 1px rgba(0, 0, 0, 0.411);
   margin-top: 15px;
   margin-bottom: 15px;
 }
@@ -154,15 +154,12 @@ div#form_sign_in{
   padding: 25px;
 }
 
-div#form_sign_in h4 {
+div#form_sign_in p {
   margin: 10px;
+  font-size: 17px;
 }
 
 div#form_sign_in input {
   margin: 5px;
 }
-
-
-
-
 
