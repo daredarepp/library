@@ -1,25 +1,35 @@
-<!-- Include the header -->
-<% include header.ejs %>
+    <!-- Include the header -->
+    <% include header.ejs %>
+
+    <!-- Main section -->
     <div class = "row">
         <div class="col-md-8 col-md-offset-2 main-wrapper">
 
+            <!-- Catalog small window -->
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 catalog_small">
-                    <h3>Catalog</h3>
-                    <div class = "preview_images">
+                <div class="col-md-10 col-md-offset-1" id = "catalog_small">
+                    <h2><i class="material-icons">library_books</i> Books</h2>
+
+                    <div id = "preview_images">
                         <img src="/images/books/Death Wave.jpg">
                         <img src="/images/books/Apes And Angels.jpg">
                         <img src="/images/books/The Name Of The Wind.jpg">
                         <img src="/images/books/The Wise Man's Fear.jpg">
+                        <img src="/images/books/The Slow Regard Of Silent Things.jpg">
+                        <a href = "#" id = "arrow_left" class="material-icons">keyboard_arrow_left</a>
+                        <a href = "#" id = "arrow_right" class="material-icons">keyboard_arrow_right</a>
                     </div>
-                    <button>Scroll</button>
+
                     <a href="/catalog" id="see_full_catalog">See full catalog</a>
                 </div>
             </div>
+            
+            <!-- Sign in window -->
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 sign_in">
-                    <h3>Sign in</h3>
-                    <div class="form_sign_in">
+                <div class="col-md-10 col-md-offset-1" id = "sign_in">
+                    <h2><i class="material-icons">account_circle</i> Sign in</h2>
+
+                    <div id ="form_sign_in">
                         <h4>Sign in with your account.</h4>
                         <label for = "username">Username:</label>
                         <input type = "text" id="username"></input><br>
@@ -27,10 +37,14 @@
                         <input type = "password" id = "password"></input><br>
                         <input type = "submit" value="Submit"></input>
                     </div>
+
                 </div>
             </div>
 
+
         </div>  
     </div>
+
+
 <!--Closing tag for the fluid container  -->
 </div>
