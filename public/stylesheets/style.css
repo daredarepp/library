@@ -1,7 +1,6 @@
 /* Body styling */
 
 
-
 * {
   box-sizing: border-box;
 }
@@ -16,7 +15,7 @@ body {
 /* Typography */
 
 
-
+/* All headings */
 h1, h2, h3, h4 {
   font-weight: normal;
   text-align: center;
@@ -41,7 +40,7 @@ i.material-icons {
   font-family: "Antic";
 }
 
-/* main title */
+/* Header title */
 .header h1{
   color: white;
 }
@@ -75,24 +74,28 @@ ul.navi {
 
 /* Main section styling */
 
-/* windows headings */
-#catalog_small > h2, #sign_in > h2 {
+
+/* Windows */
+div.window {
+  background-color: white;
+  box-shadow: 0px 2px 20px 1px rgba(0, 0, 0, 0.411);
+  margin-top: 30px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Window headings */
+h2.window_heading {
   font-size: 24px;
   padding: 12px;
   color: rgba(0, 0, 0, 0.525);
   border-bottom: 1px solid rgba(0, 0, 0, 0.425);
 }
 
-/* Catalog small window */
-#catalog_small {
-  background-color: white;
-  box-shadow: 0px 2px 20px 1px rgba(0, 0, 0, 0.411);
-  margin-top: 30px;
-  margin-bottom: 15px;
-  text-align: center;
-  overflow: hidden;
-}
+/* Homepage */
 
+/* Small catalog window internals */
 div#preview_images {
   padding: 25px 15px 15px;
   white-space: nowrap;
@@ -141,16 +144,8 @@ a#see_full_catalog:hover {
   text-decoration: none;
 }
 
-/* Sign in window */
-#sign_in {
-  background-color: white;
-  box-shadow: 0px 2px 20px 1px rgba(0, 0, 0, 0.411);
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-
+/* Sign in window internals */
 div#form_sign_in{
-  text-align: center;
   padding: 25px;
 }
 

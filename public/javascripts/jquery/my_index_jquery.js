@@ -1,3 +1,5 @@
+/* Homepage */
+
 $(document).ready(function(){
 
     // Scroll images right
@@ -5,7 +7,7 @@ $(document).ready(function(){
     $('#arrow_right').click(function(){
         event.preventDefault();
         let scroll = $('#preview_images').scrollLeft();
-        scroll += 285;
+        scroll += 290;
         $('#preview_images').animate({scrollLeft: scroll},200);
     });
     
@@ -14,7 +16,7 @@ $(document).ready(function(){
     $('#arrow_left').click(function(){
         event.preventDefault();
         let scroll = $('#preview_images').scrollLeft();
-        scroll -= 285;
+        scroll -= 290;
         $('#preview_images').animate({scrollLeft: scroll},200);
     });
 
