@@ -48,7 +48,7 @@ $(document).ready(function(){
         .append(windowBody);
 
         // Fill the window body with data 
-        $.get(`/catalog/${current}`, function(data, status){
+        $.get(link.attr('href'), function(data, status){
             
             if(status === 'error'){
                 windowBody.text('Sorry, something went wrong.');
