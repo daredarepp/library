@@ -3,33 +3,35 @@
 
     <!-- Main section -->
     <div class = "row">
-        <div class="col-md-8 col-md-offset-2 main-wrapper">
+        <div class="col-xs-12 home-wrapper">
 
-            <!-- Catalog small window -->
+            <!-- Catalog most viewed window -->
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 window">
-                    <h2 class = "window_heading"><i class="material-icons">library_books</i> Books</h2>
+                <div class="col-md-8 col-md-offset-2 window">
+                    <h2 class = "window_heading"><i class="material-icons">library_books</i> Books <a href = "#" class="material-icons show_hide_button" title = "Show/Hide window">keyboard_arrow_up</a></h2>
 
-                    <div id = "preview_images">
-                        <img src="/images/books/Death Wave.jpg">
-                        <img src="/images/books/Apes And Angels.jpg">
-                        <img src="/images/books/The Name Of The Wind.jpg">
-                        <img src="/images/books/The Wise Man's Fear.jpg">
-                        <img src="/images/books/The Slow Regard Of Silent Things.jpg">
-                        <a href = "#" id = "arrow_left" class="material-icons">keyboard_arrow_left</a>
-                        <a href = "#" id = "arrow_right" class="material-icons">keyboard_arrow_right</a>
+                    <div class = "window_body">
+                        <div id = "preview_books">
+                            <img src="/images/books/Death Wave.jpg">
+                            <img src="/images/books/Apes And Angels.jpg">
+                            <img src="/images/books/The Name Of The Wind.jpg">
+                            <img src="/images/books/The Wise Man's Fear.jpg">
+                            <img src="/images/books/The Slow Regard Of Silent Things.jpg">
+                            <a href = "#" id = "arrow_left" class="material-icons">keyboard_arrow_left</a>
+                            <a href = "#" id = "arrow_right" class="material-icons">keyboard_arrow_right</a>
+                        </div>
+                        <a href="/catalog" id="see_full_catalog">See full catalog</a>
                     </div>
 
-                    <a href="/catalog" id="see_full_catalog">See full catalog</a>
                 </div>
             </div>
             
             <!-- Sign in window -->
             <div class="row">
-                <div class="col-md-10 col-md-offset-1 window">
-                    <h2 class = "window_heading"><i class = "material-icons">account_circle</i> Sign in</h2>
+                <div class="col-md-8 col-md-offset-2 window">
+                    <h2 class = "window_heading"><i class = "material-icons">account_circle</i> Sign in <a href = "#" class="material-icons show_hide_button" title = "Show/Hide window">keyboard_arrow_up</a></h2>
 
-                    <div id ="form_sign_in">
+                    <div class = "window_body">                        
                         <p>Sign in with your account.</p>
                         <label for = "username">Username:</label>
                         <input type = "text" id="username"></input><br>
