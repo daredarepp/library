@@ -1,5 +1,11 @@
-/* Body styling */
+/* Body styling _____________________________________________________________________________________________________ */
+::-webkit-scrollbar { 
+  display: none; 
+}
 
+html {
+  /* overflow-y: scroll; */
+}
 
 * {
   box-sizing: border-box;
@@ -12,10 +18,11 @@ body {
 
 
 
-/* Typography */
+/* Typography _______________________________________________________________________________________________________ */
 
 
-/* All headings */
+
+/* all headings */
 h1, h2, h3, h4 {
   font-weight: normal;
   text-align: center;
@@ -23,15 +30,10 @@ h1, h2, h3, h4 {
   font-family: "Antic";
 }
 
-i.material-icons {
-  position: absolute;
-  left: 10px;
-  color: rgba(0, 0, 0, 0.425);
-}
 
 
 
-/* Header styling */
+/* Header styling ___________________________________________________________________________________________________ */
 
 
 
@@ -40,7 +42,7 @@ i.material-icons {
   font-family: "Antic";
 }
 
-/* Header title */
+/* header title */
 .header h1{
   color: white;
 }
@@ -59,6 +61,7 @@ ul.navi {
 .navi a {
   display: inline-block;
   padding: 10px 15px;
+  position: relative;
 }
 
 .navi a:link, .navi a:visited {
@@ -72,20 +75,24 @@ ul.navi {
 
 
 
-/* Main section styling */
+
+/* Windows styling __________________________________________________________________________________________________ */
 
 
-/* Windows */
-div.window {
+
+.window {
   background-color: white;
-  box-shadow: 0px 2px 20px 1px rgba(0, 0, 0, 0.411);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.411);
   margin-top: 30px;
   margin-bottom: 15px;
   overflow: hidden;
-  text-align: center;
 }
 
-/* Window headings */
+.window_body {
+  text-align: center;
+  padding: 15px;
+}
+
 h2.window_heading {
   font-size: 24px;
   padding: 12px;
@@ -93,20 +100,52 @@ h2.window_heading {
   border-bottom: 1px solid rgba(0, 0, 0, 0.425);
 }
 
-/* Homepage */
+/* heading icon */
+h2 i.material-icons {
+  position: absolute;
+  left: 10px;
+  color: rgba(0, 0, 0, 0.425);
+}
 
-/* Small catalog window internals */
-div#preview_images {
-  padding: 25px 15px 15px;
+/* show and hide button */
+h2 a.show_hide_button  {
+  position: absolute;
+  right: 10px;  
+}
+
+h2 a.show_hide_button:link, h2 a.show_hide_button:visited {
+  text-decoration: none;
+  color: rgb(2, 119, 189);
+}
+
+h2 a.show_hide_button:hover {
+  background-color: rgb(2, 119, 189);
+  color: white;
+}
+
+.window img {
+  width: 260px;
+  height: 400px;
+}
+
+
+
+
+/* Main section styling _____________________________________________________________________________________________ */
+
+
+
+/* Homepage --------------------------------------------------------------------------------------------------------- */
+
+.home-wrapper{
+
+}
+
+/* catalog most viewed window */
+#preview_books {
   white-space: nowrap;
   overflow-x: hidden;
   width: 100%;
-  height: 100%;
-}
-
-div#preview_images img {
-  width: 260px;
-  height: 400px;
 }
 
 a#arrow_left, a#arrow_right {
@@ -133,28 +172,81 @@ a#arrow_right {
   right: 20px;
 }
 
+/* link to full catalog */
 a#see_full_catalog {
   display: inline-block;
-  margin: 5px;
   font-size: 17px;
-  color: rgb(2, 119, 189);
+  margin-top: 15px;
 }
 
-a#see_full_catalog:hover {
+a#see_full_catalog:link {
   text-decoration: none;
 }
 
-/* Sign in window internals */
-div#form_sign_in{
-  padding: 25px;
-}
-
-div#form_sign_in p {
-  margin: 10px;
-  font-size: 17px;
-}
-
-div#form_sign_in input {
+/* sign in window */
+.window input {
   margin: 5px;
+}
+
+
+
+/* Catalog page ----------------------------------------------------------------------------------------------------- */
+
+
+
+.catalog-wrapper {
+
+}
+
+/* selection links */
+a.selection {
+  display: block;
+  padding: 70px 45px;
+  font-size: 20px;
+  font-family: 'Antic';
+  text-align: center;
+}
+
+a.selection:link, a.selection:visited {
+  text-decoration: none;
+  color: rgb(2, 119, 189);
+}
+
+a.selection:hover {
+  background-color: rgb(2, 119, 189);
+  color: white;
+}
+
+/* selection links icons */
+a.selection i.material-icons {
+  font-size: 48px;
+  display: block;
+}
+
+/* when less than medium screen size */
+@media (max-width:991px){
+  a.selection{
+    padding: 5px;
+  }
+  a.selection i.material-icons {
+    font-size: 24px;
+  }
+}
+
+/* close button */
+a#close_button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+a#close_button:link, a#close_button:visited {
+  text-decoration: none;
+  color: rgb(2, 119, 189);
+}
+
+a#close_button:hover {
+  background-color: rgb(2, 119, 189);
+  color: white;
 }
 

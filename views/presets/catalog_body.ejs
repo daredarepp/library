@@ -1,7 +1,27 @@
-<!-- Include the header -->
-<% include header.ejs %>
+    <!-- Include the header -->
+    <% include header.ejs %>
 
-    <p>Catalog page in progress...</p>
+    <div class = "row">
+        <div class = "col-xs-12 catalog-wrapper">
+
+            <!-- Books -->
+            <div id = "books" class = "col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-2 window">
+                <a class = "selection" href = "#"><i class = "material-icons ">library_books</i>Books</a>
+            </div>
+
+            <!-- Authors -->
+            <div id = "authors" class = "col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-1 window authors">
+                <a class = "selection" href = "#"><i class="material-icons">people</i>Authors</a>
+            </div>
+
+            <!-- Genres -->
+            <div id = "genres" class = "col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-1 window genres">
+                <a class = "selection" href = "#"><i class="material-icons">view_agenda</i>Genres</a>
+            </div>
+
+        </div>
+    </div>
+    
     
 <!--Closing tag for the fluid container  -->
 </div>

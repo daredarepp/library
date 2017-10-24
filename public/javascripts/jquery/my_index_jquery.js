@@ -20,7 +20,7 @@ $(document).ready(function(){
         $('#preview_books').animate({scrollLeft: scroll},200);
     });
 
-    // Hide/Show window body
+    // Show/Hide window body
     $('a.show_hide_button').click(function(){
 
         event.preventDefault();
