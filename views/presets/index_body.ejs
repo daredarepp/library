@@ -1,43 +1,59 @@
     <!-- Include the header -->
+
     <% include header.ejs %>
 
     <!-- Main section -->
-    <div class = "row">
-        <div class="col-xs-12 home-wrapper">
 
-            <!-- Catalog most viewed window -->
+    <div class = "row">
+        <div class="col-xs-12 home_wrapper">
+
+            <!-- Popular books window -->
+
             <div class="row">
-                <div class="col-md-8 col-md-offset-2 window">
-                    <h2 class = "window_heading"><i class="material-icons">library_books</i> Books <a href = "#" class="material-icons show_hide_button" title = "Show/Hide window">keyboard_arrow_up</a></h2>
+                <div class="window col-md-8 col-md-offset-2">
+                    <h2 class = "window_title">
+                        Popular Books
+                        <i class="material-icons">library_books</i>
+                        <a href = "#" class = "material-icons toggle_button"
+                        title = "Toggle">keyboard_arrow_up</a>
+                    </h2>
 
                     <div class = "window_body">
-                        <div id = "preview_books">
+                        <div id = "popular_books_placeholder">
                             <img src="/images/books/Death Wave.jpg">
                             <img src="/images/books/Apes And Angels.jpg">
                             <img src="/images/books/The Name Of The Wind.jpg">
                             <img src="/images/books/The Wise Man's Fear.jpg">
                             <img src="/images/books/The Slow Regard Of Silent Things.jpg">
-                            <a href = "#" id = "arrow_left" class="material-icons">keyboard_arrow_left</a>
-                            <a href = "#" id = "arrow_right" class="material-icons">keyboard_arrow_right</a>
+                            <a href = "#" id = "arrow_left" class = "material-icons">keyboard_arrow_left</a>
+                            <a href = "#" id = "arrow_right" class = "material-icons">keyboard_arrow_right</a>
                         </div>
-                        <a href="/catalog" id="see_full_catalog">See full catalog</a>
+                        <a href="/catalog" id="see_full_catalog" title = "See the full catalog">See full catalog</a>
                     </div>
 
                 </div>
             </div>
             
             <!-- Sign in window -->
+
             <div class="row">
-                <div class="col-md-8 col-md-offset-2 window">
-                    <h2 class = "window_heading"><i class = "material-icons">account_circle</i> Sign in <a href = "#" class="material-icons show_hide_button" title = "Show/Hide window">keyboard_arrow_up</a></h2>
+                <div class="window col-md-8 col-md-offset-2">
+                    <h2 class = "window_title">
+                        <i class = "material-icons">account_circle</i>
+                        Sign in
+                        <a href = "#" class = "material-icons toggle_button"
+                        title = "Toggle">keyboard_arrow_up</a>
+                    </h2>
 
                     <div class = "window_body">                        
                         <p>Sign in with your account.</p>
                         <label for = "username">Username:</label>
-                        <input type = "text" id="username"></input><br>
+                        <input type = "text" id = "username"></input>
+                        <br>
                         <label for = "password">Password:</label>
-                        <input type = "password" id = "password"></input><br>
-                        <input type = "submit" value="Submit"></input>
+                        <input type = "password" id = "password"></input>
+                        <br>
+                        <input type = "submit" value = "Submit"></input>
                     </div>
 
                 </div>

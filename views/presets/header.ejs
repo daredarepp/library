@@ -1,14 +1,27 @@
 <!-- The closing tag for the fluid container is in the page body preset -->
 <div class = "container-fluid">
 
-    <div class="row">
+    <div class = "row">
         <div class = "col-xs-12 header">
 
                 <ul class = "navi">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/catalog">Catalog</a></li>
-                    <li><a href="/admin">Admin</a></li>
+                    <li>
+                        <a href = "/">Home</a>
+                    </li>
+                    <li>
+                        <a href = "/catalog">Catalog</a>
+                            <div class = "submenu">
+                                <a href = "#">Books</a>
+                                <a href = "#">Authors</a>
+                                <a href = "#">Genres</a>
+                            </div>
+                    </li>
+                    <li>
+                        <a href = "/admin">Admin</a>
+                    </li>
                 </ul>
+
+                <div class = "clearfix"></div>
                 <h1><%= title %></h1>
 
         </div>
