@@ -10,46 +10,52 @@ module.exports.catalog_get = function(req,res,next){
     res.render('catalog',{title: "Catalog"});
 };
 
-/* GET Books */
+/* GET category */
 
-module.exports.catalog_books_get = function(req, res, next){
+module.exports.catalog_category_get = function(req, res, next){
 
+    
+    var category = req.params.category;
     var uri = 'mongodb://localhost/mydb';
     var options = { useMongoClient: true };
     
     mongoose.connect(uri, options);
-    Book.find(function(err, result){
-        if(err) throw err;
-        res.json(result);
-    });
-};
 
-/* GET Authors */
 
-module.exports.catalog_authors_get = function(req, res, next){
+    switch(category){
+        
+        // Books
+        case 'books':
+            Book.find(function(err, result){
+                if(err) throw err;
+                res.json(result);
+                mongoose.disconnect();
+            });
+            break;
 
-    var uri = 'mongodb://localhost/mydb';
-    var options = { useMongoClient: true };
+        // Authors
+        case 'authors':
+            Author.find(function(err, result){
+                if(err) throw err;
+                res.json(result);
+                mongoose.disconnect();
+            });
+            break;
+
+        // Genres
+        case 'genres':
+            Genre.find(function(err, result){
+                if(err) throw err;
+                res.json(result);
+                mongoose.disconnect();
+            });
+            break;
+
+        default:
+            mongoose.disconnect();
+            res.send('There is no such category');
+
+    }
     
-    mongoose.connect(uri, options);
-    Author.find(function(err, result){
-        if(err) throw err;
-        res.json(result);
-    });
     
-};
-
-/* GET Genres */
-
-module.exports.catalog_genres_get = function(req, res, next){
-
-    var uri = 'mongodb://localhost/mydb';
-    var options = { useMongoClient: true };
-    
-    mongoose.connect(uri, options);
-    Genre.find(function(err, result){
-        if(err) throw err;
-        res.json(result);
-    });
-
 };
