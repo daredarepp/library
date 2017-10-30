@@ -1,23 +1,12 @@
 $(document).ready(function(){
-  
-    /* window.onpopstate = function(event){
+    
+    // Navigation bar responsive button
+    $('.navi a.icon').click(function(){
 
-        $('.catalog_wrapper').html(event.state.wrapper);
-
-    } */
-
- /*    $('.navi a').eq(1).hover(function(){
-        $('.submenu').show();
-    },
-    function(){
-        $('.submenu').hide();
+        event.preventDefault(); 
+        $('.navi').toggleClass('responsive');
     });
 
-    $('.submenu').hover(function(){
-        $(this).show();
-    }, function(){
-        $(this).hide();
-    }) */
 
     /* Homepage ----------------------------------------------------------------------------------------------------- */
 
@@ -176,6 +165,4 @@ $(document).ready(function(){
 
     };
 
-    
-})
-
+});
