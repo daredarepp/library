@@ -52,21 +52,19 @@ a{
 }
 
 /* navigation */
-ul.navi {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-  width: 100%;
-}
-
-.navi li {
-  float: left;
+.navi {
+  clear: both;
+  overflow: hidden;
 }
 
 .navi a {
-  display: inline-block;
+  float: left;
   padding: 10px 15px;
+  font-size: 15px;
+}
+
+.navi a:nth-child(4){
+  float: right;
 }
 
 .navi a:link, .navi a:visited {
@@ -78,16 +76,39 @@ ul.navi {
   background-color: rgba(0, 0, 0, 0.205);
 }
 
-.submenu {
-  position: absolute;
-  z-index: 1;
-}
-.submenu a{
-  float: left;
+.navi a.icon {
+  display: none;
 }
 
+@media (max-width: 991px){
+  
+  .navi {
+    position: relative;
+  }
+
+  .navi a:not(:first-child) {
+    display: none;
+  }
+  
+  .navi.responsive {
+    background-color: rgba(0, 0, 0, 0.205);
+    border-bottom: 1px solid white;
+  }
+
+  .navi.responsive a{
+    display: block;
+    float: none;
+  }
+
+  .navi a.icon{
+    display: block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+  }
 
 
+}
 
 /* Windows styling __________________________________________________________________________________________________ */
 
