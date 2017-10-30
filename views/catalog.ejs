@@ -4,6 +4,12 @@
     <% include presets/head.ejs %>
   </head>
   <body>
-    <% include presets/catalog_body.ejs %>
+    <% if(typeof category !== 'undefined' && typeof result !== 'undefined'){ %>
+
+      <% include presets/catalog_presets/category %>
+    <% }else{ %>
+
+      <% include presets/catalog_presets/index.ejs %>
+    <% } %>
   </body>
 </html>

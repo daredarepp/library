@@ -1,0 +1,18 @@
+
+
+<!-- Catalog window -->
+
+<div class="window col-xs-12 col-md-8 col-md-offset-2 catalog">
+    <h2 class="window_title">
+        <i class="material-icons"></i>
+        <%= category %>
+    </h2>
+    <a id="close_button" href="#" title="Close" class="material-icons">close</a>
+    <div class="window_body">
+        <ol>                                
+            <% result.map(function(one){ %>
+                <li><%= one %></li>
+            <% }) %>                                
+        </ol>                            
+    </div>
+</div> 

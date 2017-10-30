@@ -71,8 +71,14 @@ $(document).ready(function(){
                     return;
                 };
                 
-                var para = $('<p></p>').text(JSON.stringify(data));
-                catalogBody.html(para);
+                var ol = $('<ol></ol>');
+                data.map(function(one){
+                    var li = $('<li></li>');
+                    li.text(JSON.stringify(one));
+                    ol.append(li);
+                })
+                // var para = $('<p></p>').text(JSON.stringify(data));
+                catalogBody.html(ol);
             });
             
             // Append the catalog to the main wrapper
@@ -93,9 +99,24 @@ $(document).ready(function(){
                 selectionBar.hide();
                 selectionWindows.show();
             
-        });
+            });
 
     };
+
+    // When clicking the close button
+    $('#close_button').click(function(){
+        
+        event.preventDefault();
+        
+        // Remove the catalog 
+        $('.catalog').remove();
+        $('.active').removeClass('active');
+
+        // Hide the selection bar and show the selection windows
+        $('.selection_bar').hide();
+        $('.selection_window').show();
+    
+    });
 
 
 });
