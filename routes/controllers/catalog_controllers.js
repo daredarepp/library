@@ -13,7 +13,6 @@ module.exports.catalog_get = function(req,res,next){
 /* GET category */
 
 module.exports.catalog_category_get = function(req, res, next){
-
     
     var category = req.params.category;
     var uri = 'mongodb://localhost/mydb';
@@ -31,7 +30,8 @@ module.exports.catalog_category_get = function(req, res, next){
 
                 Book.find({}, 'title author -_id').populate('author', 'first_name family_name -_id').exec(function(err, result){
                     if(err) throw err;
-                    res.json(result);
+                    res.render('presets/catalog_presets/catalog_ajax/category-ajax', {category: 'Books', 
+                    icon: 'library_books', result: result});
                 });
                 break;
 
@@ -40,7 +40,7 @@ module.exports.catalog_category_get = function(req, res, next){
 
                 Author.find({}, 'first_name family_name -_id').exec(function(err, result){
                     if(err) throw err;
-                    res.json(result);
+                    res.render('presets/catalog_presets/catalog_ajax/category-ajax', {category: 'Authors', icon: 'people', result: result});
                 });
                 break;
 
@@ -49,7 +49,8 @@ module.exports.catalog_category_get = function(req, res, next){
 
                 Genre.find({}, 'name -_id').exec(function(err, result){
                     if(err) throw err;
-                    res.json(result);
+                    res.render('presets/catalog_presets/catalog_ajax/category-ajax', {category: 'Genres', 
+                    icon: 'view_agenda', result: result});
                 });
                 break;
 
@@ -69,8 +70,7 @@ module.exports.catalog_category_get = function(req, res, next){
 
                 Book.find({}, 'title author -_id').populate('author', 'first_name family_name -_id').exec(function(err, result){
                     if(err) throw err;
-                    console.log(result);
-                    res.render('catalog', {title: 'Catalog', category: 'Books', result: result});
+                    res.render('catalog', {title: 'Catalog', category: 'Books', icon: 'library_books', result: result});
                 });
                 break;
 
@@ -79,7 +79,7 @@ module.exports.catalog_category_get = function(req, res, next){
 
                 Author.find({}, 'first_name family_name -_id').exec(function(err, result){
                     if(err) throw err;
-                    res.render('catalog', {title: 'Catalog', category: 'Authors', result: result});
+                    res.render('catalog', {title: 'Catalog', category: 'Authors', icon: 'people', result: result});
                 });
                 break;
 
@@ -88,7 +88,7 @@ module.exports.catalog_category_get = function(req, res, next){
 
                 Genre.find({}, 'name -_id').exec(function(err, result){
                     if(err) throw err;
-                    res.render('catalog', {title: 'Catalog', category: 'Genres', result: result});
+                    res.render('catalog', {title: 'Catalog', category: 'Genres', icon: 'view_agenda', result: result});
                 });
                 break;
 

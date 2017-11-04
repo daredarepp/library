@@ -1,11 +1,38 @@
 $(document).ready(function(){
+    /* Website ----------------------------------------------------------------------------------------- */
     
-    // Navigation bar responsive button
+    // Responsive navigation bar
     $('.navi a.icon').click(function(){
 
         event.preventDefault(); 
+
         $('.navi').toggleClass('responsive');
     });
+
+        
+    var websiteModule = function(){
+
+        // Close
+        var closeWindow = function(closeButton){
+            
+            var window = closeButton.parents('.window');
+            window.remove();
+        };
+
+        // Toggle
+        var toggleWindow= function(toggleButton){
+        
+            var windowBody = toggleButton.parents('.window').children('.window_body');
+            windowBody.toggle();
+
+            // Change the button arrow direction
+
+            toggleButton.text(toggleButton.text() === 'keyboard_arrow_up' ? 'keyboard_arrow_down' : 'keyboard_arrow_up')
+        };
+
+        return {closeWindow: closeWindow, toggleWindow: toggleWindow};
+
+    }();
 
 
     /* Homepage ----------------------------------------------------------------------------------------------------- */
@@ -43,126 +70,208 @@ $(document).ready(function(){
 
         event.preventDefault();
 
-        // Grab reference to the window and the button
-        var window = $(this).parents('.window');
-        var toggleButton = $(this);
-
-        // Toggle the window body
-        window
-        .children('div.window_body')
-        .toggle();
-
-        // Change the button arrow direction
-        if(toggleButton.text() === 'keyboard_arrow_up'){
-            toggleButton.text('keyboard_arrow_down');
-        }else{
-            toggleButton.text('keyboard_arrow_up');
-        };
-        
+        var button = $(this);
+        websiteModule.toggleWindow(button);
     });
 
     /* Catalog page ------------------------------------------------------------------------------------------------- */
 
-    // when selecting a category
-    $('.selection_window a, .selection_bar a').click(function(){
-        
-        event.preventDefault();
-        
-        // If the link is already active, do nothing
-        if($(this).attr('class').indexOf('active') > -1){
+    
+    
+    if(location.href.indexOf('/catalog') > -1){
 
-            return;
         
-        // Otherwise open a catalog for the selected link
-        }else{
-            openCatalog($(this).attr('class'));
-        };
-            
-            
-    });
-        
-    function openCatalog(active){
-                    
-        // Grab reference to the existing elements
-        var wrapper = $('.catalog_wrapper');
-        var selectionWindows = $('.selection_window');
-        var selectionBar = ($('.selection_bar'));
-        var selectionBarLinks = selectionBar.children('a');
-        var activeLink = selectionBarLinks.filter(`.${active}`);
-        var path = activeLink.attr('href');
-
-        // Remove any previously created catalogs
-        $('.catalog').remove();
-
-        // Hide the selection windows and show the selection bar
-        selectionWindows.hide();
-        selectionBar.show()
-
-        // Style the active link
-        selectionBarLinks.removeClass('active');
+        // Highlight active link
+        var catalogCategory = $('.catalog').attr('data-category');
+        var activeLink = $('.selection_bar a').filter(`.${catalogCategory}`);
         activeLink.addClass('active');
+        
+        // Save a state of the first regular request
+        var wrapper = $('.catalog_wrapper');
+        history.replaceState({wrapper: wrapper.html()}, '', location.href);
 
-        // Create new catalog and elements for it
-        var catalog = $('<div></div>')
-        .addClass('window col-xs-12 col-md-8 col-md-offset-2 catalog');
-
-        var catalogTitle = $('<h2></h2>')
-        .addClass('window_title')
-        .html(activeLink.html());
-
-        var catalogCloseButton = $('<a></a>')
-        .attr({'id':'close_button', 'href':'#', 'title':'Close'})
-        .addClass('material-icons')
-        .text('close');
-
-        var catalogBody = $('<div></div>')
-        .addClass('window_body');
-
-        // Append the created elements to the catalog
-        catalog
-        .append(catalogTitle)
-        .append(catalogCloseButton)
-        .append(catalogBody);
-
-        // Fill the catalog body with ajax data 
-        $.get(path, function(data, status){
-
-            if(status === 'error'){
-                catalogBody.text('Sorry, something went wrong.');
-                return;
-            };
+        // Selection windows
+        $('.selection_window a').click(function(event){
+    
+            event.preventDefault();        
+            var category = $(this).attr('class');         
+            catalogModule.openCatalog(category);
+        });
+    
+        // Selection bar
+        $('.selection_bar a').click(function(event){
             
-            var ol = $('<ol></ol>');
-            data.map(function(one){
-                var li = $('<li></li>');
-                li.text(JSON.stringify(one));
-                ol.append(li);
-            })
-            // var para = $('<p></p>').text(JSON.stringify(data));
-            catalogBody.html(ol);
+            event.preventDefault();        
+            var category = $(this).attr('class');
+            catalogModule.changeCatalog(category);
         });
         
-        // Append the catalog to the main wrapper
-        wrapper.append(catalog);
-
-        // history.pushState({wrapper : wrapper.html()}, '', `/catalog/${active}`); 
-
-        // When clicking the close button
-        catalogCloseButton.click(function(){
-            console.log('SOOOO WHATTT');
-            event.preventDefault();
+        // Catalog close button
+        $('#close_button').click(function(event){
             
-            console.log($('#close_button').text())
-            // Remove the catalog 
+            event.preventDefault();
+            var button = $(this);
+            catalogModule.closeCatalog(button);
+        });
+    };
+
+    // Navigating through page states
+    window.onpopstate = function(event){
+
+        // Display the saved state
+        if(event.state){
+
+            var wrapper = $('.catalog_wrapper');
+            wrapper.html(event.state.wrapper);
+            
+            // Selection windows
+            $('.selection_window a').click(function(event){
+
+                event.preventDefault();
+                var category = $(this).attr('class');         
+                catalogModule.openCatalog(category);
+            });
+            
+            // Selection bar
+            $('.selection_bar a').click(function(event){
+
+                event.preventDefault()
+                var category = $(this).attr('class');
+                catalogModule.changeCatalog(category);
+            });            
+            
+            // Catalog close button
+            $('#close_button').click(function(event){
+
+                event.preventDefault();
+                var button = $(this);
+                catalogModule.closeCatalog(button);
+            });
+
+        }else{
+            location.href = location.href;
+        };
+    };
+    
+    // Catalog module
+    var catalogModule = function(){
+
+        // Open catalog
+        var openCatalog = function(category){
+            
+            var selectionWindows = $('.selection_window');
+            selectionWindows.hide();
+            
+            var selectionBar = $('.selection_bar');
+            selectionBar.show();
+            
+            // Highlight the active bar link
+            var activeLink = $('.selection_bar a').filter(`.${category}`);
+            activeLink.addClass('active');
+            
+            // Load the catalog
+            catalogModule.loadCatalogContent(activeLink.attr('href'));
+        };
+
+        // Change catalog
+        var changeCatalog = function(category){
+
+            // If the link is already active
+            if(category.indexOf('active') > -1){
+                
+                return;    
+
+            }else{
+                
+                // Highlight the active bar link
+                var oldActiveLink = $('.selection_bar a').filter('.active');
+                oldActiveLink.removeClass('active');
+                
+                var newActiveLink = $('.selection_bar a').filter(`.${category}`);
+                newActiveLink.addClass('active');
+    
+                // Remove the old catalog
+                var oldCatalog = $('.catalog');
+                oldCatalog.remove();
+    
+                // Load the new catalog
+                catalogModule.loadCatalogContent(newActiveLink.attr('href'));
+            };
+        };
+
+        // Load catalog content
+        var loadCatalogContent = function(url){
+            
+            // Send ajax request
+            $.ajax({
+                url: url,
+                cache: false,
+                type: 'GET'
+            })
+
+            // When done
+            .done(function(catalog) {
+
+                // Display the catalog
+                var wrapper = $('.catalog_wrapper');
+                wrapper.append(catalog);
+
+                // Make the catalog close button functional
+                var closeButton = $('#close_button');
+                closeButton.click(function(event){
+
+                    event.preventDefault();
+                    var button = $(this);
+                    catalogModule.closeCatalog(button);
+                });
+
+                // Update the URL
+                catalogModule.updateURL(url);
+            })
+
+            // When failed
+            .fail(function(xhr, status){
+
+                console.log(status);
+                var catalogError = $('<div></div>')
+                .addClass('window col-xs-12 col-md-8 col-md-offset-2 catalog catalog_error');
+                var closeButton = $('<a></a>').attr({'href':'#', 'title':'Close', 'id':'close_button'})
+                .addClass('material-icons');
+                catalogError.text(status).append(closeButton);
+                var wrapper = $('catalog_wrapper');
+                wrapper.append(catalogError);
+            })
+        };
+
+        // Update URL
+        var updateURL = function(newURL){
+
+            var wrapper = $('.catalog_wrapper');
+            history.pushState({wrapper: wrapper.html()}, '', newURL)
+        };
+
+        // Close catalog
+        var closeCatalog = function(closeButton){
+            
+            var catalog = closeButton.parents('.catalog');
             catalog.remove();
+            
+            var selectionWindows = $('.selection_window');
+            selectionWindows.show();
+
+            var selectionBar = $('.selection_bar');
+            selectionBar.hide();
+
+            var activeLink = selectionBar.children('a.active');
             activeLink.removeClass('active');
 
-            // Hide the selection bar and show the selection windows
-            selectionBar.hide();
-            selectionWindows.show();
-        
-        });
+            // Update the URL
+            catalogModule.updateURL('/catalog');
+        };
 
-    };
+        return {openCatalog: openCatalog, changeCatalog: changeCatalog,updateURL: updateURL, closeCatalog: closeCatalog, loadCatalogContent: loadCatalogContent};
+
+    }();
+    
 
 });

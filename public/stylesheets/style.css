@@ -4,9 +4,9 @@
   display: none; 
 }
 
-html {
-  /* overflow-y: scroll; */
-}
+/* html {
+  overflow-y: scroll;
+} */
 
 * {
   box-sizing: border-box;
@@ -14,7 +14,7 @@ html {
 
 body {
   margin: 0;
-  background-color: rgba(192, 192, 192, 0.315);
+  background-color: rgb(233, 235, 238);
 }
 
 
@@ -118,24 +118,28 @@ a{
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
   margin-bottom: 30px;
   overflow: hidden;
+  /* padding: 15px; */
 }
 
 .window_body {
   text-align: center;
   padding: 15px;
+  border-top: 1px solid rgb(161, 161, 161);
 }
 
-h2.window_title {
+.window_title {
   font-size: 24px;
   padding: 12px;
   color: rgba(0, 0, 0, 0.525);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.411);
+  /* border-bottom: 1px solid rgb(161, 161, 161); */
 }
 
 /* title icon */
-h2 i.material-icons {
+.window_title i.material-icons {
   position: absolute;
   left: 10px;
+  /* position: relative; */
+  /* right: 10px; */
   color: rgba(0, 0, 0, 0.425);
 }
 
@@ -146,17 +150,17 @@ h2 i.material-icons {
 }
 
 /* Toggle button */
-h2 a.toggle_button  {
+.window_title a.toggle_button  {
   position: absolute;
   right: 10px;  
 }
 
-h2 a.toggle_button:link, h2 a.toggle_button:visited {
+a.toggle_button:link, a.toggle_button:visited {
   text-decoration: none;
   color: rgb(2, 119, 189);
 }
 
-h2 a.toggle_button:hover {
+a.toggle_button:hover {
   background-color: rgb(2, 119, 189);
   color: white;
 }
@@ -197,15 +201,15 @@ a#close_button:hover {
   width: 100%;
 }
 
-/* popular books arrow buttons */
+/* popular books scroll buttons */
 a#arrow_left, a#arrow_right {
   text-decoration: none;
   display: inline-block;
-  background-color: rgba(255, 255, 255, 0.609);
-  padding: 10px;
-  border-radius: 35px;
+  background-color: rgba(255, 255, 255, 0.849);
+  padding: 20px 10px;
+  border-radius: 5px;
   position: absolute;
-  top: 48%;
+  top: 46%;
   font-weight: bold;
   color: black;
 }
@@ -215,11 +219,11 @@ a#arrow_left:hover, a#arrow_right:hover {
 }
 
 a#arrow_left {
-  left: 20px;
+  left: 24px;
 }
 
 a#arrow_right {
-  right: 20px;
+  right: 24px;
 }
 
 /* link to full catalog */
@@ -306,12 +310,7 @@ a#see_full_catalog:active {
   text-align: center;
   font-size: 20px;
   padding: 12px 0px;
-  /* border-right: 0.5px solid rgba(0, 0, 0, 0.404); */
   position: relative;
-}
-
-.selection_bar a:nth-child(3) {
-  border: none;
 }
 
 .selection_bar a:link, .selection_bar a:visited {
@@ -337,12 +336,12 @@ a#see_full_catalog:active {
 
   .selection_bar a {
     font-size: 18px;
-    padding-left: 15px;
+    padding-left: 20px;
   }
 
   .selection_bar i.material-icons {
     font-size: 24px;
-    left: 7px;
+    left: 4px;
     top: 10px;
   }
 
@@ -353,13 +352,37 @@ a#see_full_catalog:active {
   color: rgba(0, 0, 0, 0.37);
   background-color: white;
   cursor: context-menu;
-  /* border-top: 2px solid rgba(0, 0, 0, 0.384);  */
-  /* box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.384); */
 }
 
 /* catalog window */
-.catalog .window_body{
+
+.catalog.catalog_error {
+  clear: both;
+  text-align: center;
+  font-size: 25px;
+  color: rgba(0, 0, 0, 0.534);
+}
+
+.catalog .window_body {
   text-align: left;
+}
+
+.catalog ol {
+  padding: 0px;
+  list-style-position: inside;
+}
+
+.catalog li {
+  /* background-color: rgba(0, 0, 0, 0.048); */
+  /* border: 1px solid rgba(0, 0, 0, 0.404); */
+  border-radius: 3px;
+  margin: 5px 0px;
+  padding: 15px;
+}
+
+.catalog li:hover {
+  background-color: rgba(66, 66, 66, 0.76);
+  color: white;
 }
 
 

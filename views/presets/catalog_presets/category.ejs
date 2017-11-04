@@ -1,27 +1,15 @@
-    <!-- Include the header -->
+    <% <!-- Include the header --> %>
     
     <% include ../header.ejs %>
  
-    <!-- Main section -->
+    <% <!-- Main section --> %>
 
     <div class = "row">
-        <div class = "col-xs-12 catalog_wrapper">
-
-            <% var categoryIcon = 'library_books' %>
-
-            <% if(category === 'Authors'){ %>
-                <% categoryIcon = 'people' %>
-                
-            <% }else if(category === 'Genres') { %>
-                <% categoryIcon = 'view_agenda' %>
-            
-            <% } %> 
-
+        <div class = "col-xs-12 catalog_wrapper">             
              
-             
-             <!-- Selection windows -->
+             <% <!-- Selection windows --> %>
 
-            <!-- Books -->
+            <% <!-- Books --> %>
             <div class = "window col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-2 selection_window" 
             style = "display: none">
                 <a class = "books" href = "/catalog/books" title = "Show Books">
@@ -30,7 +18,7 @@
                 </a>
             </div>
 
-            <!-- Authors -->
+            <% <!-- Authors --> %>
             <div class = "window col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-1 selection_window"
             style = "display: none">
                 <a class = "authors" href = "/catalog/authors" title = "Show Authors">
@@ -39,7 +27,7 @@
                 </a>
             </div>
 
-            <!-- Genres -->
+            <% <!-- Genres --> %>
             <div class = "window col-xs-8 col-xs-offset-2 col-md-2 col-md-offset-1 selection_window"
             style = "display: none">
                 <a class = "genres" href = "/catalog/genres" title = "Show Genres">
@@ -49,23 +37,23 @@
             </div>
 
              
-            <!-- Selection bar -->
+            <% <!-- Selection bar --> %>
 
             <div class = "window col-xs-12 col-md-6 col-md-offset-3 selection_bar" style = "display: block">
 
-                <!-- Books -->
+                <% <!-- Books --> %>
                 <a class = "books" href = "/catalog/books" title = "Show Books">
                     <i class = "material-icons ">library_books</i>
                     Books
                 </a>
 
-                <!-- Authors -->
+                <% <!-- Authors --> %>
                 <a class = "authors" href = "/catalog/authors" title = "Show Authors">
                     <i class="material-icons">people</i>
                     Authors
                 </a>
 
-                <!-- Genres -->
+                <% <!-- Genres --> %>
                 <a class = "genres" href = "/catalog/genres" title = "Show Genres">
                     <i class="material-icons">view_agenda</i>
                     Genres
@@ -74,11 +62,13 @@
             </div>
              
 
-            <!-- Catalog window -->
+            <% <!-- Catalog window --> %>
 
-            <div class="window col-xs-12 col-md-8 col-md-offset-2 catalog">
+
+            <div class="window col-xs-12 col-md-8 col-md-offset-2 catalog"
+            data-category = <%= category.toLowerCase()%>>
                 <h2 class="window_title">
-                    <i class="material-icons"><%= categoryIcon %></i>
+                    <i class="material-icons"><%= icon %></i>
                     <%= category %>
                 </h2>
                 <a id="close_button" href="#" title="Close" class="material-icons">close</a>
@@ -96,5 +86,5 @@
     </div>
         
         
-<!--Closing tag for the fluid container  -->
+<% <!--Closing tag for the fluid container  --> %>
 </div>
