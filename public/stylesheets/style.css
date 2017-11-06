@@ -367,20 +367,21 @@ a#see_full_catalog:active {
   text-align: left;
 }
 
-.catalog ol {
-  padding: 0px;
-  list-style-position: inside;
-}
-
-.catalog li {
-  /* background-color: rgba(0, 0, 0, 0.048); */
-  /* border: 1px solid rgba(0, 0, 0, 0.404); */
+.category_items {
   border-radius: 3px;
-  margin: 5px 0px;
+  /* margin: 5px 0px; */
   padding: 15px;
+  display: block;
+  font-size: 18px;
+  font-family: 'Asap';
 }
 
-.catalog li:hover {
+.category_items:link, .category_items:visited {
+  text-decoration: none;
+  color: black;
+}
+
+.category_items:hover {
   background-color: rgba(66, 66, 66, 0.76);
   color: white;
 }

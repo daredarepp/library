@@ -86,7 +86,7 @@ $(document).ready(function(){
         var activeLink = $('.selection_bar a').filter(`.${catalogCategory}`);
         activeLink.addClass('active');
         
-        // Save a state of the first regular request
+        // Save a state of the first load of the catalog page
         var wrapper = $('.catalog_wrapper');
         history.replaceState({wrapper: wrapper.html()}, '', location.href);
 
@@ -112,6 +112,14 @@ $(document).ready(function(){
             event.preventDefault();
             var button = $(this);
             catalogModule.closeCatalog(button);
+        });
+
+        // Category item
+        $('.category_items').click(function(event){
+            
+            event.preventDefault();
+            var url = $(this).attr('href');
+            catalogModule.openSingleItem(url);
         });
     };
 
@@ -146,6 +154,14 @@ $(document).ready(function(){
                 event.preventDefault();
                 var button = $(this);
                 catalogModule.closeCatalog(button);
+            });
+
+            // Category items
+            $('.category_items').click(function(event){
+
+                event.preventDefault();
+                var url = $(this).attr('href');
+                catalogModule.openSingleItem(url);
             });
 
         }else{
@@ -225,6 +241,15 @@ $(document).ready(function(){
                     catalogModule.closeCatalog(button);
                 });
 
+                // Make the category items functional
+                var categoryItem = $('.category_items');
+                categoryItem.click(function(event){
+
+                    event.preventDefault();
+                    var url = $(this).attr('href');
+                    catalogModule.openSingleItem(url);
+                });
+
                 // Update the URL
                 catalogModule.updateURL(url);
             })
@@ -232,7 +257,6 @@ $(document).ready(function(){
             // When failed
             .fail(function(xhr, status){
 
-                console.log(status);
                 var catalogError = $('<div></div>')
                 .addClass('window col-xs-12 col-md-8 col-md-offset-2 catalog catalog_error');
                 var closeButton = $('<a></a>').attr({'href':'#', 'title':'Close', 'id':'close_button'})
@@ -269,7 +293,39 @@ $(document).ready(function(){
             catalogModule.updateURL('/catalog');
         };
 
-        return {openCatalog: openCatalog, changeCatalog: changeCatalog,updateURL: updateURL, closeCatalog: closeCatalog, loadCatalogContent: loadCatalogContent};
+        var openSingleItem = function(url){
+
+             // Send ajax request
+             $.ajax({
+                url: url,
+                cache: false,
+                type: 'GET'
+            })
+
+            // When done
+            .done(function(item) {
+                
+                // Display the item
+                var windowBody = $('.window_body');
+                windowBody.empty();
+                windowBody.append(item);
+
+                // Update the URL
+                catalogModule.updateURL(url);
+            })
+
+            // When failed
+            .fail(function(xhr, status){
+
+                var catalogError = $('<div></div>')
+                .addClass('window col-xs-12 col-md-8 col-md-offset-2 catalog catalog_error');
+                catalogError.text(status)
+                var wrapper = $('catalog_wrapper');
+                wrapper.append(catalogError);
+            })
+        };
+
+        return {openCatalog: openCatalog, changeCatalog: changeCatalog,updateURL: updateURL, closeCatalog: closeCatalog, loadCatalogContent: loadCatalogContent, openSingleItem: openSingleItem};
 
     }();
     

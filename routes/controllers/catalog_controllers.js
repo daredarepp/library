@@ -4,7 +4,7 @@ var Book = require('/Users/Darko/Desktop/Library/library/models/book');
 var Author = require('/Users/Darko/Desktop/Library/library/models/author');
 var Genre = require('/Users/Darko/Desktop/Library/library/models/genre');
 
-/* GET catalog page. */
+/* GET catalog index page. */
 
 module.exports.catalog_get = function(req,res,next){
     res.render('catalog', {title: "Catalog"});
@@ -14,88 +14,150 @@ module.exports.catalog_get = function(req,res,next){
 
 module.exports.catalog_category_get = function(req, res, next){
     
-    var category = req.params.category;
     var uri = 'mongodb://localhost/mydb';
     var options = { useMongoClient: true };
-    
+    var category = req.params.category;
+
     mongoose.connect(uri, options);
     
-    // AJAX request
-    if(req.xhr){
-          
-        switch(category){
-            
-            // Books
-            case 'books':
 
-                Book.find({}, 'title author -_id').populate('author', 'first_name family_name -_id').exec(function(err, result){
-                    if(err) throw err;
-                    res.render('presets/catalog_presets/catalog_ajax/category-ajax', {category: 'Books', 
-                    icon: 'library_books', result: result});
-                });
-                break;
-
-            // Authors
-            case 'authors':
-
-                Author.find({}, 'first_name family_name -_id').exec(function(err, result){
-                    if(err) throw err;
-                    res.render('presets/catalog_presets/catalog_ajax/category-ajax', {category: 'Authors', icon: 'people', result: result});
-                });
-                break;
-
-            // Genres
-            case 'genres':
-
-                Genre.find({}, 'name -_id').exec(function(err, result){
-                    if(err) throw err;
-                    res.render('presets/catalog_presets/catalog_ajax/category-ajax', {category: 'Genres', 
-                    icon: 'view_agenda', result: result});
-                });
-                break;
-
-            default:
-
-                res.send('There is no such category');
-
-        }
-    
-    // Regular request
-    }else{
+    switch(category){
         
-        switch(category){
+        // Books
+        case 'books':
 
-             // Books
-            case 'books':
+            Book.find({}, 'title author').populate('author', 'first_name family_name').exec(function(err, books){
 
-                Book.find({}, 'title author -_id').populate('author', 'first_name family_name -_id').exec(function(err, result){
-                    if(err) throw err;
-                    res.render('catalog', {title: 'Catalog', category: 'Books', icon: 'library_books', result: result});
-                });
-                break;
+                // AJAX
+                if(req.xhr){
 
-            // Authors
-            case 'authors':
+                res.render('presets/catalog_presets/catalog_ajax/category-ajax', {category: 'Books', 
+                icon: 'library_books', result: books});
+                
+                // Regular
+                }else{
 
-                Author.find({}, 'first_name family_name -_id').exec(function(err, result){
-                    if(err) throw err;
-                    res.render('catalog', {title: 'Catalog', category: 'Authors', icon: 'people', result: result});
-                });
-                break;
+                    res.render('catalog', {title: 'Catalog', category: 'Books', icon: 'library_books',
+                    result: books});
+                };
+            });
+            break;
 
-            // Genres
-            case 'genres':
+        // Authors
+        case 'authors':
 
-                Genre.find({}, 'name -_id').exec(function(err, result){
-                    if(err) throw err;
-                    res.render('catalog', {title: 'Catalog', category: 'Genres', icon: 'view_agenda', result: result});
-                });
-                break;
+            Author.find({}, 'first_name family_name').exec(function(err, authors){
+                if(err) throw err;
 
-            default:
+                // AJAX
+                if(req.xhr){
 
-                res.send('There is no such category');
-        };
+                    res.render('presets/catalog_presets/catalog_ajax/category-ajax', {category: 'Authors',
+                    icon: 'people', result: authors});
+                
+                // Regular
+                }else{
+
+                    res.render('catalog', {title: 'Catalog', category: 'Authors', icon: 'people', result: authors});
+                };
+            });
+            break;
+
+        // Genres
+        case 'genres':
+
+            Genre.find({}, 'name').exec(function(err, genres){
+                if(err) throw err;
+
+                // AJAX
+                if(req.xhr){
+                    
+                    res.render('presets/catalog_presets/catalog_ajax/category-ajax', {category: 'Genres', 
+                    icon: 'view_agenda', result: genres});
+                
+                // Regular
+                }else{
+
+                    res.render('catalog', {title: 'Catalog', category: 'Genres', icon: 'view_agenda', result: genres});
+
+                };
+            });
     };
     
+    
+};
+
+/* GET single item */
+
+module.exports.catalog_item_get = function(req, res, next){
+    
+    
+    var uri = 'mongodb://localhost/mydb';
+    var options = { useMongoClient: true };
+    var category = req.params.category;
+    var id = req.params.id;
+
+    mongoose.connect(uri, options);
+
+    switch(category){
+
+        // Single Book 
+        case 'books':
+
+            Book.findOne({'_id': id}).populate('author', 'first_name family_name').exec(function(err, book){
+                if(err) throw err;
+
+                // AJAX
+                if(req.xhr){
+
+                    res.render('presets/catalog_presets/catalog_ajax/single_item_ajax', {result: book});
+
+                // Regular
+                }else{
+
+                    res.render('catalog', {title: 'Catalog', category: 'Books', icon: 'library_books', result: book, single: true});
+
+                };
+            });
+            break;
+
+        // Single Author
+        case 'authors':
+
+            Author.findOne({'_id': id}).exec(function(err, author){
+                if(err) throw err;
+
+                // AJAX
+                if(req.xhr){
+
+                    res.render('presets/catalog_presets/catalog_ajax/single_item_ajax', {result: author});
+
+                // Regular
+                }else{
+
+                    res.render('catalog', {title: 'Catalog', category: 'Authors', icon: 'people', result: author, single: true});
+
+                };
+            });
+            break;
+        
+        // Single Genre
+        case 'genres':
+
+            Genre.findOne({'_id': id}).exec(function(err, genre){
+                if(err) throw err;
+
+                // AJAX
+                if(req.xhr){
+
+                    res.render('presets/catalog_presets/catalog_ajax/single_item_ajax', {result: genre});
+                // Regular
+                }else{
+
+                    res.render('catalog', {title: 'Catalog', category: 'Genres', icon: 'view_agenda', result: genre, single: true});
+
+                };
+            });
+    };
+
 };
