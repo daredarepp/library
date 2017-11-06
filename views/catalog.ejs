@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <% include presets/head.ejs %>
+    <% include presets/head %>
   </head>
   <body>
-    <% include presets/catalog_body.ejs %>
+    <% <!-- Display a specific category --> %>
+    <% if(typeof category !== 'undefined'){ %>
+
+      <% include presets/catalog_presets/category %>
+    <% <!-- Display catalog index  --> %>
+    <% }else{ %>
+
+      <% include presets/catalog_presets/index %>
+    <% } %>
   </body>
 </html>
