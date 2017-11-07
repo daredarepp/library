@@ -31,7 +31,7 @@ module.exports.catalog_category_get = function(req, res, next){
                 // AJAX
                 if(req.xhr){
 
-                res.render('presets/catalog_presets/catalog_ajax/category-ajax', {category: 'Books', 
+                res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Books', 
                 icon: 'library_books', result: books});
                 
                 // Regular
@@ -52,7 +52,7 @@ module.exports.catalog_category_get = function(req, res, next){
                 // AJAX
                 if(req.xhr){
 
-                    res.render('presets/catalog_presets/catalog_ajax/category-ajax', {category: 'Authors',
+                    res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Authors',
                     icon: 'people', result: authors});
                 
                 // Regular
@@ -72,7 +72,7 @@ module.exports.catalog_category_get = function(req, res, next){
                 // AJAX
                 if(req.xhr){
                     
-                    res.render('presets/catalog_presets/catalog_ajax/category-ajax', {category: 'Genres', 
+                    res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Genres', 
                     icon: 'view_agenda', result: genres});
                 
                 // Regular
