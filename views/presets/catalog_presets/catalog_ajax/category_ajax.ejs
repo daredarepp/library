@@ -1,0 +1,53 @@
+
+<% <!-- Catalog window --> %>
+
+<div class="window col-xs-12 col-md-8 col-md-offset-2 catalog"
+ data-category = <%= category.toLowerCase()%>>
+    <h2 class="window_title">
+        <i class="material-icons"><%= icon %></i>
+        <%= category %>
+    </h2>
+    <a id="close_button" href="#" title="Close" class="material-icons">close</a>
+    <div class="window_body">
+
+        <% <!-- Display either lists with category items or a single item --> %>
+        
+        <% if(typeof single === 'undefined'){ %>
+
+            <% <!-- Books list --> %>
+            <% if(category === 'Books'){ %>
+                
+                <div class = "books">
+                    <% result.map(function(book){ %>
+                        <a href = '<%= book.url %>' class = 'category_items book' >
+                            <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
+                            <%= book.title %>
+                        </a>
+                    <% }) %>   
+                </div>
+
+            <% <!-- Authors list --> %>
+            <% }else if(category === 'Authors'){ %>
+
+                <% result.map(function(author){ %>
+                    <a href = '<%= author.url %>' class = 'category_items author' ><%= author.name %></a>
+                <% }) %>
+                    
+            <% <!-- Genres list --> %>
+            <% }else if(category === 'Genres'){ %>
+
+                <% result.map(function(genre){ %>
+                    <a href = '<%= genre.url %>' class = 'category_items genre' ><%= genre.name %></a>
+                <% }) %>
+
+            <% } %>
+        
+        <% <!-- Display single item --> %>
+        <% }else{ %>
+            
+            <% include single_item_ajax %>
+
+        <% } %>
+
+    </div>
+</div>  

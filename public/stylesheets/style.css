@@ -367,9 +367,9 @@ a#see_full_catalog:active {
   text-align: left;
 }
 
+/* Items from category lists */
 .category_items {
   border-radius: 3px;
-  /* margin: 5px 0px; */
   padding: 15px;
   display: block;
   font-size: 18px;
@@ -386,4 +386,23 @@ a#see_full_catalog:active {
   color: white;
 }
 
+/* Books list */
+.catalog .books {
+  display: flex;
+  flex-wrap: wrap;
+}
 
+/* Book items from books list */
+.book {
+  display: inline-block;
+  width: 230px;
+  text-align: center;
+  margin: 0px auto;
+}
+
+.book img{
+  width: 200px;
+  height: 300px;
+  display: block;
+  margin-bottom: 5px;
+}
