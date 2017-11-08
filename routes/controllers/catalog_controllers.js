@@ -26,7 +26,7 @@ module.exports.catalog_category_get = function(req, res, next){
         // Books
         case 'books':
 
-            Book.find({}, 'title author').populate('author', 'first_name family_name').exec(function(err, books){
+            Book.find({}, 'title author').sort('title').populate('author', 'first_name family_name').exec(function(err, books){
 
                 // AJAX
                 if(req.xhr){
@@ -46,7 +46,7 @@ module.exports.catalog_category_get = function(req, res, next){
         // Authors
         case 'authors':
 
-            Author.find({}, 'first_name family_name').exec(function(err, authors){
+            Author.find({}, 'first_name family_name').sort('family_name').exec(function(err, authors){
                 if(err) throw err;
 
                 // AJAX
@@ -66,7 +66,7 @@ module.exports.catalog_category_get = function(req, res, next){
         // Genres
         case 'genres':
 
-            Genre.find({}, 'name').exec(function(err, genres){
+            Genre.find({}, 'name').sort('name').exec(function(err, genres){
                 if(err) throw err;
 
                 // AJAX
