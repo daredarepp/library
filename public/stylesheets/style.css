@@ -135,23 +135,31 @@ a{
   color: rgba(0, 0, 0, 0.425);
 }
 
+/* Window buttons */
+.button {
+  padding: 2px;
+  border-radius: 25px;
+}
+
+.button:link, .button:visited {
+  text-decoration: none;
+  color: rgb(2, 119, 189)
+}
+
+.button:hover {
+  background-color: rgba(192, 192, 192, 0.445);
+}
+
+.button.active:link, .button.active:visited {
+  background-color: rgba(128, 128, 128, 0.767);
+  color: white;
+}
+
 /* Toggle button */
 .toggle_button  {
   position: absolute;
   right: 10px;
   top: 10px;
-  padding: 2px;
-  border-radius: 25px;
-}
-
-.toggle_button:link, .toggle_button:visited {
-  text-decoration: none;
-  color: rgb(2, 119, 189);
-}
-
-.toggle_button:hover {
-  background-color: rgb(2, 119, 189);
-  color: white;
 }
 
 /* Search button */
@@ -159,26 +167,6 @@ a{
   position: absolute;
   top: 10px;
   right: 40px;
-  border-radius: 25px;
-  padding: 2px;
-}
-
-.search_button:link, .search_button:visited {
-  text-decoration: none;
-  color: rgb(2, 119, 189);
-}
-
-.search_button:hover {
-  background-color: rgb(2, 119, 189);
-  color: white;
-}
-
-.search_button.active:link, .search_button.active:visited {
-  background-color: silver;
-  color: white;
-  /* background-color: white;
-  color: rgb(7, 90, 134);
-  border: 1px solid rgb(7, 90, 134); */
 }
 
 /* Close button */
@@ -186,18 +174,6 @@ a{
   position: absolute;
   right: 10px;
   top: 10px;
-  padding: 2px;
-  border-radius: 25px;
-}
-
-#close_button:link, #close_button:visited {
-  text-decoration: none;
-  color: rgb(2, 119, 189);
-}
-
-#close_button:hover {
-  background-color: rgb(2, 119, 189);
-  color: white;
 }
 
 /* Search bar */
@@ -218,9 +194,8 @@ label[for=search_field] {
 #search_field {
   outline: none;
   border: none;
-  /* border-bottom: 1px solid silver; */
   width: 100%;
-  padding: 12px 0px 0px;
+  padding: 12px 0px;
   font-size: 24px;
   background-color: transparent;
   color: rgba(0, 0, 0, 0.562);
@@ -230,7 +205,6 @@ label[for=search_field] {
 .window_body {
   text-align: center;
   padding: 15px;
-  /* border-top: 1px solid rgb(161, 161, 161); */
 }
 
 /* Main section styling _____________________________________________________________________________________________ */
@@ -328,7 +302,7 @@ a#see_full_catalog:active {
 }
 
 .selection_window a:hover {
-  background-color: rgb(2, 119, 189);
+  background-color: rgba(128, 128, 128, 0.767);
   color: white;
 }
 
@@ -375,7 +349,7 @@ a#see_full_catalog:active {
 }
 
 .selection_bar a:hover {
-  background-color: rgb(2, 119, 189);
+  background-color: rgba(128, 128, 128, 0.767);
   color: white;
 }
 
@@ -428,18 +402,16 @@ a#see_full_catalog:active {
   padding: 15px;
   display: block;
   font-size: 18px;
-  font-family: 'Asap';
+  font-family: sans-serif;
 }
 
 .category_items:link, .category_items:visited {
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.801);
+  color: black;
 }
 
 .category_items:hover {
-  background-color: rgba(0, 0, 0, 0.212);
-  color: black;
-  /* box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.308);   */
+  background-color: rgba(192, 192, 192, 0.445);
 }
 
 /* Books list */
@@ -448,7 +420,7 @@ a#see_full_catalog:active {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0px 15px;
-  margin-top: 15px;
+  /* margin-top: 15px; */
 }
 
 .catalog .books:after {
@@ -461,7 +433,7 @@ a.book {
   display: inline-block;
   width: 220px;
   text-align: center;
-  margin: 6px 10px;
+  margin: 10px 10px 0px;
   align-self: flex-start;
   padding: 10px 10px;
 }

@@ -1,10 +1,10 @@
 $(document).ready(function(){
     /* Website ----------------------------------------------------------------------------------------- */
     
-    $(window).resize(function(){
+    /* $(window).resize(function(){
         console.log('width: ' + window.innerWidth);
         console.log('height: ' + window.innerHeight);
-    });
+    }); */
 
     // Responsive navigation bar
     $('.navi a.icon').click(function(){
@@ -32,7 +32,16 @@ $(document).ready(function(){
 
             // Change the button arrow direction
 
-            toggleButton.text(toggleButton.text() === 'keyboard_arrow_up' ? 'keyboard_arrow_down' : 'keyboard_arrow_up')
+            // toggleButton.text(toggleButton.text() === 'keyboard_arrow_up' ? 'keyboard_arrow_down' : 'keyboard_arrow_up')
+            if(toggleButton.text() === 'keyboard_arrow_up'){
+
+                toggleButton.text('keyboard_arrow_down');
+                toggleButton.toggleClass('active');
+            }else{
+
+                toggleButton.text('keyboard_arrow_up');
+                toggleButton.toggleClass('active');
+            };
         };
 
         return {closeWindow: closeWindow, toggleWindow: toggleWindow};
