@@ -1,6 +1,11 @@
 $(document).ready(function(){
     /* Website ----------------------------------------------------------------------------------------- */
     
+    $(window).resize(function(){
+        console.log('width: ' + window.innerWidth);
+        console.log('height: ' + window.innerHeight);
+    });
+
     // Responsive navigation bar
     $('.navi a.icon').click(function(){
 
@@ -105,6 +110,14 @@ $(document).ready(function(){
             var category = $(this).attr('class');
             catalogModule.changeCatalog(category);
         });
+
+        // Catalog search button
+        $('.search_button').click(function(event){
+            
+            event.preventDefault();
+            var searchButton = $(this);
+            catalogModule.openSearch(searchButton);
+        });
         
         // Catalog close button
         $('#close_button').click(function(event){
@@ -114,7 +127,14 @@ $(document).ready(function(){
             catalogModule.closeCatalog(button);
         });
 
-        // Category item
+         // Search catalog
+        $('#search_field').keyup(function(){
+            
+            var searchValue = $(this).val().toLowerCase();
+            catalogModule.searchCatalog(searchValue);
+        });
+
+        // Category items
         $('.category_items').click(function(event){
             
             event.preventDefault();
@@ -146,7 +166,15 @@ $(document).ready(function(){
                 event.preventDefault()
                 var category = $(this).attr('class');
                 catalogModule.changeCatalog(category);
-            });            
+            });
+
+            // Catalog search button
+            $('.search_button').click(function(event){
+                
+                event.preventDefault();
+                var searchButton = $(this);
+                catalogModule.openSearch(searchButton);
+            });
             
             // Catalog close button
             $('#close_button').click(function(event){
@@ -154,6 +182,13 @@ $(document).ready(function(){
                 event.preventDefault();
                 var button = $(this);
                 catalogModule.closeCatalog(button);
+            });
+
+            // Search catalog
+            $('#search_field').keyup(function(){
+
+                var searchValue = $(this).val().toLowerCase();
+                catalogModule.searchCatalog(searchValue);
             });
 
             // Category items
@@ -231,6 +266,15 @@ $(document).ready(function(){
                 // Display the catalog
                 var wrapper = $('.catalog_wrapper');
                 wrapper.append(catalog);
+                
+                // Make the catalog search button functional
+                var searchButton = $('.search_button');
+                searchButton.click(function(event){
+                    
+                    event.preventDefault();
+                    var searchButton = $(this);
+                    catalogModule.openSearch(searchButton);
+                });
 
                 // Make the catalog close button functional
                 var closeButton = $('#close_button');
@@ -241,6 +285,13 @@ $(document).ready(function(){
                     catalogModule.closeCatalog(button);
                 });
 
+                // Make the search field functional
+                $('#search_field').keyup(function(){
+                    
+                    var searchValue = $(this).val().toLowerCase();
+                    catalogModule.searchCatalog(searchValue);
+                });
+
                 // Make the category items functional
                 var categoryItem = $('.category_items');
                 categoryItem.click(function(event){
@@ -249,6 +300,7 @@ $(document).ready(function(){
                     var url = $(this).attr('href');
                     catalogModule.openSingleItem(url);
                 });
+
 
                 // Update the URL
                 catalogModule.updateURL(url);
@@ -293,6 +345,42 @@ $(document).ready(function(){
             catalogModule.updateURL('/catalog');
         };
 
+        // Open search bar
+        var openSearch = function(searchButton){
+
+            searchButton.toggleClass('active');
+
+            var searchBar = $('.search_bar');
+            searchBar.slideToggle(100);
+
+            var searchField = $('#search_field');
+            searchField.focus();
+
+        };
+        
+        // Search catalog
+        var searchCatalog = function(searchValue){
+
+            // Show only the items that match the search
+            var categoryItems = $('.category_items');
+            categoryItems.map(function(){
+
+                var item = $(this);
+                var itemName = $(this).text().toLowerCase();
+
+                if(itemName.indexOf(searchValue) > -1){
+
+                    item.show()
+                }else{
+
+                    item.hide()
+                };
+                
+            });
+
+        };
+
+        // Open single item
         var openSingleItem = function(url){
 
              // Send ajax request
@@ -305,6 +393,12 @@ $(document).ready(function(){
             // When done
             .done(function(item) {
                 
+                // Remove the search button and search bar
+                var searchButton = $('.search_button');
+                searchButton.remove();
+                var searchBar = $('.search_bar');
+                searchBar.remove();
+
                 // Display the item
                 var windowBody = $('.window_body');
                 windowBody.empty();
@@ -325,7 +419,7 @@ $(document).ready(function(){
             })
         };
 
-        return {openCatalog: openCatalog, changeCatalog: changeCatalog,updateURL: updateURL, closeCatalog: closeCatalog, loadCatalogContent: loadCatalogContent, openSingleItem: openSingleItem};
+        return {openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, openSearch: openSearch, searchCatalog: searchCatalog, openSingleItem: openSingleItem};
 
     }();
     

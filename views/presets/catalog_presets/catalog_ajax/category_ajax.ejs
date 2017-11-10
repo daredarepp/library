@@ -3,11 +3,26 @@
 
 <div class="window col-xs-12 col-md-8 col-md-offset-2 catalog"
  data-category = <%= category.toLowerCase()%>>
+
+    <!-- Title -->
     <h2 class="window_title">
         <i class="material-icons"><%= icon %></i>
         <%= category %>
     </h2>
+    
+    <!-- Search button -->
+    <a href = "#" class = "material-icons search_button" title = "Search">search</a>
+
+    <!-- Close button -->
     <a id="close_button" href="#" title="Close" class="material-icons">close</a>
+
+    <!-- Search bar -->
+    <div class = "search_bar">
+        <label for = "search_field" class = "material-icons">search</label>
+        <input type = "text" placeholder = "Search" id = "search_field"></input>
+    </div>
+
+    <!-- Window body -->
     <div class="window_body">
 
         <% <!-- Display either lists with category items or a single item --> %>
@@ -42,7 +57,7 @@
 
             <% } %>
         
-        <% <!-- Display single item --> %>
+        <% <!-- Single item --> %>
         <% }else{ %>
             
             <% include single_item_ajax %>
