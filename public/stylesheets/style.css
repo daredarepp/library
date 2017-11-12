@@ -144,7 +144,7 @@ a{
 .button:link, .button:visited, .button:focus {
   text-decoration: none;
   background-color: white;
-  color: rgb(2, 119, 189)
+  color: rgb(2, 119, 189);
 }
 
 .button:hover {
@@ -290,7 +290,7 @@ a#see_full_catalog:link, a#see_full_catalog:visited {
   color: rgb(2, 119, 189);
 }
 
-a#see_full_catalog:active {
+a#see_full_catalog:hover {
   color: rgb(5, 71, 107);
 }
 
@@ -325,8 +325,12 @@ a#see_full_catalog:active {
 }
 
 .selection_window a:hover {
-  background-color: rgba(128, 128, 128, 0.767);
+  background-color: rgba(0, 0, 0, 0.466);
   color: white;
+}
+
+.selection_window:hover{
+  box-shadow: none;
 }
 
 .selection_window i.material-icons {
@@ -372,7 +376,7 @@ a#see_full_catalog:active {
 }
 
 .selection_bar a:hover {
-  background-color: rgba(128, 128, 128, 0.767);
+  background-color: rgba(0, 0, 0, 0.466);
   color: white;
 }
 
@@ -421,7 +425,7 @@ a#see_full_catalog:active {
 
 /* Items from category lists */
 .category_items {
-  border-radius: 3px;
+  border-radius: 2px;
   padding: 15px;
   display: block;
   font-size: 18px;
@@ -466,7 +470,7 @@ a.book img {
   height: 300px;
   display: block;
   margin-bottom: 5px;
-  border-radius: 3px;
+  /* border-radius: 2px; */
 }
 
 /* Center the items on small window size */
