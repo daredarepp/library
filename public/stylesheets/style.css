@@ -495,3 +495,21 @@ a.author {
 a.genre {
   padding-left: 30px;
 }
+
+/* Single item */
+.single_item {
+  display: inline-block;
+  width: 100%;
+  padding: 15px;
+}
+
+.single_item img {
+  width: 260px;
+  height: 400px;
+  float: left;
+  margin-right: 30px;
+}
+
+.single_item p {
+  margin: 0px 15px 15px 0px;
+}

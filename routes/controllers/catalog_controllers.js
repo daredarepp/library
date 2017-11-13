@@ -104,18 +104,18 @@ module.exports.catalog_item_get = function(req, res, next){
         // Single Book 
         case 'books':
 
-            Book.findOne({'_id': id}).populate('author', 'first_name family_name').exec(function(err, book){
+            Book.findOne({'_id': id}).populate('author', 'first_name family_name').populate('genre').exec(function(err, book){
                 if(err) throw err;
 
                 // AJAX
                 if(req.xhr){
 
-                    res.render('presets/catalog_presets/catalog_ajax/single_item_ajax', {result: book});
+                    res.render('presets/catalog_presets/catalog_ajax/single_item_ajax', {book: book});
 
                 // Regular
                 }else{
 
-                    res.render('catalog', {title: 'Catalog', category: 'Books', icon: 'library_books', result: book, single: true});
+                    res.render('catalog', {title: 'Catalog', category: 'Books', icon: 'library_books', book: book, single: true});
 
                 };
             });
@@ -130,12 +130,12 @@ module.exports.catalog_item_get = function(req, res, next){
                 // AJAX
                 if(req.xhr){
 
-                    res.render('presets/catalog_presets/catalog_ajax/single_item_ajax', {result: author});
+                    res.render('presets/catalog_presets/catalog_ajax/single_item_ajax', {author: author});
 
                 // Regular
                 }else{
 
-                    res.render('catalog', {title: 'Catalog', category: 'Authors', icon: 'people', result: author, single: true});
+                    res.render('catalog', {title: 'Catalog', category: 'Authors', icon: 'people', author: author, single: true});
 
                 };
             });
@@ -150,11 +150,11 @@ module.exports.catalog_item_get = function(req, res, next){
                 // AJAX
                 if(req.xhr){
 
-                    res.render('presets/catalog_presets/catalog_ajax/single_item_ajax', {result: genre});
+                    res.render('presets/catalog_presets/catalog_ajax/single_item_ajax', {genre: genre});
                 // Regular
                 }else{
 
-                    res.render('catalog', {title: 'Catalog', category: 'Genres', icon: 'view_agenda', result: genre, single: true});
+                    res.render('catalog', {title: 'Catalog', category: 'Genres', icon: 'view_agenda', genre: genre, single: true});
 
                 };
             });
