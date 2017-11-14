@@ -504,12 +504,52 @@ a.genre {
 }
 
 .single_item img {
-  width: 260px;
+  width: 290px;
   height: 400px;
   float: left;
-  margin-right: 30px;
+  padding-right: 30px;
+  background-color: white;
+}
+
+.single_item h3 {
+  width: 100%;
+  margin-bottom: 15px;
+  background-color: rgba(0, 0, 0, 0.116);
+}
+
+.single_item i {
+  display: block;
+  font-weight: bold;
+  margin: 3px;
 }
 
 .single_item p {
-  margin: 0px 15px 15px 0px;
+  margin-bottom: 25px;
+  text-align: justify;
+}
+
+@media (max-width: 629px) {
+
+  .single_item {
+    padding: 40px 0px 0px 0px;
+    position: relative;
+  }
+
+  .single_item h3 {
+    position: absolute;
+    top: 5px;
+    z-index: 1;
+  }
+
+  .single_item img {
+    float: none;
+    display: block;
+    margin: 25px auto;
+    padding: 0px;
+  }
+
+  .single_item i {
+    text-align: center;
+  }
+
 }
