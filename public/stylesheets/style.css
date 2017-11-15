@@ -59,8 +59,8 @@ a{
 
 .navi a {
   float: left;
-  padding: 10px 15px;
-  font-size: 15px;
+  padding: 15px 20px;
+  font-size: 17px;
 }
 
 .navi a:nth-child(4){
@@ -91,7 +91,7 @@ a{
   }
   
   .navi.responsive {
-    background-color: rgba(0, 0, 0, 0.205);
+    /* background-color: rgba(0, 0, 0, 0.205); */
   }
 
   .navi.responsive a{
@@ -148,13 +148,13 @@ a{
 }
 
 .button:hover {
-  background-color: rgba(192, 192, 192, 0.445);
+  background-color: rgba(0, 0, 0, 0.075);
 }
 
 .button.active:link, .button.active:visited {
   /* background-color: rgba(128, 128, 128, 0.767); */
   /* color: white; */
-  background-color: rgba(192, 192, 192, 0.445);
+  background-color: rgba(0, 0, 0, 0.075);
 }
 
 /* Toggle button */
@@ -423,24 +423,6 @@ a#see_full_catalog:hover {
   text-align: left;
 }
 
-/* Items from category lists */
-.category_items {
-  border-radius: 2px;
-  padding: 15px;
-  display: block;
-  font-size: 18px;
-  font-family: sans-serif;
-}
-
-.category_items:link, .category_items:visited {
-  text-decoration: none;
-  color: black;
-}
-
-.category_items:hover {
-  background-color: rgba(192, 192, 192, 0.445);
-}
-
 /* Books list */
 .catalog .books {
   display: flex;
@@ -455,24 +437,6 @@ a#see_full_catalog:hover {
   flex: auto;
 }
 
-/* Book items from books list */
-a.book {
-  display: inline-block;
-  width: 220px;
-  text-align: center;
-  margin: 10px 10px 0px;
-  align-self: flex-start;
-  padding: 10px 10px;
-}
-
-a.book img {
-  width: 200px;
-  height: 300px;
-  display: block;
-  margin-bottom: 5px;
-  /* border-radius: 2px; */
-}
-
 /* Center the items on small window size */
 @media (max-width:545px){
   
@@ -480,19 +444,65 @@ a.book img {
     flex: none;
   }
 
-  a.book {
-    margin: 0px auto;
+}
+
+/* Category items */
+.category_items {
+  border-radius: 2px;
+  padding: 15px;
+  display: block;
+  font-size: 18px;
+  font-family: sans-serif;
+}
+
+.category_items:link, .category_items:visited {
+  text-decoration: none;
+  color: black;
+}
+
+.category_items:hover {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+/* Book items from books list */
+.category_items.book {
+  display: inline-block;
+  width: 200px;
+  text-align: center;
+  margin: 10px 10px 0px;
+  align-self: flex-start;
+  padding: 0px 0px 10px;
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.category_items.book:hover {
+  background-color: rgba(0, 0, 0, 0.198);
+}
+
+.category_items.book img {
+  width: 200px;
+  height: 300px;
+  display: block;
+  margin-bottom: 5px;
+  /* border-radius: 2px; */
+}
+
+/* Center the book items on small window size */
+@media (max-width:545px){
+
+  .category_items.book {
+    margin: 5px auto;
   }
 
 }
 
 /* Author items from authors list */
-a.author {
+.category_items.author {
   padding-left: 30px;
 }
 
 /* Genre items from genres list */
-a.genre {
+.category_items.genre {
   padding-left: 30px;
 }
 
@@ -514,7 +524,8 @@ a.genre {
 .single_item h3 {
   width: 100%;
   margin-bottom: 15px;
-  background-color: rgba(0, 0, 0, 0.116);
+  background-color: rgba(0, 0, 0, 0.075);
+  padding: 2px;
 }
 
 .single_item i {
@@ -526,6 +537,10 @@ a.genre {
 .single_item p {
   margin-bottom: 25px;
   text-align: justify;
+}
+
+.single_item a {
+  display: block;
 }
 
 @media (max-width: 629px) {
@@ -544,12 +559,56 @@ a.genre {
   .single_item img {
     float: none;
     display: block;
-    margin: 25px auto;
     padding: 0px;
+    width: 260px;
+    margin: 25px auto;
   }
 
   .single_item i {
     text-align: center;
   }
 
+}
+
+/* Single author */
+.single_item.author .books {
+  padding: 0px;
+  margin: 0px;
+  /* display: block; */
+}
+
+.single_item.author .book{
+  font-size: 15px;
+  width: 150px;
+  margin-left: 0px;
+}
+
+
+.single_item.author .book img {
+  float: none;
+  width: 150px;
+  height: 200px;
+  padding: 0px;
+  margin: 0px 0px 5px;
+}
+
+@media (max-width: 629px) {
+
+  .single_item.author .books {
+    display: block;
+  }
+
+  .single_item.author .book{
+    display: block;
+    margin: 5px auto;
+  }
+}
+
+/* Single genre */
+.single_item.genre .books img {
+  float: none;
+  width: 200px;
+  height: 300px;
+  padding: 0px;
+  margin: 0px 0px 5px;
 }

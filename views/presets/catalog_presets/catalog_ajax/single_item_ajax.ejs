@@ -3,15 +3,20 @@
 <% if(typeof book !== 'undefined'){ %>
 
     <div class = "single_item book">
-        <img src = "/images/books/<%= book.title %>.jpg">
+
+        <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
+
         <h3><%= book.title %></h3>
+
         <i>Author:</i>
-        <p><%= book.author.name %></p>
+        <a href = "<%= book.author.url %>"><%= book.author.name %></a>
+
         <i>Summary:</i>
-        <p class><%= book.summary %></p>
+        <p><%= book.summary %></p>
+
         <i>Genre:</i>
         <% book.genre.map(function(genre){ %>
-            <p><%= genre.name %></p>
+            <a href = "<%= genre.url %>"><%= genre.name %></a>
         <% }) %>
     </div>
 
@@ -19,14 +24,51 @@
 <% }else if(typeof author !== 'undefined'){ %>
 
     <div class = "single_item author">
-        <p><%= author.url %></p>
+
+        <img src = "/images/authors/<%= author.name %>.jpg" alt = "Author photo">
+        
+        <h3><%= author.name %></h3>
+
+        <i>Date of birth:</i>
+        <p><%= author.date_of_birth.toDateString() %></p>
+
+        <i>Date of death:</i>
+        <p><%= author.date_of_death.toDateString() %></p>
+
+        <!-- author's books -->
+        <i>Books:</i>
+        <div class = "books">
+            <% if(author_books.length === 0){ %>
+                <p>No books from this author.</p>
+            <% }else{ %>
+                <% author_books.map(function(book){ %>
+                    <a href = '<%= book.url %>' class = 'category_items book' >
+                        <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
+                        <%= book.title %>
+                    </a>
+                <% }) %>
+            <% } %>
+        </div>
+
     </div>
 
 <!-- Genre -->
 <% }else if(typeof genre !== 'undefined'){ %>
 
     <div class = "single_item genre">
-        <p><%= genre.url %></p>
+
+        <h3><%= genre.name %></h3>
+
+        <!-- genre's books -->
+        <div class = "books">
+            <% genre_books.map(function(book){ %>
+                <a href = '<%= book.url %>' class = 'category_items book' >
+                    <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
+                    <%= book.title %>
+                </a>
+            <% }) %>
+        </div>
+
     </div>
 
 <% } %>

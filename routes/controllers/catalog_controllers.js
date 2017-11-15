@@ -127,17 +127,23 @@ module.exports.catalog_item_get = function(req, res, next){
             Author.findOne({'_id': id}).exec(function(err, author){
                 if(err) throw err;
 
-                // AJAX
-                if(req.xhr){
+                // Author's books
+                Book.find({'author': id}, 'title').exec(function(err, author_books){
+                    if(err) throw err;
 
-                    res.render('presets/catalog_presets/catalog_ajax/single_item_ajax', {author: author});
+                    // AJAX
+                    if(req.xhr){
+    
+                        res.render('presets/catalog_presets/catalog_ajax/single_item_ajax', {author: author, author_books: author_books});
+    
+                    // Regular
+                    }else{
+    
+                        res.render('catalog', {title: 'Catalog', category: 'Authors', icon: 'people', author: author, author_books: author_books, single: true});
+    
+                    };
 
-                // Regular
-                }else{
-
-                    res.render('catalog', {title: 'Catalog', category: 'Authors', icon: 'people', author: author, single: true});
-
-                };
+                });
             });
             break;
         
@@ -146,17 +152,24 @@ module.exports.catalog_item_get = function(req, res, next){
 
             Genre.findOne({'_id': id}).exec(function(err, genre){
                 if(err) throw err;
+                
+                // Genre's books
+                Book.find({'genre': id}, 'title').exec(function(err, genre_books){
+                    if(err) throw err;
 
-                // AJAX
-                if(req.xhr){
+                    // AJAX
+                    if(req.xhr){
+    
+                        res.render('presets/catalog_presets/catalog_ajax/single_item_ajax', {genre: genre, genre_books: genre_books});
+                    // Regular
+                    }else{
+    
+                        res.render('catalog', {title: 'Catalog', category: 'Genres', icon: 'view_agenda', genre: genre, genre_books: genre_books, single: true});
+    
+                    };
 
-                    res.render('presets/catalog_presets/catalog_ajax/single_item_ajax', {genre: genre});
-                // Regular
-                }else{
+                });
 
-                    res.render('catalog', {title: 'Catalog', category: 'Genres', icon: 'view_agenda', genre: genre, single: true});
-
-                };
             });
     };
 

@@ -232,8 +232,6 @@ $(document).ready(function(){
                 catalogModule.openSingleItem(url);
             });
 
-        }else{
-            location.href = location.href;
         };
     };
     
