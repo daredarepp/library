@@ -8,15 +8,15 @@
 
         <h3><%= book.title %></h3>
 
-        <i>Author:</i>
-        <a href = "<%= book.author.url %>"><%= book.author.name %></a>
+        <i>Author</i>
+        <a href = "<%= book.author.url %>" class = "category_items author"><%= book.author.name %></a>
 
-        <i>Summary:</i>
+        <i>Summary</i>
         <p><%= book.summary %></p>
 
-        <i>Genre:</i>
+        <i>Genre</i>
         <% book.genre.map(function(genre){ %>
-            <a href = "<%= genre.url %>"><%= genre.name %></a>
+            <a href = "<%= genre.url %>" class = "category_items genre"><%= genre.name %></a><br/>
         <% }) %>
     </div>
 
@@ -29,14 +29,14 @@
         
         <h3><%= author.name %></h3>
 
-        <i>Date of birth:</i>
+        <i>Date of birth</i>
         <p><%= author.date_of_birth.toDateString() %></p>
 
-        <i>Date of death:</i>
+        <i>Date of death</i>
         <p><%= author.date_of_death.toDateString() %></p>
 
         <!-- author's books -->
-        <i>Books:</i>
+        <i>Books</i>
         <div class = "books">
             <% if(author_books.length === 0){ %>
                 <p>No books from this author.</p>

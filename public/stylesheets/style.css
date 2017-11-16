@@ -30,10 +30,10 @@ h1, h2, h3, h4 {
   font-family: "Antic";
 }
 
-a{
-  font-family: 'Antic';
+/* All links */
+a {
+  font-family: "Antic";
 }
-
 
 
 
@@ -152,8 +152,6 @@ a{
 }
 
 .button.active:link, .button.active:visited {
-  /* background-color: rgba(128, 128, 128, 0.767); */
-  /* color: white; */
   background-color: rgba(0, 0, 0, 0.075);
 }
 
@@ -281,7 +279,7 @@ a#arrow_right {
 /* Link to full catalog */
 a#see_full_catalog {
   display: inline-block;
-  font-size: 17px;
+  font-size: 18px;
   margin-top: 15px;
 }
 
@@ -291,7 +289,7 @@ a#see_full_catalog:link, a#see_full_catalog:visited {
 }
 
 a#see_full_catalog:hover {
-  color: rgb(5, 71, 107);
+  color: rgb(4, 61, 93);
 }
 
 /* Sign in window input */
@@ -425,25 +423,14 @@ a#see_full_catalog:hover {
 
 /* Books list */
 .catalog .books {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
   padding: 0px 15px;
-  /* margin-top: 15px; */
+  /* text-align: center; */
 }
 
-.catalog .books:after {
-  content: '';
-  flex: auto;
-}
-
-/* Center the items on small window size */
-@media (max-width:545px){
-  
-  .catalog .books:after {
-    flex: none;
+@media (max-width: 629px) {
+  .catalog .books {
+    text-align: center;
   }
-
 }
 
 /* Category items */
@@ -452,7 +439,6 @@ a#see_full_catalog:hover {
   padding: 15px;
   display: block;
   font-size: 18px;
-  font-family: sans-serif;
 }
 
 .category_items:link, .category_items:visited {
@@ -462,6 +448,7 @@ a#see_full_catalog:hover {
 
 .category_items:hover {
   background-color: rgba(0, 0, 0, 0.075);
+  box-shadow: inset 5px 0px 0px rgba(0, 0, 0, 0.205);
 }
 
 /* Book items from books list */
@@ -469,14 +456,14 @@ a#see_full_catalog:hover {
   display: inline-block;
   width: 200px;
   text-align: center;
-  margin: 10px 10px 0px;
-  align-self: flex-start;
+  margin: 10px 20px;
+  vertical-align: top;
   padding: 0px 0px 10px;
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: rgba(0, 0, 0, 0.075);  
 }
 
 .category_items.book:hover {
-  background-color: rgba(0, 0, 0, 0.198);
+  box-shadow:inset 0px -5px 0px 0px rgba(0, 0, 0, 0.205);
 }
 
 .category_items.book img {
@@ -484,16 +471,6 @@ a#see_full_catalog:hover {
   height: 300px;
   display: block;
   margin-bottom: 5px;
-  /* border-radius: 2px; */
-}
-
-/* Center the book items on small window size */
-@media (max-width:545px){
-
-  .category_items.book {
-    margin: 5px auto;
-  }
-
 }
 
 /* Author items from authors list */
@@ -513,7 +490,7 @@ a#see_full_catalog:hover {
   padding: 15px;
 }
 
-.single_item img {
+.single_item > img {
   width: 290px;
   height: 400px;
   float: left;
@@ -530,24 +507,24 @@ a#see_full_catalog:hover {
 
 .single_item i {
   display: block;
-  font-weight: bold;
-  margin: 3px;
+  font-size: 15px;
+  color: rgba(0, 0, 0, 0.486);
+  margin: 25px 0px 3px;
 }
 
 .single_item p {
-  margin-bottom: 25px;
+  margin: 0px;
+  font-size: 17px;
   text-align: justify;
-}
-
-.single_item a {
-  display: block;
+  font-family: serif;
 }
 
 @media (max-width: 629px) {
 
   .single_item {
-    padding: 40px 0px 0px 0px;
+    padding: 40px 0px 0px;
     position: relative;
+    text-align: center;
   }
 
   .single_item h3 {
@@ -556,7 +533,7 @@ a#see_full_catalog:hover {
     z-index: 1;
   }
 
-  .single_item img {
+  .single_item > img {
     float: none;
     display: block;
     padding: 0px;
@@ -564,51 +541,37 @@ a#see_full_catalog:hover {
     margin: 25px auto;
   }
 
-  .single_item i {
+  .single_item i, .single_item p {
     text-align: center;
   }
 
 }
 
-/* Single author */
-.single_item.author .books {
+/* Single book */
+.single_item.book > a {
+  display: inline;
   padding: 0px;
-  margin: 0px;
-  /* display: block; */
+  font-size: 18px;
 }
 
+.single_item.book > a:link, .single_item.book > a:visited {
+  color: rgb(2, 120, 189);
+}
+
+.single_item.book > a:hover {
+  background-color: white;
+  box-shadow: none;
+  color: rgb(4, 61, 93);
+}
+
+/* Single author */
 .single_item.author .book{
-  font-size: 15px;
   width: 150px;
-  margin-left: 0px;
+  font-size: 16px;
+  margin: 0px 10px 10px 0px;
 }
-
 
 .single_item.author .book img {
-  float: none;
   width: 150px;
   height: 200px;
-  padding: 0px;
-  margin: 0px 0px 5px;
-}
-
-@media (max-width: 629px) {
-
-  .single_item.author .books {
-    display: block;
-  }
-
-  .single_item.author .book{
-    display: block;
-    margin: 5px auto;
-  }
-}
-
-/* Single genre */
-.single_item.genre .books img {
-  float: none;
-  width: 200px;
-  height: 300px;
-  padding: 0px;
-  margin: 0px 0px 5px;
 }
