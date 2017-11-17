@@ -33,6 +33,12 @@ h1, h2, h3, h4 {
 /* All links */
 a {
   font-family: "Antic";
+  font-size: 18px;
+}
+
+/* All paragraphs */
+p {
+  font-size: 16px;
 }
 
 
@@ -183,7 +189,7 @@ a {
   position: relative;
 }
 
-label[for=search_field] {
+.search_bar label {
   position: absolute;
   top: 15px;
   left: 20px;
@@ -191,27 +197,28 @@ label[for=search_field] {
 }
 
 /* Search field */
-#search_field {
+.search_bar #search_field {
   outline: none;
   border: none;
   width: 100%;
-  padding: 12px 0px;
+  padding: 12px 0px 5px;
   font-size: 24px;
   background-color: transparent;
   color: rgba(0, 0, 0, 0.562);
 }
 
 /* Clear search button */
-#clear_search {
+.search_bar #clear_search {
   display: none;
   position: absolute;
   right: 20px;
   top: 15px;
   cursor: context-menu;
   color: rgba(0, 0, 0, 0.562);
+  font-size: 24px;
 }
 
-#clear_search:hover {
+.search_bar #clear_search:hover {
   color: black;
 }
 
@@ -220,6 +227,7 @@ label[for=search_field] {
   font-size: 20px;
   text-align: center;
   color: rgba(0, 0, 0, 0.562);
+  margin: 10px;
 }
 
 /* Window body */
@@ -279,7 +287,6 @@ a#arrow_right {
 /* Link to full catalog */
 a#see_full_catalog {
   display: inline-block;
-  font-size: 18px;
   margin-top: 15px;
 }
 
@@ -438,7 +445,6 @@ a#see_full_catalog:hover {
   border-radius: 2px;
   padding: 15px;
   display: block;
-  font-size: 18px;
 }
 
 .category_items:link, .category_items:visited {
@@ -456,7 +462,7 @@ a#see_full_catalog:hover {
   display: inline-block;
   width: 200px;
   text-align: center;
-  margin: 10px 20px;
+  margin: 12px 20px;
   vertical-align: top;
   padding: 0px 0px 10px;
   background-color: rgba(0, 0, 0, 0.075);  
@@ -500,23 +506,20 @@ a#see_full_catalog:hover {
 
 .single_item h3 {
   width: 100%;
-  margin-bottom: 15px;
   background-color: rgba(0, 0, 0, 0.075);
   padding: 2px;
 }
 
 .single_item i {
   display: block;
-  font-size: 15px;
+  font-size: 16px;
   color: rgba(0, 0, 0, 0.486);
   margin: 25px 0px 3px;
 }
 
 .single_item p {
   margin: 0px;
-  font-size: 17px;
   text-align: justify;
-  font-family: serif;
 }
 
 @media (max-width: 629px) {
@@ -551,7 +554,6 @@ a#see_full_catalog:hover {
 .single_item.book > a {
   display: inline;
   padding: 0px;
-  font-size: 18px;
 }
 
 .single_item.book > a:link, .single_item.book > a:visited {
@@ -561,7 +563,8 @@ a#see_full_catalog:hover {
 .single_item.book > a:hover {
   background-color: white;
   box-shadow: none;
-  color: rgb(4, 61, 93);
+  /* color: rgb(4, 61, 93); */
+  text-decoration: underline;
 }
 
 /* Single author */
@@ -574,4 +577,48 @@ a#see_full_catalog:hover {
 .single_item.author .book img {
   width: 150px;
   height: 200px;
+}
+
+@media (max-width: 629px) {
+  
+    .single_item.author .book {
+      margin: 0px;
+    }
+  
+}
+
+/* Single genre */
+.single_item.genre {
+  padding-top: 0px;
+}
+
+/* adjust the look of the search bar */
+.single_item.genre .search_bar {
+  padding: 0px 35px;
+}
+
+.single_item.genre .search_bar label {
+  left: 5px;
+}
+
+.single_item.genre .search_bar #clear_search {
+  right: 5px;
+}
+
+.single_item.genre .no_match {
+  font-size: 20px;
+  margin: 10px;
+  text-align: center;
+}
+
+.single_item.genre .books {
+  padding-top: 15px;
+}
+
+@media (max-width: 629px) {
+
+  .single_item.genre {
+    padding-top: 40px;
+  }
+
 }

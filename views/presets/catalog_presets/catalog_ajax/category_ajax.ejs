@@ -13,17 +13,20 @@
     <!-- Close button -->
     <a id="close_button" href="#" title="Close" class="material-icons button">close</a>
     
-    <!-- No search functionality in single item window -->
-    <% if(typeof single === 'undefined'){ %>
-    <!-- Search button -->
-    <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
+    <!-- Don't show the search button in single item windows except in genre window -->
+    <% if(typeof single === 'undefined' || typeof genre !== 'undefined'){ %>
+        <!-- Search button -->
+        <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
+    <% } %>
 
-    <!-- Search bar -->
-    <div class = "search_bar">
-        <label for = "search_field" class = "material-icons">search</label>
-        <input type = "text" placeholder = "Search" id = "search_field" autocomplete = "off"></input>
-        <i id = "clear_search" class = "material-icons" title = "Clear">close</i>
-    </div>
+    <!-- Don't show the search bar in single item windows -->
+    <% if(typeof single === 'undefined'){ %>
+        <!-- Search bar -->
+        <div class = "search_bar">
+            <label for = "search_field" class = "material-icons">search</label>
+            <input type = "text" placeholder = "Search" id = "search_field" autocomplete = "off"></input>
+            <i id = "clear_search" class = "material-icons" title = "Clear">close</i>
+        </div>
     <% } %>
 
     <!-- Window body -->
@@ -48,16 +51,20 @@
             <% <!-- Authors list --> %>
             <% }else if(category === 'Authors'){ %>
 
-                <% result.map(function(author){ %>
-                    <a href = '<%= author.url %>' class = 'category_items author' ><%= author.name %></a>
-                <% }) %>
+                <div class = "authors">
+                    <% result.map(function(author){ %>
+                        <a href = '<%= author.url %>' class = 'category_items author' ><%= author.name %></a>
+                    <% }) %>
+                </div>
                     
             <% <!-- Genres list --> %>
             <% }else if(category === 'Genres'){ %>
 
-                <% result.map(function(genre){ %>
-                    <a href = '<%= genre.url %>' class = 'category_items genre' ><%= genre.name %></a>
-                <% }) %>
+                <div class = "genres">
+                    <% result.map(function(genre){ %>
+                        <a href = '<%= genre.url %>' class = 'category_items genre' ><%= genre.name %></a>
+                    <% }) %>
+                </div>
 
             <% } %>
         

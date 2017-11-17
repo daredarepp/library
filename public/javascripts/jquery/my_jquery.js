@@ -89,151 +89,7 @@ $(document).ready(function(){
     });
 
     /* Catalog page ------------------------------------------------------------------------------------------------- */
-
-    
-    
-    if(location.href.indexOf('/catalog') > -1){
-
-        
-        // Highlight active link
-        var catalogCategory = $('.catalog').attr('data-category');
-        var activeLink = $('.selection_bar a').filter(`.${catalogCategory}`);
-        activeLink.addClass('active');
-        
-        // Save a state of the first load of the catalog page
-        var wrapper = $('.catalog_wrapper');
-        history.replaceState({wrapper: wrapper.html()}, '', location.href);
-
-        // Selection windows
-        $('.selection_window a').click(function(event){
-    
-            event.preventDefault();        
-            var category = $(this).attr('class');         
-            catalogModule.openCatalog(category);
-        });
-    
-        // Selection bar
-        $('.selection_bar a').click(function(event){
-            
-            event.preventDefault();        
-            var category = $(this).attr('class');
-            catalogModule.changeCatalog(category);
-        });
-
-        // Catalog search button
-        $('.search_button').click(function(event){
-            
-            event.preventDefault();
-            var searchButton = $(this);
-            catalogModule.openSearch(searchButton);
-        });
-        
-        // Catalog close button
-        $('#close_button').click(function(event){
-            
-            event.preventDefault();
-            var button = $(this);
-            catalogModule.closeCatalog(button);
-        });
-
-        // Search catalog
-        $('#search_field').on('keyup paste',function(){
-
-            var searchField = this;
-
-            // Short pause to wait for paste to complete
-            setTimeout(function(){
-                var searchValue = $(searchField).val();
-                catalogModule.searchCatalog(searchValue);
-            }, 100);
-        });
-
-        // Clear search button
-        $('#clear_search').click(function(){
-
-            var button = $(this);
-            catalogModule.clearSearch(button);
-        });
-
-        // Category items
-        $('.category_items').click(function(event){
-            
-            event.preventDefault();
-            var url = $(this).attr('href');
-            catalogModule.openSingleItem(url);
-        });
-    };
-
-    // Navigating through page states
-    window.onpopstate = function(event){
-
-        // Display the saved state
-        if(event.state){
-
-            var wrapper = $('.catalog_wrapper');
-            wrapper.html(event.state.wrapper);
-            
-            // Selection windows
-            $('.selection_window a').click(function(event){
-
-                event.preventDefault();
-                var category = $(this).attr('class');         
-                catalogModule.openCatalog(category);
-            });
-            
-            // Selection bar
-            $('.selection_bar a').click(function(event){
-
-                event.preventDefault()
-                var category = $(this).attr('class');
-                catalogModule.changeCatalog(category);
-            });
-
-            // Catalog search button
-            $('.search_button').click(function(event){
-                
-                event.preventDefault();
-                var searchButton = $(this);
-                catalogModule.openSearch(searchButton);
-            });
-            
-            // Catalog close button
-            $('#close_button').click(function(event){
-
-                event.preventDefault();
-                var button = $(this);
-                catalogModule.closeCatalog(button);
-            });
-
-            // Search catalog
-            $('#search_field').on('keyup paste',function(){
-                
-                var searchField = this;
-    
-                // Short pause to wait for paste to complete
-                setTimeout(function(){
-                    var searchValue = $(searchField).val();
-                    catalogModule.searchCatalog(searchValue);
-                }, 100);
-            });
-
-            // Clear search button
-            $('#clear_search').click(function(){
-
-                var button = $(this);
-                catalogModule.clearSearch(button);
-            });
-
-            // Category items
-            $('.category_items').click(function(event){
-
-                event.preventDefault();
-                var url = $(this).attr('href');
-                catalogModule.openSingleItem(url);
-            });
-
-        };
-    };
+ 
     
     // Catalog module
     var catalogModule = function(){
@@ -298,52 +154,8 @@ $(document).ready(function(){
                 var wrapper = $('.catalog_wrapper');
                 wrapper.append(catalog);
                 
-                // Make the catalog search button functional
-                var searchButton = $('.search_button');
-                searchButton.click(function(event){
-                    
-                    event.preventDefault();
-                    var searchButton = $(this);
-                    catalogModule.openSearch(searchButton);
-                });
-
-                // Make the catalog close button functional
-                var closeButton = $('#close_button');
-                closeButton.click(function(event){
-
-                    event.preventDefault();
-                    var button = $(this);
-                    catalogModule.closeCatalog(button);
-                });
-
-                // Make the search field functional
-                $('#search_field').on('keyup paste',function(){
-                    
-                    var searchField = this;
-        
-                    // Short pause to wait for paste to complete
-                    setTimeout(function(){
-                        var searchValue = $(searchField).val();
-                        catalogModule.searchCatalog(searchValue);
-                    }, 100);
-                });
-
-                // Make the clear search button functional
-                $('#clear_search').click(function(){
-
-                    var button = $(this);
-                    catalogModule.clearSearch(button);
-                });
-
-                // Make the category items functional
-                var categoryItem = $('.category_items');
-                categoryItem.click(function(event){
-
-                    event.preventDefault();
-                    var url = $(this).attr('href');
-                    catalogModule.openSingleItem(url);
-                });
-
+                // Add the event listeners
+                catalogModule.addEventListeners();
 
                 // Update the URL
                 catalogModule.updateURL(url);
@@ -439,8 +251,8 @@ $(document).ready(function(){
                 var noMatch = $('<p></p>').addClass('no_match');
                 noMatch.text('No items match your search.');
 
-                var windowBody = $('.window_body');
-                windowBody.prepend(noMatch);
+                var itemsSection = $('.window_body').find('.books, .authors, .genres');
+                itemsSection.append(noMatch);
             };        
         };
 
@@ -476,16 +288,28 @@ $(document).ready(function(){
             // When done
             .done(function(item) {
                 
-                // Remove the search button and search bar
                 var searchButton = $('.search_button');
-                searchButton.remove();
                 var searchBar = $('.search_bar');
-                searchBar.remove();
+
+                // Remove only the search bar when opening a genre
+                if(url.indexOf('genres') > -1){
+
+                    searchBar.remove();
+
+                // Otherwise remove the search button and search bar
+                }else {
+                    
+                    searchButton.remove();
+                    searchBar.remove();
+                };
 
                 // Display the item
                 var windowBody = $('.window_body');
                 windowBody.empty();
                 windowBody.append(item);
+
+                // Add the event listeners
+                // catalogModule.addEventListeners();
 
                 // Update the URL
                 catalogModule.updateURL(url);
@@ -502,9 +326,101 @@ $(document).ready(function(){
             })
         };
 
-        return {openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, openSearch: openSearch, searchCatalog: searchCatalog, clearSearch: clearSearch, openSingleItem: openSingleItem};
+        var addEventListeners = function(){
+
+            // Selection windows
+            $('.selection_window a').click(function(event){
+
+                event.preventDefault();
+                var category = $(this).attr('class');         
+                catalogModule.openCatalog(category);
+            });
+            
+            // Selection bar
+            $('.selection_bar a').click(function(event){
+
+                event.preventDefault()
+                var category = $(this).attr('class');
+                catalogModule.changeCatalog(category);
+            });
+
+            // Catalog search button
+            $('.search_button').click(function(event){
+                
+                event.preventDefault();
+                var searchButton = $(this);
+                catalogModule.openSearch(searchButton);
+            });
+            
+            // Catalog close button
+            $('#close_button').click(function(event){
+
+                event.preventDefault();
+                var button = $(this);
+                catalogModule.closeCatalog(button);
+            });
+
+            // Search field
+            $('#search_field').on('keyup paste',function(){
+                
+                var searchField = this;
+    
+                // Short pause to wait for paste to complete
+                setTimeout(function(){
+                    var searchValue = $(searchField).val();
+                    catalogModule.searchCatalog(searchValue);
+                }, 100);
+            });
+
+            // Clear search button
+            $('#clear_search').click(function(){
+
+                var button = $(this);
+                catalogModule.clearSearch(button);
+            });
+
+            // Category items
+            $('.category_items').click(function(event){
+
+                event.preventDefault();
+                var url = $(this).attr('href');
+                catalogModule.openSingleItem(url);
+            });
+        };
+
+        return {openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, openSearch: openSearch, searchCatalog: searchCatalog, clearSearch: clearSearch, openSingleItem: openSingleItem, addEventListeners: addEventListeners};
 
     }();
-    
+   
+    // On first page load
+    if(location.href.indexOf('/catalog') > -1){
+        
+        // Highlight active link
+        var catalogCategory = $('.catalog').attr('data-category');
+        var activeLink = $('.selection_bar a').filter(`.${catalogCategory}`);
+        activeLink.addClass('active');
+        
+        // Save a state of the page
+        var wrapper = $('.catalog_wrapper');
+        history.replaceState({wrapper: wrapper.html()}, '', location.href);
+
+        // Add the event listeners
+        catalogModule.addEventListeners();
+    };
+
+    // Navigating through page states
+    window.onpopstate = function(event){
+        
+        if(event.state){
+            
+            // Display the saved state
+            var wrapper = $('.catalog_wrapper');
+            wrapper.html(event.state.wrapper);
+            
+            // Add the event listeners
+            catalogModule.addEventListeners();
+        };
+    };
+
 
 });
