@@ -149,7 +149,7 @@ p {
 
 .button:link, .button:visited, .button:focus {
   text-decoration: none;
-  background-color: white;
+  background-color: transparent;
   color: rgb(2, 119, 189);
 }
 
@@ -166,6 +166,13 @@ p {
   position: absolute;
   right: 10px;
   top: 10px;
+}
+
+/* Back button */
+.back_button {
+  position: absolute;
+  top: 10px;
+  right: 40px;
 }
 
 /* Search button */
@@ -227,7 +234,7 @@ p {
   font-size: 20px;
   text-align: center;
   color: rgba(0, 0, 0, 0.562);
-  margin: 10px;
+  margin: 10px 0px;
 }
 
 /* Window body */
@@ -522,6 +529,12 @@ a#see_full_catalog:hover {
   text-align: justify;
 }
 
+.single_item .none {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.562);
+  margin: 10px;
+}
+
 @media (max-width: 629px) {
 
   .single_item {
@@ -582,7 +595,7 @@ a#see_full_catalog:hover {
 @media (max-width: 629px) {
   
     .single_item.author .book {
-      margin: 0px;
+      margin: 10px 0px;
     }
   
 }
@@ -590,6 +603,16 @@ a#see_full_catalog:hover {
 /* Single genre */
 .single_item.genre {
   padding-top: 0px;
+}
+
+.single_item.genre h3{
+  position: relative;
+}
+
+.single_item.genre .search_button {
+  border-radius: 2px;
+  top: 1px;
+  right: 1px;
 }
 
 /* adjust the look of the search bar */
@@ -615,10 +638,6 @@ a#see_full_catalog:hover {
   padding-top: 15px;
 }
 
-@media (max-width: 629px) {
-
-  .single_item.genre {
-    padding-top: 40px;
-  }
-
+.single_item.genre .none {
+  text-align: center;
 }
