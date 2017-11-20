@@ -1,3 +1,120 @@
 
+<!-- Book -->
+<% if(typeof book !== 'undefined'){ %>
 
-<p>url: <%= result.url %></p>
+    <div class = "single_item book">
+        
+        <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
+
+        <div class = "info">
+
+            <h3><%= book.title %></h3>
+
+            <div class = "book_author">
+                <i>Author</i>
+                <a href = "<%= book.author.url %>" class = "category_items author"><%= book.author.name %></a>
+            </div>
+
+            <div class = "book_summary">
+                <i>Summary</i>
+                <p><%= book.summary %></p>
+            </div>
+
+            <div class = "book_genre">
+                <i>Genre</i>
+                <% book.genre.map(function(genre){ %>
+                    <a href = "<%= genre.url %>" class = "category_items genre"><%= genre.name %></a><br/>
+                <% }) %>
+            </div>
+
+        </div>
+
+    </div>
+
+<!-- Author -->
+<% }else if(typeof author !== 'undefined'){ %>
+
+    <div class = "single_item author">
+
+        <img src = "/images/authors/<%= author.name %>.jpg" alt = "Author photo">
+
+        <div class = "info">
+
+            <h3><%= author.name %></h3>
+
+            <div class = "author_birth">
+                <i>Date of birth</i>
+                <p><%= author.date_of_birth.toDateString() %></p>
+            </div>
+
+            <div class = "author_death">
+                <i>Date of death</i>
+                <p><%= author.date_of_death.toDateString() %></p>
+            </div>
+            
+        </div>
+
+        <!-- author's books -->
+        <i>Books</i>
+        <div class = "author_books">
+            <% if(author_books.length === 0){ %>
+
+                <p class = "empty">No books from this author.</p>
+
+            <% }else{ %>
+
+                <% author_books.map(function(book){ %>
+
+                    <a href = '<%= book.url %>' class = 'category_items book' >
+                        <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
+                        <%= book.title %>
+                    </a>
+
+                <% }) %>
+
+            <% } %>
+        </div>
+
+    </div>
+
+<!-- Genre -->
+<% }else if(typeof genre !== 'undefined'){ %>
+
+    <div class = "single_item genre">
+
+        <h3>
+            <%= genre.name %>
+            <!-- Search button -->
+            <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
+        </h3>
+
+        <!-- Search bar -->
+        <div class = "search_bar">
+            <label for = "search_field" class = "material-icons">search</label>
+            <input type = "text" placeholder = "Search" id = "search_field" autocomplete = "off"></input>
+            <span id = "clear_search" class = "material-icons" title = "Clear">close</span>
+        </div>
+
+        <!-- genre's books -->
+        <div class = "books">
+            <% if(genre_books.length === 0){ %>
+
+                <p class = "empty">No books from this genre.</p>
+
+            <% }else { %>
+
+                <% genre_books.map(function(book){ %>
+
+                    <a href = '<%= book.url %>' class = 'category_items book' >
+                        <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
+                        <%= book.title %>
+                    </a>
+
+                <% }) %>
+
+            <% } %>
+        </div>
+
+    </div>
+
+<% } %>

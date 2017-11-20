@@ -30,10 +30,16 @@ h1, h2, h3, h4 {
   font-family: "Antic";
 }
 
-a{
-  font-family: 'Antic';
+/* All links */
+a {
+  font-family: "Antic";
+  font-size: 18px;
 }
 
+/* All paragraphs */
+p {
+  font-size: 16px;
+}
 
 
 
@@ -59,8 +65,8 @@ a{
 
 .navi a {
   float: left;
-  padding: 10px 15px;
-  font-size: 15px;
+  padding: 15px 20px;
+  font-size: 17px;
 }
 
 .navi a:nth-child(4){
@@ -91,7 +97,7 @@ a{
   }
   
   .navi.responsive {
-    background-color: rgba(0, 0, 0, 0.205);
+    /* background-color: rgba(0, 0, 0, 0.205); */
   }
 
   .navi.responsive a{
@@ -143,18 +149,16 @@ a{
 
 .button:link, .button:visited, .button:focus {
   text-decoration: none;
-  background-color: white;
+  background-color: transparent;
   color: rgb(2, 119, 189);
 }
 
 .button:hover {
-  background-color: rgba(192, 192, 192, 0.445);
+  background-color: rgba(0, 0, 0, 0.075);
 }
 
 .button.active:link, .button.active:visited {
-  /* background-color: rgba(128, 128, 128, 0.767); */
-  /* color: white; */
-  background-color: rgba(192, 192, 192, 0.445);
+  background-color: rgba(0, 0, 0, 0.075);
 }
 
 /* Toggle button */
@@ -162,6 +166,13 @@ a{
   position: absolute;
   right: 10px;
   top: 10px;
+}
+
+/* Back button */
+.back_button {
+  position: absolute;
+  top: 10px;
+  right: 40px;
 }
 
 /* Search button */
@@ -185,7 +196,7 @@ a{
   position: relative;
 }
 
-label[for=search_field] {
+.search_bar label {
   position: absolute;
   top: 15px;
   left: 20px;
@@ -193,27 +204,28 @@ label[for=search_field] {
 }
 
 /* Search field */
-#search_field {
+.search_bar #search_field {
   outline: none;
   border: none;
   width: 100%;
-  padding: 12px 0px;
+  padding: 12px 0px 5px;
   font-size: 24px;
   background-color: transparent;
   color: rgba(0, 0, 0, 0.562);
 }
 
 /* Clear search button */
-#clear_search {
+.search_bar #clear_search {
   display: none;
   position: absolute;
   right: 20px;
   top: 15px;
   cursor: context-menu;
   color: rgba(0, 0, 0, 0.562);
+  font-size: 24px;
 }
 
-#clear_search:hover {
+.search_bar #clear_search:hover {
   color: black;
 }
 
@@ -222,6 +234,7 @@ label[for=search_field] {
   font-size: 20px;
   text-align: center;
   color: rgba(0, 0, 0, 0.562);
+  margin: 10px 0px;
 }
 
 /* Window body */
@@ -281,7 +294,6 @@ a#arrow_right {
 /* Link to full catalog */
 a#see_full_catalog {
   display: inline-block;
-  font-size: 17px;
   margin-top: 15px;
 }
 
@@ -291,7 +303,7 @@ a#see_full_catalog:link, a#see_full_catalog:visited {
 }
 
 a#see_full_catalog:hover {
-  color: rgb(5, 71, 107);
+  color: rgb(4, 61, 93);
 }
 
 /* Sign in window input */
@@ -423,13 +435,23 @@ a#see_full_catalog:hover {
   text-align: left;
 }
 
-/* Items from category lists */
+/* Books list */
+.catalog .books {
+  padding: 0px 15px;
+  /* text-align: center; */
+}
+
+@media (max-width: 629px) {
+  .catalog .books {
+    text-align: center;
+  }
+}
+
+/* Category items */
 .category_items {
   border-radius: 2px;
   padding: 15px;
   display: block;
-  font-size: 18px;
-  font-family: sans-serif;
 }
 
 .category_items:link, .category_items:visited {
@@ -438,60 +460,187 @@ a#see_full_catalog:hover {
 }
 
 .category_items:hover {
-  background-color: rgba(192, 192, 192, 0.445);
-}
-
-/* Books list */
-.catalog .books {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 0px 15px;
-  /* margin-top: 15px; */
-}
-
-.catalog .books:after {
-  content: '';
-  flex: auto;
+  background-color: rgba(0, 0, 0, 0.075);
+  box-shadow: inset 5px 0px 0px rgba(0, 0, 0, 0.205);
 }
 
 /* Book items from books list */
-a.book {
+.category_items.book {
   display: inline-block;
-  width: 220px;
+  width: 200px;
   text-align: center;
-  margin: 10px 10px 0px;
-  align-self: flex-start;
-  padding: 10px 10px;
+  margin: 12px 20px;
+  vertical-align: top;
+  padding: 0px 0px 10px;
+  background-color: rgba(0, 0, 0, 0.075);  
 }
 
-a.book img {
+.category_items.book:hover {
+  box-shadow:inset 0px -5px 0px 0px rgba(0, 0, 0, 0.205);
+}
+
+.category_items.book img {
   width: 200px;
   height: 300px;
   display: block;
   margin-bottom: 5px;
-  /* border-radius: 2px; */
-}
-
-/* Center the items on small window size */
-@media (max-width:545px){
-  
-  .catalog .books:after {
-    flex: none;
-  }
-
-  a.book {
-    margin: 0px auto;
-  }
-
 }
 
 /* Author items from authors list */
-a.author {
+.category_items.author {
   padding-left: 30px;
 }
 
 /* Genre items from genres list */
-a.genre {
+.category_items.genre {
   padding-left: 30px;
+}
+
+/* Single item */
+.single_item {
+  display: inline-block;
+  width: 100%;
+  padding: 15px;
+}
+
+.single_item > img {
+  width: 260px;
+  height: 400px;
+  float: left;
+  margin-right: 30px;
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.single_item .info {
+  display: flex;
+  flex-flow: column;
+}
+
+.single_item h3 {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.075);
+  padding: 2px;
+}
+
+.single_item i {
+  display: block;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.486);
+  margin-top: 25px;
+}
+
+.single_item p {
+  margin: 0px;
+  text-align: justify;
+}
+
+.single_item .empty {
+  font-size: 20px;
+  color: rgba(0, 0, 0, 0.562);
+}
+
+@media (max-width: 629px) {
+
+  .single_item {
+    padding: 40px 0px 0px;
+    position: relative;
+    text-align: center;
+  }
+
+  .single_item h3 {
+    position: absolute;
+    top: 5px;
+    z-index: 1;
+  }
+
+  .single_item > img {
+    float: none;
+    display: block;
+    margin: 25px auto;
+  }
+
+  .single_item i, .single_item p {
+    text-align: center;
+  }
+
+}
+
+/* Single book */
+.single_item.book a {
+  display: inline;
+  padding: 0px;
+}
+
+.single_item.book a:link, .single_item.book a:visited {
+  color: rgb(2, 120, 189);
+}
+
+.single_item.book a:hover {
+  background-color: white;
+  box-shadow: none;
+  /* color: rgb(4, 61, 93); */
+  text-decoration: underline;
+}
+
+/* Single author */
+.author_books .book{
+  width: 150px;
+  font-size: 16px;
+  margin: 0px 10px 10px 0px;
+}
+
+.author_books .book img {
+  width: 150px;
+  height: 200px;
+}
+
+@media (max-width: 629px) {
+  
+    .author_books .book {
+      margin: 10px 0px;
+    }
+  
+}
+
+/* Single genre */
+.single_item.genre {
+  padding-top: 0px;
+}
+
+.single_item.genre h3{
+  position: relative;
+}
+
+.single_item.genre .search_button {
+  border-radius: 2px;
+  top: 1px;
+  right: 1px;
+}
+
+/* adjust the look of the search bar */
+.single_item.genre .search_bar {
+  padding: 0px 35px;
+}
+
+.single_item.genre .search_bar label {
+  left: 5px;
+}
+
+.single_item.genre .search_bar #clear_search {
+  right: 5px;
+}
+
+.single_item.genre .no_match {
+  font-size: 20px;
+  margin: 10px;
+  text-align: center;
+}
+
+.single_item.genre .books {
+  padding-top: 15px;
+}
+
+.single_item.genre .empty {
+  text-align: center;
+  margin: 10px;
 }

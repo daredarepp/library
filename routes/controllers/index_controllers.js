@@ -7,4 +7,5 @@ var mongoose = require('mongoose');
 module.exports.index_get = function(req, res, next){
 
     res.render('home', {title: "Home"});
+    
 };
