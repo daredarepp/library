@@ -260,50 +260,47 @@ p {
   width: 100%;
 }
 
-/* Popular books images */
-#popular_books_placeholder img{
-  width: 260px;
-  height: 400px;
+#popular_books_placeholder .book {
+  white-space: initial;
 }
 
 /* Popular books scroll buttons */
 a#arrow_left, a#arrow_right {
   text-decoration: none;
   display: inline-block;
-  background-color: rgba(255, 255, 255, 0.849);
+  background-color: white;
+  z-index: 1;
   padding: 20px 10px;
   border-radius: 5px;
   position: absolute;
-  top: 45%;
+  top: 44%;
   font-weight: bold;
-  color: black;
+  color: rgb(2, 120, 189);
+  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
 }
 
 a#arrow_left:hover, a#arrow_right:hover {
-  background-color: white;  
+  color: rgb(6, 71, 109);
+  
 }
 
 a#arrow_left {
-  left: 24px;
+  left: 10px;
 }
 
 a#arrow_right {
-  right: 24px;
+  right: 10px;
 }
 
 /* Link to full catalog */
-a#see_full_catalog {
+a#see_all_books {
   display: inline-block;
-  margin-top: 15px;
+  /* margin-top: 15px; */
 }
 
-a#see_full_catalog:link, a#see_full_catalog:visited {
-  text-decoration: none;
+a#see_all_books:link, a#see_all_books:visited {
+  /* text-decoration: none; */
   color: rgb(2, 119, 189);
-}
-
-a#see_full_catalog:hover {
-  color: rgb(4, 61, 93);
 }
 
 /* Sign in window input */
@@ -318,7 +315,7 @@ a#see_full_catalog:hover {
 
 
 .catalog_wrapper {
-  padding: 30px 0px;
+  padding: 25px 0px;
 }
 
 /* Selection windows */
@@ -403,14 +400,14 @@ a#see_full_catalog:hover {
 @media (max-width:991px){
 
   .selection_bar a {
-    font-size: 18px;
-    padding-left: 20px;
+    font-size: 17px;
+    padding-left: 16px;
   }
 
   .selection_bar i.material-icons {
-    font-size: 24px;
-    left: 4px;
-    top: 10px;
+    font-size: 20px;
+    left: 10px;
+    top: 13px;
   }
 
 }
@@ -461,7 +458,7 @@ a#see_full_catalog:hover {
 
 .category_items:hover {
   background-color: rgba(0, 0, 0, 0.075);
-  box-shadow: inset 5px 0px 0px rgba(0, 0, 0, 0.205);
+  /* box-shadow: inset 5px 0px 0px rgba(0, 0, 0, 0.205); */
 }
 
 /* Book items from books list */
@@ -491,9 +488,17 @@ a#see_full_catalog:hover {
   padding-left: 30px;
 }
 
+.category_items.author:hover {
+  box-shadow: inset 5px 0px 0px rgba(0, 0, 0, 0.205);
+}
+
 /* Genre items from genres list */
 .category_items.genre {
   padding-left: 30px;
+}
+
+.category_items.genre:hover {
+  box-shadow: inset 5px 0px 0px rgba(0, 0, 0, 0.205);
 }
 
 /* Single item */
@@ -519,7 +524,7 @@ a#see_full_catalog:hover {
 .single_item h3 {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.075);
-  padding: 2px;
+  padding: 4px;
 }
 
 .single_item i {
@@ -578,12 +583,11 @@ a#see_full_catalog:hover {
 .single_item.book a:hover {
   background-color: white;
   box-shadow: none;
-  /* color: rgb(4, 61, 93); */
   text-decoration: underline;
 }
 
 /* Single author */
-.author_books .book{
+.author_books .book {
   width: 150px;
   font-size: 16px;
   margin: 0px 10px 10px 0px;
@@ -607,17 +611,18 @@ a#see_full_catalog:hover {
   padding-top: 0px;
 }
 
-.single_item.genre h3{
+.single_item.genre h3 {
   position: relative;
 }
 
 .single_item.genre .search_button {
-  border-radius: 2px;
-  top: 1px;
-  right: 1px;
+  padding: 5px 3px;
+  border-radius: 2px 0px 0px 2px;
+  top: 0px;
+  right: 0px;
 }
 
-/* adjust the look of the search bar */
+/* adjust the position of the search bar */
 .single_item.genre .search_bar {
   padding: 0px 35px;
 }

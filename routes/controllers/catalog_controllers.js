@@ -20,7 +20,6 @@ module.exports.catalog_category_get = function(req, res, next){
 
     mongoose.connect(uri, options);
     
-
     switch(category){
         
         // Books
@@ -33,9 +32,9 @@ module.exports.catalog_category_get = function(req, res, next){
                 // AJAX
                 if(req.xhr){
 
-                res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Books', 
-                icon: 'library_books', result: books});
-                
+                    res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Books', 
+                    icon: 'library_books', result: books});
+                    
                 // Regular
                 }else{
 
