@@ -55,7 +55,7 @@ $(document).ready(function(){
         // Scroll popular books right
         var scrollRight = function(){
 
-            var popularBooks = $('#popular_books_placeholder');
+            var popularBooks = $('#popular_books');
 
             // Grab reference to the position of the scroll and increase it's value
             var scrollPosition = popularBooks.scrollLeft();
@@ -69,7 +69,7 @@ $(document).ready(function(){
         // Scroll popular books left
         var scrollLeft = function(){
 
-            var popularBooks = $('#popular_books_placeholder');
+            var popularBooks = $('#popular_books');
 
             // Grab reference to the position of the scroll and decrease it's value
             var scrollPosition = popularBooks.scrollLeft();

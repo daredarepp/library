@@ -253,14 +253,14 @@ p {
   padding: 25px 0px;
 }
 
-/* Popular books placeholder */
-#popular_books_placeholder {
+/* Popular books */
+#popular_books {
   white-space: nowrap;
   overflow-x: hidden;
   width: 100%;
 }
 
-#popular_books_placeholder .book {
+#popular_books .book {
   white-space: initial;
 }
 
@@ -275,13 +275,12 @@ a#arrow_left, a#arrow_right {
   position: absolute;
   top: 44%;
   font-weight: bold;
-  color: rgb(2, 120, 189);
+  color: black;
   box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
 }
 
 a#arrow_left:hover, a#arrow_right:hover {
-  color: rgb(6, 71, 109);
-  
+  color: rgb(2, 120, 189);;
 }
 
 a#arrow_left {
@@ -295,12 +294,19 @@ a#arrow_right {
 /* Link to full catalog */
 a#see_all_books {
   display: inline-block;
-  /* margin-top: 15px; */
 }
 
 a#see_all_books:link, a#see_all_books:visited {
-  /* text-decoration: none; */
   color: rgb(2, 119, 189);
+}
+
+a#see_all_authors:link, a#see_all_authors:visited {
+  color: rgb(2, 119, 189);
+}
+
+/* Popular authors */
+.popular_authors {
+  text-align: left;
 }
 
 /* Sign in window input */

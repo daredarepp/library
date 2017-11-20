@@ -27,8 +27,8 @@
 
                     <!-- Window body -->
                     <div class = "window_body">
-                        <div id = "popular_books_placeholder">
-                            <!-- Books (only regular books, popular in progress) -->
+                        <div id = "popular_books">
+                            <!-- Books (only regular, popular in progress) -->
                             <% books.map(function(book){ %>
 
                                 <a href = '<%= book.url %>' class = 'category_items book' >
@@ -45,7 +45,36 @@
 
                 </div>
             </div>
-            
+
+            <% <!-- Popular authors window --> %>
+            <div class = "row">
+                <div class = "window col-md-8 col-md-offset-2">
+
+                    <!-- Title -->
+                    <h2 class = "window_title">
+                        <i class = "material-icons">people</i>
+                        Popular Authors
+                        <!-- Toggle button -->
+                        <a href = "#" class = "material-icons toggle_button button"
+                        title = "Toggle">keyboard_arrow_up</a>
+                    </h2>
+
+                    <!-- Window body -->
+                    <div class = "window_body">
+                        <div class = "popular_authors">
+                            <!-- Authors (only regular, popular in progress) -->
+                            <% authors.map(function(author){ %>
+        
+                                <a href = '<%= author.url %>' class = 'category_items author' ><%= author.name %></a>
+        
+                            <% }) %>
+                        </div>
+                        <a href="/catalog/authors" id = "see_all_authors" title = "See all authors">See all authors</a>
+                    </div>
+
+                </div>
+            </div>
+
             <% <!-- Sign in window --> %>
 
             <div class="row">
