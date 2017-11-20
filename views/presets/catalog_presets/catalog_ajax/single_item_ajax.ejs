@@ -6,18 +6,28 @@
         
         <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
 
-        <h3><%= book.title %></h3>
+        <div class = "info">
 
-        <i>Author</i>
-        <a href = "<%= book.author.url %>" class = "category_items author"><%= book.author.name %></a>
+            <h3><%= book.title %></h3>
 
-        <i>Summary</i>
-        <p><%= book.summary %></p>
+            <div class = "book_author">
+                <i>Author</i>
+                <a href = "<%= book.author.url %>" class = "category_items author"><%= book.author.name %></a>
+            </div>
 
-        <i>Genre</i>
-        <% book.genre.map(function(genre){ %>
-            <a href = "<%= genre.url %>" class = "category_items genre"><%= genre.name %></a><br/>
-        <% }) %>
+            <div class = "book_summary">
+                <i>Summary</i>
+                <p><%= book.summary %></p>
+            </div>
+
+            <div class = "book_genre">
+                <i>Genre</i>
+                <% book.genre.map(function(genre){ %>
+                    <a href = "<%= genre.url %>" class = "category_items genre"><%= genre.name %></a><br/>
+                <% }) %>
+            </div>
+
+        </div>
 
     </div>
 
@@ -27,21 +37,29 @@
     <div class = "single_item author">
 
         <img src = "/images/authors/<%= author.name %>.jpg" alt = "Author photo">
-        
-        <h3><%= author.name %></h3>
 
-        <i>Date of birth</i>
-        <p><%= author.date_of_birth.toDateString() %></p>
+        <div class = "info">
 
-        <i>Date of death</i>
-        <p><%= author.date_of_death.toDateString() %></p>
+            <h3><%= author.name %></h3>
+
+            <div class = "author_birth">
+                <i>Date of birth</i>
+                <p><%= author.date_of_birth.toDateString() %></p>
+            </div>
+
+            <div class = "author_death">
+                <i>Date of death</i>
+                <p><%= author.date_of_death.toDateString() %></p>
+            </div>
+            
+        </div>
 
         <!-- author's books -->
         <i>Books</i>
-        <div class = "books">
+        <div class = "author_books">
             <% if(author_books.length === 0){ %>
 
-                <p class = "none">No books from this author.</p>
+                <p class = "empty">No books from this author.</p>
 
             <% }else{ %>
 
@@ -81,7 +99,7 @@
         <div class = "books">
             <% if(genre_books.length === 0){ %>
 
-                <p class = "none">No books from this genre.</p>
+                <p class = "empty">No books from this genre.</p>
 
             <% }else { %>
 
