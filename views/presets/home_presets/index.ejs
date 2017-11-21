@@ -27,30 +27,33 @@
 
                     <!-- Window body -->
                     <div class = "window_body">
-                        <div id = "popular_books_placeholder">
-                            <img src="/images/books/Death Wave.jpg">
-                            <img src="/images/books/Apes And Angels.jpg">
-                            <img src="/images/books/The Name of the Wind (The Kingkiller Chronicle, 1).jpg">
-                            <img src="/images/books/The Wise Man's Fear (The Kingkiller Chronicle, 2).jpg">
-                            <img src="/images/books/The Slow Regard of Silent Things (Kingkiller Chronicle).jpg">
+                        <div id = "popular_books">
+                            <!-- Books (only regular, popular in progress) -->
+                            <% books.map(function(book){ %>
+
+                                <a href = '<%= book.url %>' class = 'category_items book' >
+                                    <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
+                                    <%= book.title %>
+                                </a>
+
+                            <% }) %>
                             <a href = "#" id = "arrow_left" class = "material-icons">keyboard_arrow_left</a>
                             <a href = "#" id = "arrow_right" class = "material-icons">keyboard_arrow_right</a>
                         </div>
-                        <a href="/catalog" id="see_full_catalog" title = "See the full catalog">See full catalog</a>
+                        <a href="/catalog/books" class = "see_all" title = "See all books">See all books</a>
                     </div>
 
                 </div>
             </div>
-            
-            <% <!-- Sign in window --> %>
 
-            <div class="row">
-                <div class="window col-md-8 col-md-offset-2">
+            <% <!-- Popular authors window --> %>
+            <div class = "row">
+                <div class = "window col-md-8 col-md-offset-2">
 
                     <!-- Title -->
                     <h2 class = "window_title">
-                        <i class = "material-icons">account_circle</i>
-                        Sign in
+                        <i class = "material-icons">people</i>
+                        Popular Authors
                         <!-- Toggle button -->
                         <a href = "#" class = "material-icons toggle_button button"
                         title = "Toggle">keyboard_arrow_up</a>
@@ -58,16 +61,15 @@
 
                     <!-- Window body -->
                     <div class = "window_body">
-                        <div id = "sign_in_placeholder">
-                            <p>Sign in with your account.</p>
-                            <label for = "username">Username:</label>
-                            <input  type = "text" id = "username"></input>
-                            <br>
-                            <label for = "password">Password:</label>
-                            <input type = "password" id = "password"></input>
-                            <br>
-                            <input type = "submit" value = "Submit"></input>
+                        <div class = "popular_authors">
+                            <!-- Authors (only regular, popular in progress) -->
+                            <% authors.map(function(author){ %>
+        
+                                <a href = '<%= author.url %>' class = 'category_items author' ><%= author.name %></a>
+        
+                            <% }) %>
                         </div>
+                        <a href = "/catalog/authors" class = "see_all" title = "See all authors">See all authors</a>
                     </div>
 
                 </div>

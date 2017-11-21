@@ -1,13 +1,8 @@
 $(document).ready(function(){
-    /* Website ----------------------------------------------------------------------------------------- */
-    
-    /* $(window).resize(function(){
-        console.log('width: ' + window.innerWidth);
-        console.log('height: ' + window.innerHeight);
-    }); */
+    /* Website ----------------------------------------------------------------------------------------- */    
 
     // Responsive navigation bar
-    $('.navi a.icon').off().on('click', function(){
+    $('.navi a.icon').off().on('click', function(event){
 
         event.preventDefault(); 
 
@@ -18,7 +13,7 @@ $(document).ready(function(){
         
     var websiteModule = function(){
 
-        // Close
+        // Close window
         var closeWindow = function(closeButton){
             
             var window = closeButton.parents('.window');
@@ -26,7 +21,7 @@ $(document).ready(function(){
 
         };
 
-        // Toggle
+        // Toggle window
         var toggleWindow= function(toggleButton){
             
             // Toggle the parent window
@@ -55,37 +50,62 @@ $(document).ready(function(){
 
     /* Homepage ----------------------------------------------------------------------------------------------------- */
 
-    // Scroll images right
-    $('#arrow_right').off().on('click', function(){
+    var homepageModule = function(){
+
+        // Scroll popular books right
+        var scrollRight = function(){
+
+            var popularBooks = $('#popular_books');
+
+            // Grab reference to the position of the scroll and increase it's value
+            var scrollPosition = popularBooks.scrollLeft();
+            scrollPosition += 250;
+
+            // Apply the new value using animation
+            popularBooks.animate({scrollLeft: scrollPosition}, 200);
+
+        };
+
+        // Scroll popular books left
+        var scrollLeft = function(){
+
+            var popularBooks = $('#popular_books');
+
+            // Grab reference to the position of the scroll and decrease it's value
+            var scrollPosition = popularBooks.scrollLeft();
+            scrollPosition -= 250;
+
+            // Apply the new value using animation
+           popularBooks.animate({scrollLeft: scrollPosition}, 200);
+
+        };
+        
+        return {scrollRight: scrollRight, scrollLeft: scrollLeft};
+
+    }();
+
+
+    // Right scroll button
+    $('#arrow_right').off().on('click', function(event){
         
         event.preventDefault();
-
-        // Grab reference to the position of the scroll and increase it's value
-        var scroll = $('#popular_books_placeholder').scrollLeft();
-        scroll += 290;
-
-        // Apply the new value using animation
-        $('#popular_books_placeholder').animate({scrollLeft: scroll},200);
-
+        
+        homepageModule.scrollRight();
+        
     });
     
 
-    // Scroll images left
-    $('#arrow_left').off().on('click', function(){
+    // Left scroll button
+    $('#arrow_left').off().on('click', function(event){
 
         event.preventDefault();
 
-        // Grab reference to the position of the scroll and increase it's value
-        var scroll = $('#popular_books_placeholder').scrollLeft();
-        scroll -= 290;
-
-        // Apply the new value using animation
-        $('#popular_books_placeholder').animate({scrollLeft: scroll},200);
+        homepageModule.scrollLeft();
 
     });
 
 
-    // Toggle window body
+    // Toggle button
     $('a.toggle_button').off().on('click', function(){
 
         event.preventDefault();
@@ -451,7 +471,7 @@ $(document).ready(function(){
 
     }();
    
-    // On first page load
+    // On first catalog page load
     if(location.href.indexOf('/catalog') > -1){
         
         // Highlight active category
