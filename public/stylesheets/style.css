@@ -249,8 +249,12 @@ p {
 
 /* Homepage --------------------------------------------------------------------------------------------------------- */
 
-.home_wrapper{
+.home_wrapper {
   padding: 25px 0px;
+}
+
+.window_body.popular {
+  /* padding: 15px 30px; */
 }
 
 /* Popular books */
@@ -258,10 +262,15 @@ p {
   white-space: nowrap;
   overflow-x: hidden;
   width: 100%;
+  padding: 0px 25px;
 }
 
 #popular_books .book {
   white-space: initial;
+}
+
+#popular_books .book:first-child {
+  margin-left: 0px;
 }
 
 /* Popular books scroll buttons */
@@ -294,7 +303,7 @@ a#arrow_right {
 /* Link to full catalog */
 a.see_all  {
   display: inline-block;
-  /* margin: 2px; */
+  margin-top: 5px;
 }
 
 a.see_all:link, a.see_all:visited {
