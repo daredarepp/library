@@ -1,15 +1,6 @@
 $(document).ready(function(){
     /* Website ----------------------------------------------------------------------------------------- */    
 
-    // Responsive navigation bar
-    $('.navi a.icon').off().on('click', function(event){
-
-        event.preventDefault(); 
-
-        $('.navi').toggleClass('responsive');
-
-    });
-
         
     var websiteModule = function(){
 
@@ -43,9 +34,44 @@ $(document).ready(function(){
             };
         };
 
-        return {closeWindow: closeWindow, toggleWindow: toggleWindow};
+        // Highlight navigation buttons
+        var highlightNavButtons = function(){
+          
+            var navButtons = $('.navi a').not('.icon');
+            var homeButton = navButtons.filter('[href = "/"]');
+            var catalogButton = navButtons.filter('[href = "/catalog"]');
+            var adminButton = navButtons.filter('[href = "/admin"]');
+
+            if(location.href === 'http://localhost:3000/'){
+
+                homeButton.addClass('current');
+
+            }else if(location.href.indexOf("/catalog") > -1){
+
+                catalogButton.addClass('current');
+
+            }else if(location.href.indexOf("/admin") > -1){
+
+                adminButton.addClass('current');
+
+            };
+
+        };
+
+        return {closeWindow: closeWindow, toggleWindow: toggleWindow, highlightNavButtons: highlightNavButtons};
 
     }();
+
+    websiteModule.highlightNavButtons();
+
+    // Responsive navigation bar
+    $('.navi a').filter('.icon').off().on('click', function(event){
+        
+        event.preventDefault(); 
+
+        $('.navi').toggleClass('responsive');
+
+    });
 
 
     /* Homepage ----------------------------------------------------------------------------------------------------- */
@@ -59,7 +85,7 @@ $(document).ready(function(){
 
             // Grab reference to the position of the scroll and increase it's value
             var scrollPosition = popularBooks.scrollLeft();
-            scrollPosition += 250;
+            scrollPosition += 245;
 
             // Apply the new value using animation
             popularBooks.animate({scrollLeft: scrollPosition}, 200);
@@ -73,7 +99,7 @@ $(document).ready(function(){
 
             // Grab reference to the position of the scroll and decrease it's value
             var scrollPosition = popularBooks.scrollLeft();
-            scrollPosition -= 250;
+            scrollPosition -= 245;
 
             // Apply the new value using animation
            popularBooks.animate({scrollLeft: scrollPosition}, 200);
@@ -191,19 +217,6 @@ $(document).ready(function(){
                 catalogModule.updateURL(url);
 
             })
-
-            // When failed
-            /* .fail(function(xhr, status){
-
-                var catalogError = $('<div></div>')
-                .addClass('window col-xs-12 col-md-8 col-md-offset-2 catalog catalog_error');
-                var closeButton = $('<a></a>').attr({'href':'#', 'title':'Close', 'id':'close_button'})
-                .addClass('material-icons');
-                catalogError.text(status).append(closeButton);
-                var wrapper = $('catalog_wrapper');
-                wrapper.append(catalogError);
-
-            }) */
 
         };
 
@@ -336,17 +349,17 @@ $(document).ready(function(){
             var oldActiveCategory = $('.selection_bar a').filter('.active');
             oldActiveCategory.removeClass('active');
 
-            if(url.indexOf('books') > -1 ){
+            if(url.indexOf('/books') > -1 ){
 
                 var newActiveCategory = $('.selection_bar a').filter('.books');
                 newActiveCategory.addClass('active');
 
-            }else if(url.indexOf('authors') > -1){
+            }else if(url.indexOf('/authors') > -1){
 
                 var newActiveCategory = $('.selection_bar a').filter('.authors');
                 newActiveCategory.addClass('active');
 
-            }else if(url.indexOf('genres') > -1){
+            }else if(url.indexOf('/genres') > -1){
 
                 var newActiveCategory = $('.selection_bar a').filter('.genres');
                 newActiveCategory.addClass('active');
@@ -374,18 +387,6 @@ $(document).ready(function(){
                 catalogModule.updateURL(url);
 
             })
-
-            // When failed
-           /*  .fail(function(xhr, status){
-
-                var catalogError = $('<div></div>')
-                .addClass('window col-xs-12 col-md-8 col-md-offset-2 catalog catalog_error');
-                catalogError.text(status);
-
-                var wrapper = $('catalog_wrapper');
-                wrapper.append(catalogError);
-
-            }) */
 
         };
 

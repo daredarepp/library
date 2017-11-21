@@ -69,10 +69,6 @@ p {
   font-size: 17px;
 }
 
-.navi a:nth-child(4){
-  float: right;
-}
-
 .navi a:link, .navi a:visited {
   color: white;
   text-decoration: none;
@@ -80,6 +76,11 @@ p {
 
 .navi a:hover {
   background-color: rgba(0, 0, 0, 0.205);
+}
+
+.navi a.current:link, .navi a.current:visited {
+  /* background-color: rgba(0, 0, 0, 0.205); */
+  box-shadow: inset 0px -3px 0px white;
 }
 
 .navi a.icon {
@@ -253,16 +254,12 @@ p {
   padding: 25px 0px;
 }
 
-.window_body.popular {
-  /* padding: 15px 30px; */
-}
-
 /* Popular books */
 #popular_books {
   white-space: nowrap;
   overflow-x: hidden;
   width: 100%;
-  padding: 0px 25px;
+  padding: 0px 20px;
 }
 
 #popular_books .book {
@@ -270,7 +267,7 @@ p {
 }
 
 #popular_books .book:first-child {
-  margin-left: 0px;
+  margin-left: 12px;
 }
 
 /* Popular books scroll buttons */
@@ -303,7 +300,7 @@ a#arrow_right {
 /* Link to full catalog */
 a.see_all  {
   display: inline-block;
-  margin-top: 5px;
+  margin-top: 15px;
 }
 
 a.see_all:link, a.see_all:visited {
@@ -455,6 +452,7 @@ a.see_all:link, a.see_all:visited {
   border-radius: 2px;
   padding: 15px;
   display: block;
+  text-align: center;
 }
 
 .category_items:link, .category_items:visited {
@@ -491,7 +489,7 @@ a.see_all:link, a.see_all:visited {
 
 /* Author items from authors list */
 .category_items.author {
-  padding-left: 30px;
+  /* padding-left: 30px; */
 }
 
 .category_items.author:hover {
@@ -500,7 +498,7 @@ a.see_all:link, a.see_all:visited {
 
 /* Genre items from genres list */
 .category_items.genre {
-  padding-left: 30px;
+  /* padding-left: 30px; */
 }
 
 .category_items.genre:hover {
