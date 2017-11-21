@@ -275,7 +275,7 @@ a#arrow_left, a#arrow_right {
   position: absolute;
   top: 44%;
   font-weight: bold;
-  color: black;
+  color: rgb(13, 92, 134);
   box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -292,15 +292,12 @@ a#arrow_right {
 }
 
 /* Link to full catalog */
-a#see_all_books {
+a.see_all  {
   display: inline-block;
+  /* margin: 2px; */
 }
 
-a#see_all_books:link, a#see_all_books:visited {
-  color: rgb(2, 119, 189);
-}
-
-a#see_all_authors:link, a#see_all_authors:visited {
+a.see_all:link, a.see_all:visited {
   color: rgb(2, 119, 189);
 }
 
@@ -308,12 +305,6 @@ a#see_all_authors:link, a#see_all_authors:visited {
 .popular_authors {
   text-align: left;
 }
-
-/* Sign in window input */
-#sign_in_placeholder input {
-  margin: 5px;
-}
-
 
 
 /* Catalog page ----------------------------------------------------------------------------------------------------- */
@@ -530,7 +521,7 @@ a#see_all_authors:link, a#see_all_authors:visited {
 .single_item h3 {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.075);
-  padding: 4px;
+  padding: 2px;
 }
 
 .single_item i {
@@ -622,7 +613,7 @@ a#see_all_authors:link, a#see_all_authors:visited {
 }
 
 .single_item.genre .search_button {
-  padding: 5px 3px;
+  padding: 3px 3px;
   border-radius: 2px 0px 0px 2px;
   top: 0px;
   right: 0px;
