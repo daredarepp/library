@@ -203,24 +203,24 @@ p {
 
 .search_bar label {
   position: absolute;
-  top: 15px;
+  top: 10px;
   left: 20px;
   color: rgba(0, 0, 0, 0.411);
 }
 
 /* Search field */
-.search_bar #search_field {
+#search_field {
   outline: none;
   border: none;
   width: 100%;
-  padding: 12px 0px 5px;
+  padding: 5px 0px 10px;
   font-size: 24px;
   background-color: transparent;
   color: rgba(0, 0, 0, 0.562);
 }
 
 /* Clear search button */
-.search_bar #clear_search {
+#clear_search {
   display: none;
   position: absolute;
   right: 20px;
@@ -230,7 +230,7 @@ p {
   font-size: 24px;
 }
 
-.search_bar #clear_search:hover {
+#clear_search:hover {
   color: black;
 }
 
@@ -685,5 +685,29 @@ a.see_all:link, a.see_all:visited {
 }
 
 .admin .button.active {
-  background-color: rgba(0, 0, 0, 0.356);
+  /* background-color: rgba(0, 0, 0, 0.356); */
+  background-color: white;
+  color: black;
+}
+
+.admin .category_items {
+  padding: 10px 40px;
+  text-align: left;
+  margin: 0px;
+  position: relative;
+}
+
+.admin .delete {
+  position: absolute;
+  right: 40px;
+}
+
+.admin .edit {
+  position: absolute;
+  right: 70px;
+}
+
+.admin .search_bar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.356);
+  margin-bottom: 5px;
 }

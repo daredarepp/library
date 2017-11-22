@@ -19,7 +19,7 @@ module.exports.admin_get = function(req,res,next){
 
     Promise.all([booksPromise, authorsPromise, genresPromise]).then(function([books, authors, genres]){
 
-        res.render('admin', {title: "Admin", books: books, authors: authors});
+        res.render('admin', {title: "Admin", books: books, authors: authors, genres: genres});
 
     }).catch(function(err){
 

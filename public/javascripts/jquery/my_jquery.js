@@ -259,7 +259,8 @@ $(document).ready(function(){
         var openSearch = function(searchButton){
 
             // Toggle the active button only when the search field is empty
-            var searchField = $('#search_field');
+            var window = searchButton.parents('.window');
+            var searchField = window.find('#search_field');
             if(searchField.val().length === 0){
 
                 searchButton.toggleClass('active');
@@ -267,21 +268,23 @@ $(document).ready(function(){
             };
             
             // Toggle the search bar
-            var searchBar = $('.search_bar');
+            var searchBar = window.find('.search_bar');
             searchBar.slideToggle(100);
 
             searchField.focus();
 
         };
         
-        // Search catalog
-        var searchCatalog = function(searchValue){
+        // Search items
+        var searchItems = function(searchField, searchValue){
 
             // Remove previous no match string
-            $('.no_match').remove();
+            var window = searchField.parents('.window');
+            window.find('.no_match').remove();
 
             // Show only the category items that match the search
-            var categoryItems = $('.category_items');
+            var categoryItems = window.find('.category_items');
+            
             categoryItems.map(function(){
 
                 var item = $(this);
@@ -299,20 +302,20 @@ $(document).ready(function(){
 
             });
 
-            // Show a button that clears the search
-            var clearSearchButton = $('#clear_search');
+            // Show the button that clears the search
+            var clearSearchButton = window.find('#clear_search');
             searchValue.length > 0 ? clearSearchButton.show() : clearSearchButton.hide();
 
             // No match
-            var invisibleItems = $('.category_items').filter('[style="display: none;"]');
+            var invisibleItems = categoryItems.filter('[style="display: none;"]');
 
             if(invisibleItems.length === categoryItems.length){ 
 
                 var noMatch = $('<p></p>').addClass('no_match');
                 noMatch.text('No items match your search.');
 
-                var itemsSection = $('.window_body').find('.books, .authors, .genres');
-                itemsSection.append(noMatch);
+                var windowBody = window.find('.window_body');
+                windowBody.append(noMatch);
 
             };        
 
@@ -320,17 +323,18 @@ $(document).ready(function(){
 
         // Clear search
         var clearSearch = function(button){
-
+            
             // Remove no match string
-            $('.no_match').remove();
+            var window = $(button).parents('.window');
+            window.find('.no_match').remove();
             
             // Empty the search field and focus on it
-            var searchField = $('#search_field');
+            var searchField = window.find('#search_field');
             searchField.val('');
             searchField.focus();
 
             // Show all the category items
-            var categoryItems = $('.category_items');
+            var categoryItems = window.find('.category_items');
             categoryItems.show();
 
             // Hide the button
@@ -394,7 +398,7 @@ $(document).ready(function(){
         var addEventListeners = function(){
             
             // Selection windows
-            $('.selection_window a').off().on('click', function(event){
+            $('.selection_window').find('a').off().on('click', function(event){
 
                 event.preventDefault();
                 var category = $(this).attr('class');         
@@ -403,7 +407,7 @@ $(document).ready(function(){
             });
             
             // Selection bar
-            $('.selection_bar a').off().on('click', function(event){
+            $('.selection_bar').find('a').off().on('click', function(event){
 
                 event.preventDefault()
                 var category = $(this).attr('class');
@@ -421,7 +425,7 @@ $(document).ready(function(){
             });
             
             // Catalog close button
-            $('#close_button').off().on('click', function(event){
+            $('.window').find('#close_button').off().on('click', function(event){
 
                 event.preventDefault();
                 catalogModule.closeCatalog();
@@ -437,28 +441,28 @@ $(document).ready(function(){
             });
 
             // Search field
-            $('#search_field').off().on('keyup paste',function(){
+            $('.window').find('#search_field').off().on('keyup paste',function(){
                 
-                var searchField = this;
+                var searchField = $(this);
     
                 // Short pause to wait for paste to complete
                 setTimeout(function(){
-                    var searchValue = $(searchField).val();
-                    catalogModule.searchCatalog(searchValue);
+                    var searchValue = searchField.val();
+                    catalogModule.searchItems(searchField, searchValue);
                 }, 100);
 
             });
 
             // Clear search button
-            $('#clear_search').off().on('click', function(){
-
+            $('.window').find('#clear_search').off().on('click', function(){
+                
                 var button = $(this);
                 catalogModule.clearSearch(button);
 
             });
 
             // Category items
-            $('.category_items').off().on('click', function(event){
+            $('.catalog').find('.category_items').off().on('click', function(event){
 
                 event.preventDefault();
                 var url = $(this).attr('href');
@@ -468,7 +472,7 @@ $(document).ready(function(){
             
         };
 
-        return {openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, goBack: goBack, openSearch: openSearch, searchCatalog: searchCatalog, clearSearch: clearSearch, openSingleItem: openSingleItem, addEventListeners: addEventListeners};
+        return {openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, goBack: goBack, openSearch: openSearch, searchItems: searchItems, clearSearch: clearSearch, openSingleItem: openSingleItem, addEventListeners: addEventListeners};
 
     }();
    
@@ -484,10 +488,10 @@ $(document).ready(function(){
         var wrapper = $('.catalog_wrapper');
         history.replaceState({wrapper: wrapper.html()}, '', location.href);
 
-        // Add the event listeners
-        catalogModule.addEventListeners();
-
     };
+    
+    // Add the event listeners
+    catalogModule.addEventListeners();
 
     // Navigating through page states
     window.onpopstate = function(event){
@@ -506,3 +510,13 @@ $(document).ready(function(){
     };
 
 });
+
+
+/* Admin page ------------------------------------------------------------------------------------------------------- */
+
+var adminModule = function() {
+
+    
+
+}();
+
