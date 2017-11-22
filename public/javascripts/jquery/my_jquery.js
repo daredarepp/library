@@ -85,7 +85,7 @@ $(document).ready(function(){
 
             // Grab reference to the position of the scroll and increase it's value
             var scrollPosition = popularBooks.scrollLeft();
-            scrollPosition += 245;
+            scrollPosition += 247;
 
             // Apply the new value using animation
             popularBooks.animate({scrollLeft: scrollPosition}, 200);
@@ -99,7 +99,7 @@ $(document).ready(function(){
 
             // Grab reference to the position of the scroll and decrease it's value
             var scrollPosition = popularBooks.scrollLeft();
-            scrollPosition -= 245;
+            scrollPosition -= 247;
 
             // Apply the new value using animation
            popularBooks.animate({scrollLeft: scrollPosition}, 200);

@@ -148,7 +148,7 @@ p {
   border-radius: 25px;
 }
 
-.button:link, .button:visited, .button:focus {
+.button:link, .button:visited {
   text-decoration: none;
   background-color: transparent;
   color: rgb(2, 119, 189);
@@ -161,6 +161,10 @@ p {
 .button.active:link, .button.active:visited {
   background-color: rgba(0, 0, 0, 0.075);
 }
+
+/* .back_button:active, #close_button:active {
+  background-color: rgba(0, 0, 0, 0.075);
+} */
 
 /* Toggle button */
 .toggle_button  {
@@ -267,7 +271,7 @@ p {
 }
 
 #popular_books .book:first-child {
-  margin-left: 12px;
+  margin-left: 20px;
 }
 
 /* Popular books scroll buttons */
@@ -652,4 +656,34 @@ a.see_all:link, a.see_all:visited {
 .single_item.genre .empty {
   text-align: center;
   margin: 10px;
+}
+
+
+/* Admin page ------------------------------------------------------------------------------------------------------- */
+
+
+.admin_wrapper{
+  padding: 25px 0px;
+}
+
+.admin .window_title {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.466);
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.admin .window_title i {
+  color: rgba(255, 255, 255, 0.883);
+}
+
+.admin .button:link, .admin .button:visited {
+  color: rgb(255, 255, 255);
+}
+
+.admin .button:hover {
+  background-color: rgba(0, 0, 0, 0.356);
+}
+
+.admin .button.active {
+  background-color: rgba(0, 0, 0, 0.356);
 }
