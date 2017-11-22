@@ -12,21 +12,18 @@ module.exports.index_get = function(req, res, next){
 
     mongoose.connect(uri, options);
     
-    // Books
-    Book.find({},'title').exec(function(err, books){
+    var booksPromise = Book.find({}, 'title').exec();
+    var authorsPromise = Author.find({}, 'first_name family_name').exec();
+    
+    Promise.all([booksPromise, authorsPromise]).then(function([books, authors]){
 
-        if(err) throw err;
-        
-        // Authors
-        Author.find({}, 'first_name family_name').exec(function(err, authors){
+        res.render('home', {title: "Home", books: books, authors: authors});
 
-            if (err) throw err;
+    }).catch(function(err){
 
-            
-            res.render('home', {title: "Home", books: books, authors: authors});
-            
-        });
-        
+        console.log(err);
+        res.send('Something went wrong');
+
     });
-
+            
 };

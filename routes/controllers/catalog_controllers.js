@@ -7,7 +7,7 @@ var Genre = require('/Users/Darko/Desktop/Library/library/models/genre');
 /* GET catalog index page. */
 
 module.exports.catalog_get = function(req,res,next){
-    res.render('catalog', {title: "Catalog"});
+    res.render('catalog');
 };
 
 /* GET category */
@@ -25,7 +25,7 @@ module.exports.catalog_category_get = function(req, res, next){
         // Books
         case 'books':
 
-            Book.find({}, 'title author').sort('title').populate('author', 'first_name family_name').exec(function(err, books){
+            Book.find({}, 'title').sort('title').populate('author', 'first_name family_name').exec(function(err, books){
 
                 if(err) throw err;
 
@@ -38,8 +38,7 @@ module.exports.catalog_category_get = function(req, res, next){
                 // Regular
                 }else{
 
-                    res.render('catalog', {title: 'Catalog', category: 'Books', icon: 'library_books',
-                    result: books});
+                    res.render('catalog', {category: 'Books', icon: 'library_books', result: books});
 
                 };
 
@@ -62,7 +61,7 @@ module.exports.catalog_category_get = function(req, res, next){
                 // Regular
                 }else{
 
-                    res.render('catalog', {title: 'Catalog', category: 'Authors', icon: 'people', result: authors});
+                    res.render('catalog', {category: 'Authors', icon: 'people', result: authors});
 
                 };
 
@@ -85,7 +84,7 @@ module.exports.catalog_category_get = function(req, res, next){
                 // Regular
                 }else{
 
-                    res.render('catalog', {title: 'Catalog', category: 'Genres', icon: 'view_agenda', result: genres});
+                    res.render('catalog', {category: 'Genres', icon: 'view_agenda', result: genres});
 
                 };
 
@@ -124,7 +123,7 @@ module.exports.catalog_item_get = function(req, res, next){
                 // Regular
                 }else{
 
-                    res.render('catalog', {title: 'Catalog', category: 'Books', icon: 'library_books', book: book, single: true, ajax: req.xhr});
+                    res.render('catalog', {category: 'Books', icon: 'library_books', book: book, single: true, ajax: req.xhr});
 
                 };
 
@@ -134,29 +133,28 @@ module.exports.catalog_item_get = function(req, res, next){
         // Single Author
         case 'authors':
 
-            Author.findOne({'_id': id}).exec(function(err, author){
+            var authorPromise = Author.findOne({'_id': id}).exec();
+            var authorBooksPromise = Book.find({'author': id}, 'title').exec();
 
-                if(err) throw err;
+            Promise.all([authorPromise, authorBooksPromise]).then(function([author, author_books]){
 
-                // Author's books
-                Book.find({'author': id}, 'title').exec(function(err, author_books){
+                 // AJAX
+                 if(req.xhr){
+                    
+                    res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Authors', 
+                    icon: 'people', author: author, author_books: author_books, single: true, ajax: req.xhr});
 
-                    if(err) throw err;
+                // Regular
+                }else{
 
-                    // AJAX
-                    if(req.xhr){
-    
-                        res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Authors', 
-                        icon: 'people', author: author, author_books: author_books, single: true, ajax: req.xhr});
-    
-                    // Regular
-                    }else{
-    
-                        res.render('catalog', {title: 'Catalog', category: 'Authors', icon: 'people', author: author, author_books: author_books, single: true, ajax: req.xhr});
-    
-                    };
+                    res.render('catalog', {category: 'Authors', icon: 'people', author: author, author_books: author_books, single: true, ajax: req.xhr});
 
-                });
+                };
+
+            }).catch(function(err){
+
+                console.log(err);
+                res.send('Something went wrong');
 
             });
             break;
@@ -164,29 +162,28 @@ module.exports.catalog_item_get = function(req, res, next){
         // Single Genre
         case 'genres':
 
-            Genre.findOne({'_id': id}).exec(function(err, genre){
+            var genrePromise = Genre.findOne({'_id': id}).exec();
+            var genreBooksPromise = Book.find({'genre': id}).exec();
 
-                if(err) throw err;
+            Promise.all([genrePromise, genreBooksPromise]).then(function([genre, genre_books]){
+
+                // AJAX
+                if(req.xhr){
+                    
+                    res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Genres', 
+                    icon: 'view_agenda', genre: genre, genre_books: genre_books, single: true, ajax: req.xhr});
+
+                // Regular
+                }else{
+
+                    res.render('catalog', {category: 'Genres', icon: 'view_agenda', genre: genre, genre_books: genre_books, single: true, ajax: req.xhr});
+
+                };
+
+            }).catch(function(err){ 
                 
-                // Genre's books
-                Book.find({'genre': id}, 'title').exec(function(err, genre_books){
-
-                    if(err) throw err;
-
-                    // AJAX
-                    if(req.xhr){
-    
-                        res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Genres', 
-                        icon: 'view_agenda', genre: genre, genre_books: genre_books, single: true, ajax: req.xhr});
-
-                    // Regular
-                    }else{
-    
-                        res.render('catalog', {title: 'Catalog', category: 'Genres', icon: 'view_agenda', genre: genre, genre_books: genre_books, single: true, ajax: req.xhr});
-    
-                    };
-
-                });
+                console.log(err);
+                res.send('Something went wrong');
 
             });
             
