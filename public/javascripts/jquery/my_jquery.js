@@ -132,7 +132,7 @@ $(document).ready(function(){
 
 
     // Toggle button
-    $('a.toggle_button').off().on('click', function(){
+    $('a.toggle_button').off().on('click', function(event){
 
         event.preventDefault();
 
@@ -146,6 +146,11 @@ $(document).ready(function(){
     
     // Catalog module
     var catalogModule = function(){
+
+        var wrapper = $('.catalog_wrapper');
+
+        var catalogCategory = $('.catalog').attr('data-category');
+        var activeCategory = $('.selection_bar a').filter(`.${catalogCategory}`);
 
         // Open catalog
         var openCatalog = function(category){
@@ -207,7 +212,6 @@ $(document).ready(function(){
             .done(function(catalog) {
 
                 // Display the catalog
-                var wrapper = $('.catalog_wrapper');
                 wrapper.append(catalog);
                 
                 // Add the event listeners
@@ -223,7 +227,6 @@ $(document).ready(function(){
         // Update URL
         var updateURL = function(newURL){
 
-            var wrapper = $('.catalog_wrapper');
             history.pushState({wrapper: wrapper.html()}, '', newURL);
 
         };
@@ -381,7 +384,6 @@ $(document).ready(function(){
             .done(function(item) {
                 
                 // Display the item
-                var wrapper = $('.catalog_wrapper');
                 wrapper.append(item);
 
                 // Add the event listeners
@@ -471,8 +473,9 @@ $(document).ready(function(){
             });
             
         };
-
-        return {openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, goBack: goBack, openSearch: openSearch, searchItems: searchItems, clearSearch: clearSearch, openSingleItem: openSingleItem, addEventListeners: addEventListeners};
+        
+        return {wrapper: wrapper, catalogCategory: catalogCategory, activeCategory: activeCategory,
+                 openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, goBack: goBack, openSearch: openSearch, searchItems: searchItems, clearSearch: clearSearch, openSingleItem: openSingleItem, addEventListeners: addEventListeners};
 
     }();
    
@@ -480,16 +483,13 @@ $(document).ready(function(){
     if(location.href.indexOf('/catalog') > -1){
         
         // Highlight active category
-        var catalogCategory = $('.catalog').attr('data-category');
-        var activeCategory = $('.selection_bar a').filter(`.${catalogCategory}`);
-        activeCategory.addClass('active');
+        catalogModule.activeCategory.addClass('active');
         
         // Save a state of the page
-        var wrapper = $('.catalog_wrapper');
-        history.replaceState({wrapper: wrapper.html()}, '', location.href);
+        history.replaceState({wrapper: catalogModule.wrapper.html()}, '', location.href);
 
     };
-    
+
     // Add the event listeners
     catalogModule.addEventListeners();
 
@@ -499,8 +499,7 @@ $(document).ready(function(){
         if(event.state){
             
             // Display the saved state
-            var wrapper = $('.catalog_wrapper');
-            wrapper.html(event.state.wrapper);
+            catalogModule.wrapper.html(event.state.wrapper);
             
             // Add the event listeners
             catalogModule.addEventListeners();
