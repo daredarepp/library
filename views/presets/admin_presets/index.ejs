@@ -39,7 +39,7 @@
                         
                         <% <!-- Books list --> %>
                         <div class = "books">
-                            <% books.map(function(book){ %>
+                            <% books.forEach(function(book) { %>
         
                                 <p class = "category_items">
                                     <%= book.title %>
@@ -86,7 +86,7 @@
 
                         <% <!-- Authors list --> %>
                         <div class = "authors">
-                            <% authors.map(function(author){ %>
+                            <% authors.forEach(function(author) { %>
         
                                 <p class = "category_items">
                                     <%= author.name %>
@@ -133,7 +133,7 @@
 
                         <% <!-- Books list --> %>
                         <div class = "genres">
-                            <% genres.map(function(genre){ %>
+                            <% genres.forEach(function(genre) { %>
         
                                 <p class = "category_items">
                                     <%= genre.name %>

@@ -5,7 +5,7 @@ var Author = require('/Users/Darko/Desktop/Library/library/models/author');
 
 /* GET home page. */
 
-module.exports.index_get = function(req, res, next){
+module.exports.index_get = function(req, res, next) {
 
     var uri = 'mongodb://localhost/mydb';
     var options = { useMongoClient: true };

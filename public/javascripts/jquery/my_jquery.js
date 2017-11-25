@@ -1,11 +1,11 @@
-$(document).ready(function(){
+$(document).ready(function() {
     /* Website ----------------------------------------------------------------------------------------- */    
 
         
-    var websiteModule = function(){
+    var websiteModule = function() {
 
         // Close window
-        var closeWindow = function(closeButton){
+        var closeWindow = function(closeButton) {
             
             var window = closeButton.parents('.window');
             window.remove();
@@ -13,7 +13,7 @@ $(document).ready(function(){
         };
 
         // Toggle window
-        var toggleWindow= function(toggleButton){
+        var toggleWindow= function(toggleButton) {
             
             // Toggle the parent window
             var windowBody = toggleButton.parents('.window').children('.window_body');
@@ -21,40 +21,40 @@ $(document).ready(function(){
 
 
             // Toggle the active button
-            if(toggleButton.text() === 'keyboard_arrow_up'){
+            if (toggleButton.text() === 'keyboard_arrow_up') {
 
                 toggleButton.text('keyboard_arrow_down');
                 toggleButton.toggleClass('active');
 
-            }else{
+            } else {
 
                 toggleButton.text('keyboard_arrow_up');
                 toggleButton.toggleClass('active');
                 
-            };
+            }
         };
 
         // Highlight navigation buttons
-        var highlightNavButtons = function(){
+        var highlightNavButtons = function() {
           
             var navButtons = $('.navi a').not('.icon');
             var homeButton = navButtons.filter('[href = "/"]');
             var catalogButton = navButtons.filter('[href = "/catalog"]');
             var adminButton = navButtons.filter('[href = "/admin"]');
 
-            if(location.href === 'http://localhost:3000/'){
+            if (location.href === 'http://localhost:3000/') {
 
                 homeButton.addClass('current');
 
-            }else if(location.href.indexOf("/catalog") > -1){
+            } else if (location.href.indexOf("/catalog") > -1) {
 
                 catalogButton.addClass('current');
 
-            }else if(location.href.indexOf("/admin") > -1){
+            } else if (location.href.indexOf("/admin") > -1) {
 
                 adminButton.addClass('current');
 
-            };
+            }
 
         };
 
@@ -65,7 +65,7 @@ $(document).ready(function(){
     websiteModule.highlightNavButtons();
 
     // Responsive navigation bar
-    $('.navi a').filter('.icon').off().on('click', function(event){
+    $('.navi a').filter('.icon').off().on('click', function(event) {
         
         event.preventDefault(); 
 
@@ -76,10 +76,10 @@ $(document).ready(function(){
 
     /* Homepage ----------------------------------------------------------------------------------------------------- */
 
-    var homepageModule = function(){
+    var homepageModule = function() {
 
         // Scroll popular books right
-        var scrollRight = function(){
+        var scrollRight = function() {
 
             var popularBooks = $('#popular_books');
 
@@ -93,7 +93,7 @@ $(document).ready(function(){
         };
 
         // Scroll popular books left
-        var scrollLeft = function(){
+        var scrollLeft = function() {
 
             var popularBooks = $('#popular_books');
 
@@ -112,7 +112,7 @@ $(document).ready(function(){
 
 
     // Right scroll button
-    $('#arrow_right').off().on('click', function(event){
+    $('#arrow_right').off().on('click', function(event) {
         
         event.preventDefault();
         
@@ -122,7 +122,7 @@ $(document).ready(function(){
     
 
     // Left scroll button
-    $('#arrow_left').off().on('click', function(event){
+    $('#arrow_left').off().on('click', function(event) {
 
         event.preventDefault();
 
@@ -132,7 +132,7 @@ $(document).ready(function(){
 
 
     // Toggle button
-    $('a.toggle_button').off().on('click', function(event){
+    $('a.toggle_button').off().on('click', function(event) {
 
         event.preventDefault();
 
@@ -145,7 +145,7 @@ $(document).ready(function(){
  
     
     // Catalog module
-    var catalogModule = function(){
+    var catalogModule = function() {
 
         var wrapper = $('.catalog_wrapper');
 
@@ -153,7 +153,7 @@ $(document).ready(function(){
         var activeCategory = $('.selection_bar a').filter(`.${catalogCategory}`);
 
         // Open catalog
-        var openCatalog = function(category){
+        var openCatalog = function(category) {
             
             var selectionWindows = $('.selection_window');
             selectionWindows.hide();
@@ -171,14 +171,14 @@ $(document).ready(function(){
         };
 
         // Change catalog
-        var changeCatalog = function(category){
+        var changeCatalog = function(category) {
             
             // If the link is already active
-            if(category.indexOf('active') > -1){
+            if (category.indexOf('active') > -1) {
                 
                 return;    
 
-            }else{
+            } else {
                 
                 // Highlight the active category
                 var oldActiveCategory = $('.selection_bar a').filter('.active');
@@ -194,12 +194,12 @@ $(document).ready(function(){
                 // Load the new catalog
                 catalogModule.loadCatalogContent(newActiveCategory.attr('href'));
 
-            };
+            }
 
         };
 
         // Load catalog content
-        var loadCatalogContent = function(url){
+        var loadCatalogContent = function(url) {
             
             // Send ajax request
             $.ajax({
@@ -225,14 +225,14 @@ $(document).ready(function(){
         };
 
         // Update URL
-        var updateURL = function(newURL){
+        var updateURL = function(newURL) {
 
             history.pushState({wrapper: wrapper.html()}, '', newURL);
 
         };
 
         // Close catalog
-        var closeCatalog = function(closeButton){
+        var closeCatalog = function(closeButton) {
             
             var catalog = $('.catalog');
             catalog.remove();
@@ -252,23 +252,23 @@ $(document).ready(function(){
         };
 
         // Go back
-        var goBack = function(){
+        var goBack = function() {
           
             history.back();
 
         };
 
         // Open search bar
-        var openSearch = function(searchButton){
+        var openSearch = function(searchButton) {
 
             // Toggle the active button only when the search field is empty
             var window = searchButton.parents('.window');
             var searchField = window.find('#search_field');
-            if(searchField.val().length === 0){
+            if (searchField.val().length === 0) {
 
                 searchButton.toggleClass('active');
 
-            };
+            }
             
             // Toggle the search bar
             var searchBar = window.find('.search_bar');
@@ -279,7 +279,7 @@ $(document).ready(function(){
         };
         
         // Search items
-        var searchItems = function(searchField, searchValue){
+        var searchItems = function(searchField, searchValue) {
 
             // Remove previous no match string
             var window = searchField.parents('.window');
@@ -287,21 +287,19 @@ $(document).ready(function(){
 
             // Show only the category items that match the search
             var categoryItems = window.find('.category_items');
-            
-            categoryItems.map(function(){
+            categoryItems.each(function(i,item) {
 
-                var item = $(this);
-                var itemName = item.text().toLowerCase();
+                var itemName = $(item).text().toLowerCase();
 
-                if(itemName.indexOf(searchValue) > -1){
+                if (itemName.indexOf(searchValue) > -1) {
 
-                    item.show();
+                    $(item).show();
 
-                }else{
+                } else {
 
-                    item.hide();
+                    $(item).hide();
 
-                };
+                }
 
             });
 
@@ -312,7 +310,7 @@ $(document).ready(function(){
             // No match
             var invisibleItems = categoryItems.filter('[style="display: none;"]');
 
-            if(invisibleItems.length === categoryItems.length){ 
+            if (invisibleItems.length === categoryItems.length) { 
 
                 var noMatch = $('<p></p>').addClass('no_match');
                 noMatch.text('No items match your search.');
@@ -325,7 +323,7 @@ $(document).ready(function(){
         };
 
         // Clear search
-        var clearSearch = function(button){
+        var clearSearch = function(button) {
             
             // Remove no match string
             var window = $(button).parents('.window');
@@ -346,7 +344,7 @@ $(document).ready(function(){
         };
 
         // Open single item
-        var openSingleItem = function(url){
+        var openSingleItem = function(url) {
             
             // Remove the old catalog
             var oldCatalog = $('.catalog');
@@ -356,22 +354,22 @@ $(document).ready(function(){
             var oldActiveCategory = $('.selection_bar a').filter('.active');
             oldActiveCategory.removeClass('active');
 
-            if(url.indexOf('/books') > -1 ){
+            if (url.indexOf('/books') > -1 ) {
 
                 var newActiveCategory = $('.selection_bar a').filter('.books');
                 newActiveCategory.addClass('active');
 
-            }else if(url.indexOf('/authors') > -1){
+            } else if (url.indexOf('/authors') > -1) {
 
                 var newActiveCategory = $('.selection_bar a').filter('.authors');
                 newActiveCategory.addClass('active');
 
-            }else if(url.indexOf('/genres') > -1){
+            } else if (url.indexOf('/genres') > -1) {
 
                 var newActiveCategory = $('.selection_bar a').filter('.genres');
                 newActiveCategory.addClass('active');
 
-            };
+            }
 
             // Send ajax request
             $.ajax({
@@ -397,10 +395,10 @@ $(document).ready(function(){
         };
 
         // Add event listeners
-        var addEventListeners = function(){
+        var addEventListeners = function() {
             
             // Selection windows
-            $('.selection_window').find('a').off().on('click', function(event){
+            $('.selection_window').find('a').off().on('click', function(event) {
 
                 event.preventDefault();
                 var category = $(this).attr('class');         
@@ -409,7 +407,7 @@ $(document).ready(function(){
             });
             
             // Selection bar
-            $('.selection_bar').find('a').off().on('click', function(event){
+            $('.selection_bar').find('a').off().on('click', function(event) {
 
                 event.preventDefault()
                 var category = $(this).attr('class');
@@ -418,7 +416,7 @@ $(document).ready(function(){
             });
 
             // Catalog search button
-            $('.search_button').off().on('click',function(event){
+            $('.search_button').off().on('click',function(event) {
                 
                 event.preventDefault();
                 var searchButton = $(this);
@@ -427,7 +425,7 @@ $(document).ready(function(){
             });
             
             // Catalog close button
-            $('.window').find('#close_button').off().on('click', function(event){
+            $('.window').find('#close_button').off().on('click', function(event) {
 
                 event.preventDefault();
                 catalogModule.closeCatalog();
@@ -435,7 +433,7 @@ $(document).ready(function(){
             });
 
             // Catalog back button
-            $('.back_button').off().on('click', function(event){
+            $('.back_button').off().on('click', function(event) {
 
                 event.preventDefault();
                 catalogModule.goBack();
@@ -443,12 +441,12 @@ $(document).ready(function(){
             });
 
             // Search field
-            $('.window').find('#search_field').off().on('keyup paste',function(){
+            $('.window').find('#search_field').off().on('keyup paste',function() {
                 
                 var searchField = $(this);
     
                 // Short pause to wait for paste to complete
-                setTimeout(function(){
+                setTimeout(function() {
                     var searchValue = searchField.val();
                     catalogModule.searchItems(searchField, searchValue);
                 }, 100);
@@ -456,7 +454,7 @@ $(document).ready(function(){
             });
 
             // Clear search button
-            $('.window').find('#clear_search').off().on('click', function(){
+            $('.window').find('#clear_search').off().on('click', function() {
                 
                 var button = $(this);
                 catalogModule.clearSearch(button);
@@ -464,7 +462,7 @@ $(document).ready(function(){
             });
 
             // Category items
-            $('.catalog').find('.category_items').off().on('click', function(event){
+            $('.catalog').find('.category_items').off().on('click', function(event) {
 
                 event.preventDefault();
                 var url = $(this).attr('href');
@@ -474,13 +472,13 @@ $(document).ready(function(){
             
         };
         
-        return {wrapper: wrapper, catalogCategory: catalogCategory, activeCategory: activeCategory,
-                 openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, goBack: goBack, openSearch: openSearch, searchItems: searchItems, clearSearch: clearSearch, openSingleItem: openSingleItem, addEventListeners: addEventListeners};
+        return { wrapper: wrapper, catalogCategory: catalogCategory, activeCategory: activeCategory,
+                 openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, goBack: goBack, openSearch: openSearch, searchItems: searchItems, clearSearch: clearSearch, openSingleItem: openSingleItem, addEventListeners: addEventListeners };
 
     }();
    
     // On first catalog page load
-    if(location.href.indexOf('/catalog') > -1){
+    if(location.href.indexOf('/catalog') > -1) {
         
         // Highlight active category
         catalogModule.activeCategory.addClass('active');
@@ -488,15 +486,15 @@ $(document).ready(function(){
         // Save a state of the page
         history.replaceState({wrapper: catalogModule.wrapper.html()}, '', location.href);
 
-    };
+    }
 
     // Add the event listeners
     catalogModule.addEventListeners();
 
     // Navigating through page states
-    window.onpopstate = function(event){
+    window.onpopstate = function(event) {
         
-        if(event.state){
+        if(event.state) {
             
             // Display the saved state
             catalogModule.wrapper.html(event.state.wrapper);
@@ -504,18 +502,22 @@ $(document).ready(function(){
             // Add the event listeners
             catalogModule.addEventListeners();
 
-        };
+        }
 
     };
+
+
+    /* Admin page ------------------------------------------------------------------------------------------------------- */
+    
+    var adminModule = function() {
+    
+        
+    
+    }();
+
+
 
 });
 
 
-/* Admin page ------------------------------------------------------------------------------------------------------- */
-
-var adminModule = function() {
-
-    
-
-}();
 

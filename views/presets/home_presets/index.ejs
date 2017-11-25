@@ -29,7 +29,7 @@
                     <div class = "window_body popular">
                         <div id = "popular_books">
                             <!-- Books (only regular, popular in progress) -->
-                            <% books.map(function(book){ %>
+                            <% books.forEach(function(book) { %>
 
                                 <a href = '<%= book.url %>' class = 'category_items book' >
                                     <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
@@ -65,7 +65,7 @@
                     <div class = "window_body">
                         <div class = "popular_authors">
                             <!-- Authors (only regular, popular in progress) -->
-                            <% authors.map(function(author){ %>
+                            <% authors.forEach(function(author) { %>
         
                                 <a href = '<%= author.url %>' class = 'category_items author' ><%= author.name %></a>
         

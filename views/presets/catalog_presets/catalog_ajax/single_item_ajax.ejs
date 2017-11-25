@@ -1,6 +1,6 @@
 
 <!-- Book -->
-<% if(typeof book !== 'undefined'){ %>
+<% if (typeof book !== 'undefined') { %>
 
     <div class = "single_item book">
         
@@ -22,7 +22,7 @@
 
             <div class = "book_genre">
                 <i>Genre</i>
-                <% book.genre.map(function(genre){ %>
+                <% book.genre.forEach(function(genre) { %>
                     <a href = "<%= genre.url %>" class = "category_items genre"><%= genre.name %></a><br/>
                 <% }) %>
             </div>
@@ -32,7 +32,7 @@
     </div>
 
 <!-- Author -->
-<% }else if(typeof author !== 'undefined'){ %>
+<% } else if (typeof author !== 'undefined') { %>
 
     <div class = "single_item author">
 
@@ -57,13 +57,13 @@
         <!-- author's books -->
         <i>Books</i>
         <div class = "author_books">
-            <% if(author_books.length === 0){ %>
+            <% if (author_books.length === 0) { %>
 
                 <p class = "empty">No books from this author.</p>
 
-            <% }else{ %>
+            <% } else { %>
 
-                <% author_books.map(function(book){ %>
+                <% author_books.forEach(function(book) { %>
 
                     <a href = '<%= book.url %>' class = 'category_items book' >
                         <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
@@ -78,7 +78,7 @@
     </div>
 
 <!-- Genre -->
-<% }else if(typeof genre !== 'undefined'){ %>
+<% } else if (typeof genre !== 'undefined') { %>
 
     <div class = "single_item genre">
 
@@ -97,13 +97,13 @@
 
         <!-- genre's books -->
         <div class = "books">
-            <% if(genre_books.length === 0){ %>
+            <% if (genre_books.length === 0) { %>
 
                 <p class = "empty">No books from this genre.</p>
 
-            <% }else { %>
+            <% } else { %>
 
-                <% genre_books.map(function(book){ %>
+                <% genre_books.forEach(function(book) { %>
 
                     <a href = '<%= book.url %>' class = 'category_items book' >
                         <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">

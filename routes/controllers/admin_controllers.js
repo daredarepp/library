@@ -17,7 +17,7 @@ module.exports.admin_get = function(req,res,next){
     var authorsPromise = Author.find({}, 'first_name family_name').sort('family_name').exec();
     var genresPromise = Genre.find({}, 'name').sort('name').exec();
 
-    Promise.all([booksPromise, authorsPromise, genresPromise]).then(function([books, authors, genres]){
+    Promise.all([booksPromise, authorsPromise, genresPromise]).then(function([books, authors, genres]) {
 
         res.render('admin', {title: "Admin", books: books, authors: authors, genres: genres});
 

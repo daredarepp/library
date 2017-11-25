@@ -15,7 +15,7 @@
         <a id="close_button" href="#" title="Close" class="material-icons button">close</a>
     
         <!-- Show the back button only in single item windows on ajax requests -->
-        <% if(typeof single !== 'undefined' && ajax){ %>
+        <% if (typeof single !== 'undefined' && ajax) { %>
     
             <!-- Back button -->
             <a class = "material-icons back_button button" href = "#" title = "Back">arrow_back</a>
@@ -23,7 +23,7 @@
         <% } %>
     
         <!-- Don't show these search button and search bar in single item windows -->
-        <% if(typeof single === 'undefined'){ %>
+        <% if (typeof single === 'undefined') { %>
     
             <!-- Search button -->
             <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
@@ -36,7 +36,7 @@
     <!-- Window body -->
     <div class="window_body">
             
-        <% if(typeof single === 'undefined'){ %>
+        <% if (typeof single === 'undefined') { %>
     
             <!-- Search bar -->
             <div class = "search_bar">
@@ -49,13 +49,13 @@
 
         <% <!-- Display either lists with category items or a single item --> %>
         
-        <% if(typeof single === 'undefined'){ %>
+        <% if (typeof single === 'undefined') { %>
 
             <% <!-- Books list --> %>
-            <% if(category === 'Books'){ %>
+            <% if (category === 'Books') { %>
                 
                 <div class = "books">
-                    <% result.map(function(book){ %>
+                    <% result.forEach(function(book) { %>
 
                         <a href = '<%= book.url %>' class = 'category_items book' >
                             <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
@@ -66,10 +66,10 @@
                 </div>
 
             <% <!-- Authors list --> %>
-            <% }else if(category === 'Authors'){ %>
+            <% } else if (category === 'Authors') { %>
 
                 <div class = "authors">
-                    <% result.map(function(author){ %>
+                    <% result.forEach(function(author) { %>
 
                         <a href = '<%= author.url %>' class = 'category_items author' ><%= author.name %></a>
 
@@ -77,10 +77,10 @@
                 </div>
                     
             <% <!-- Genres list --> %>
-            <% }else if(category === 'Genres'){ %>
+            <% } else if (category === 'Genres') { %>
 
                 <div class = "genres">
-                    <% result.map(function(genre){ %>
+                    <% result.forEach(function(genre) { %>
 
                         <a href = '<%= genre.url %>' class = 'category_items genre' ><%= genre.name %></a>
                         
@@ -90,7 +90,7 @@
             <% } %>
         
         <% <!-- Single item --> %>
-        <% }else{ %>
+        <% } else { %>
             
             <% include single_item_ajax %>
 
