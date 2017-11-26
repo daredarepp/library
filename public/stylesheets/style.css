@@ -194,6 +194,11 @@ p {
   top: 10px;
 }
 
+#close_button:hover {
+  background-color: #B71C1C;
+  color: white;
+}
+
 /* Search bar */
 .search_bar {
   display: none;
@@ -685,9 +690,9 @@ a.see_all:link, a.see_all:visited {
 }
 
 .admin .button.active {
-  /* background-color: rgba(0, 0, 0, 0.356); */
-  background-color: white;
-  color: black;
+  background-color: rgba(0, 0, 0, 0.356);
+  /* background-color: white; */
+  /* color: black; */
 }
 
 .admin .category_items {
