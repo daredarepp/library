@@ -1,25 +1,25 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-var Book = require('/Users/Darko/Desktop/Library/library/models/book');
-var Author = require('/Users/Darko/Desktop/Library/library/models/author');
+var Movie = require('/Users/Darko/Desktop/Library/library/models/movie');
+var Director = require('/Users/Darko/Desktop/Library/library/models/director');
 var Genre = require('/Users/Darko/Desktop/Library/library/models/genre');
 
 /* GET admin page. */
 
 module.exports.admin_get = function(req,res,next){
 
-    var uri = 'mongodb://localhost/mydb';
+    var uri = 'mongodb://localhost/moviedb';
     var options = {useMongoClient: true};
 
     mongoose.connect(uri, options);
 
-    var booksPromise = Book.find({}, 'title').sort('title').exec();
-    var authorsPromise = Author.find({}, 'first_name family_name').sort('family_name').exec();
+    var moviesPromise = Movie.find({}, 'title').sort('title').exec();
+    var directorsPromise = Director.find({}, 'first_name last_name').sort('first_name').exec();
     var genresPromise = Genre.find({}, 'name').sort('name').exec();
 
-    Promise.all([booksPromise, authorsPromise, genresPromise]).then(function([books, authors, genres]) {
+    Promise.all([moviesPromise, directorsPromise, genresPromise]).then(function([movies, directors, genres]) {
 
-        res.render('admin', {title: "Admin", books: books, authors: authors, genres: genres});
+        res.render('admin', {movies: movies, directors: directors, genres: genres});
 
     }).catch(function(err){
 

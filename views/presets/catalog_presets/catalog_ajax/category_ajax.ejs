@@ -51,27 +51,27 @@
         
         <% if (typeof single === 'undefined') { %>
 
-            <% <!-- Books list --> %>
-            <% if (category === 'Books') { %>
+            <% <!-- Movies list --> %>
+            <% if (category === 'Movies') { %>
                 
-                <div class = "books">
-                    <% result.forEach(function(book) { %>
+                <div class = "movies">
+                    <% result.forEach(function(movie) { %>
 
-                        <a href = '<%= book.url %>' class = 'category_items book' >
-                            <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
-                            <%= book.title %>
+                        <a href = '<%= movie.url %>' class = 'category_items movie' >
+                            <img src = "/images/movies/<%= movie.title %>.jpg" alt = "Movie poster">
+                            <%= movie.title %>
                         </a>
 
                     <% }) %>   
                 </div>
 
-            <% <!-- Authors list --> %>
-            <% } else if (category === 'Authors') { %>
+            <% <!-- Directors list --> %>
+            <% } else if (category === 'Directors') { %>
 
-                <div class = "authors">
-                    <% result.forEach(function(author) { %>
+                <div class = "directors">
+                    <% result.forEach(function(director) { %>
 
-                        <a href = '<%= author.url %>' class = 'category_items author' ><%= author.name %></a>
+                        <a href = '<%= director.url %>' class = 'category_items director' ><%= director.name %></a>
 
                     <% }) %>
                 </div>

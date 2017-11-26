@@ -2,7 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var movieSchema = new Schema({title: {type: String, required: true},
-                             director: {type: Schema.Types.ObjectId, ref: "Director", required: true},
+                             year: {type: Date, required: true},
+                             director: [{type: Schema.Types.ObjectId, ref: "Director", required: true}],
                              storyline: {type: String, required: true},
                              genre: [{type: Schema.Types.ObjectId, ref: "Genre"}]
 })

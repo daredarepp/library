@@ -7,16 +7,16 @@
     <div class = "row">
         <div class = "col-xs-12 admin_wrapper">
 
-            <!-- Books -->
+            <!-- Movies -->
             <div class = "row">
-                <div class = "window col-md-8 col-md-offset-2 admin books">
+                <div class = "window col-md-8 col-md-offset-2 admin movies">
 
                     <!-- Title -->
                     <h2 class = "window_title">
 
-                        <i class = "material-icons ">library_books</i>
+                        <i class = "material-icons ">local_movies</i>
 
-                        Books
+                        Movies
 
                         <!-- Search button -->
                         <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
@@ -37,12 +37,12 @@
                             <i id = "clear_search" class = "material-icons" title = "Clear">close</i>
                         </div>
                         
-                        <% <!-- Books list --> %>
-                        <div class = "books">
-                            <% books.forEach(function(book) { %>
+                        <% <!-- movies list --> %>
+                        <div class = "movies">
+                            <% movies.forEach(function(movie) { %>
         
                                 <p class = "category_items">
-                                    <%= book.title %>
+                                    <%= movie.title %>
                                     <a href = "#" class = "material-icons delete">delete</a>
                                 </p>
         
@@ -54,16 +54,16 @@
                 </div>
             </div>
 
-            <!-- Authors -->
+            <!-- Directors -->
             <div class = "row">
-                <div class = "window col-md-8 col-md-offset-2 admin authors">
+                <div class = "window col-md-8 col-md-offset-2 admin directors">
 
                     <!-- Title -->
                     <h2 class = "window_title">
 
                         <i class = "material-icons ">people</i>
 
-                        Authors
+                        Directors
 
                         <!-- Search button -->
                         <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
@@ -84,12 +84,12 @@
                             <i id = "clear_search" class = "material-icons" title = "Clear">close</i>
                         </div>
 
-                        <% <!-- Authors list --> %>
-                        <div class = "authors">
-                            <% authors.forEach(function(author) { %>
+                        <% <!-- Directors list --> %>
+                        <div class = "directors">
+                            <% directors.forEach(function(director) { %>
         
                                 <p class = "category_items">
-                                    <%= author.name %>
+                                    <%= director.name %>
                                     <a href = "#" class = "material-icons delete">delete</a>
                                 </p>
         
@@ -131,7 +131,7 @@
                             <i id = "clear_search" class = "material-icons" title = "Clear">close</i>
                         </div>
 
-                        <% <!-- Books list --> %>
+                        <% <!-- Movies list --> %>
                         <div class = "genres">
                             <% genres.forEach(function(genre) { %>
         

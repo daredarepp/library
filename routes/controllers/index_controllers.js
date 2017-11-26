@@ -1,23 +1,23 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-var Book = require('/Users/Darko/Desktop/Library/library/models/book');
-var Author = require('/Users/Darko/Desktop/Library/library/models/author');
+var Movie = require('/Users/Darko/Desktop/Library/library/models/movie');
+var Director = require('/Users/Darko/Desktop/Library/library/models/director');
 
 /* GET home page. */
 
 module.exports.index_get = function(req, res, next) {
 
-    var uri = 'mongodb://localhost/mydb';
+    var uri = 'mongodb://localhost/moviedb';
     var options = { useMongoClient: true };
 
     mongoose.connect(uri, options);
     
-    var booksPromise = Book.find({}, 'title').exec();
-    var authorsPromise = Author.find({}, 'first_name family_name').exec();
+    var moviesPromise = Movie.find({}, 'title').exec();
+    var directorsPromise = Director.find({}, 'first_name last_name').exec();
     
-    Promise.all([booksPromise, authorsPromise]).then(function([books, authors]){
+    Promise.all([moviesPromise, directorsPromise]).then(function([movies, directors]){
 
-        res.render('home', {title: "Home", books: books, authors: authors});
+        res.render('home', {movies: movies, directors: directors});
 
     }).catch(function(err){
 

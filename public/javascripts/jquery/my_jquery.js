@@ -21,14 +21,14 @@ $(document).ready(function() {
 
 
             // Toggle the active button
-            if (toggleButton.text() === 'keyboard_arrow_up') {
+            if (toggleButton.text() === 'keyboard_arrow_left') {
 
                 toggleButton.text('keyboard_arrow_down');
                 toggleButton.toggleClass('active');
 
             } else {
 
-                toggleButton.text('keyboard_arrow_up');
+                toggleButton.text('keyboard_arrow_left');
                 toggleButton.toggleClass('active');
                 
             }
@@ -78,31 +78,31 @@ $(document).ready(function() {
 
     var homepageModule = function() {
 
-        // Scroll popular books right
+        // Scroll popular movies right
         var scrollRight = function() {
 
-            var popularBooks = $('#popular_books');
+            var popularmovies = $('#popular_movies');
 
             // Grab reference to the position of the scroll and increase it's value
-            var scrollPosition = popularBooks.scrollLeft();
+            var scrollPosition = popularmovies.scrollLeft();
             scrollPosition += 247;
 
             // Apply the new value using animation
-            popularBooks.animate({scrollLeft: scrollPosition}, 200);
+            popularmovies.animate({scrollLeft: scrollPosition}, 200);
 
         };
 
-        // Scroll popular books left
+        // Scroll popular movies left
         var scrollLeft = function() {
 
-            var popularBooks = $('#popular_books');
+            var popularmovies = $('#popular_movies');
 
             // Grab reference to the position of the scroll and decrease it's value
-            var scrollPosition = popularBooks.scrollLeft();
+            var scrollPosition = popularmovies.scrollLeft();
             scrollPosition -= 247;
 
             // Apply the new value using animation
-           popularBooks.animate({scrollLeft: scrollPosition}, 200);
+           popularmovies.animate({scrollLeft: scrollPosition}, 200);
 
         };
         
@@ -148,9 +148,6 @@ $(document).ready(function() {
     var catalogModule = function() {
 
         var wrapper = $('.catalog_wrapper');
-
-        var catalogCategory = $('.catalog').attr('data-category');
-        var activeCategory = $('.selection_bar a').filter(`.${catalogCategory}`);
 
         // Open catalog
         var openCatalog = function(category) {
@@ -354,14 +351,14 @@ $(document).ready(function() {
             var oldActiveCategory = $('.selection_bar a').filter('.active');
             oldActiveCategory.removeClass('active');
 
-            if (url.indexOf('/books') > -1 ) {
+            if (url.indexOf('/movies') > -1 ) {
 
-                var newActiveCategory = $('.selection_bar a').filter('.books');
+                var newActiveCategory = $('.selection_bar a').filter('.movies');
                 newActiveCategory.addClass('active');
 
-            } else if (url.indexOf('/authors') > -1) {
+            } else if (url.indexOf('/directors') > -1) {
 
-                var newActiveCategory = $('.selection_bar a').filter('.authors');
+                var newActiveCategory = $('.selection_bar a').filter('.directors');
                 newActiveCategory.addClass('active');
 
             } else if (url.indexOf('/genres') > -1) {
@@ -472,16 +469,18 @@ $(document).ready(function() {
             
         };
         
-        return { wrapper: wrapper, catalogCategory: catalogCategory, activeCategory: activeCategory,
-                 openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, goBack: goBack, openSearch: openSearch, searchItems: searchItems, clearSearch: clearSearch, openSingleItem: openSingleItem, addEventListeners: addEventListeners };
+        return { wrapper: wrapper, openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, goBack: goBack, openSearch: openSearch, searchItems: searchItems, clearSearch: clearSearch, openSingleItem: openSingleItem, addEventListeners: addEventListeners };
 
     }();
    
     // On first catalog page load
     if(location.href.indexOf('/catalog') > -1) {
-        
+
+        let catalogCategory = $('.catalog').attr('data-category');
+        let activeCategory = $('.selection_bar a').filter(`.${catalogCategory}`);
+
         // Highlight active category
-        catalogModule.activeCategory.addClass('active');
+        activeCategory.addClass('active');
         
         // Save a state of the page
         history.replaceState({wrapper: catalogModule.wrapper.html()}, '', location.href);

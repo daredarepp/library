@@ -263,23 +263,23 @@ p {
   padding: 25px 0px;
 }
 
-/* Popular books */
-#popular_books {
+/* Popular movies */
+#popular_movies {
   white-space: nowrap;
   overflow-x: hidden;
   width: 100%;
   padding: 0px 20px;
 }
 
-#popular_books .book {
+#popular_movies .movie {
   white-space: initial;
 }
 
-#popular_books .book:first-child {
+#popular_movies .movie:first-child {
   margin-left: 20px;
 }
 
-/* Popular books scroll buttons */
+/* Popular movies scroll buttons */
 a#arrow_left, a#arrow_right {
   text-decoration: none;
   display: inline-block;
@@ -316,8 +316,8 @@ a.see_all:link, a.see_all:visited {
   color: rgb(2, 119, 189);
 }
 
-/* Popular authors */
-.popular_authors {
+/* Popular directors */
+.popular_directors {
   text-align: left;
 }
 
@@ -444,14 +444,14 @@ a.see_all:link, a.see_all:visited {
   text-align: left;
 }
 
-/* Books list */
-.catalog .books {
+/* Movies list */
+.catalog .movies {
   padding: 0px 15px;
   /* text-align: center; */
 }
 
 @media (max-width: 629px) {
-  .catalog .books {
+  .catalog .movies {
     text-align: center;
   }
 }
@@ -474,8 +474,8 @@ a.see_all:link, a.see_all:visited {
   /* box-shadow: inset 5px 0px 0px rgba(0, 0, 0, 0.205); */
 }
 
-/* Book items from books list */
-.category_items.book {
+/* Movie items from movies list */
+.category_items.movie {
   display: inline-block;
   width: 200px;
   text-align: center;
@@ -485,23 +485,23 @@ a.see_all:link, a.see_all:visited {
   background-color: rgba(0, 0, 0, 0.075);  
 }
 
-.category_items.book:hover {
+.category_items.movie:hover {
   box-shadow:inset 0px -5px 0px 0px rgba(0, 0, 0, 0.205);
 }
 
-.category_items.book img {
+.category_items.movie img {
   width: 200px;
   height: 300px;
   display: block;
   margin-bottom: 5px;
 }
 
-/* Author items from authors list */
-.category_items.author {
+/* Director items from directors list */
+.category_items.director {
   /* padding-left: 30px; */
 }
 
-.category_items.author:hover {
+.category_items.director:hover {
   box-shadow: inset 5px 0px 0px rgba(0, 0, 0, 0.205);
 }
 
@@ -583,37 +583,37 @@ a.see_all:link, a.see_all:visited {
 
 }
 
-/* Single book */
-.single_item.book a {
+/* Single movie */
+.single_item.movie a {
   display: inline;
   padding: 0px;
 }
 
-.single_item.book a:link, .single_item.book a:visited {
+.single_item.movie a:link, .single_item.movie a:visited {
   color: rgb(2, 120, 189);
 }
 
-.single_item.book a:hover {
+.single_item.movie a:hover {
   background-color: white;
   box-shadow: none;
   text-decoration: underline;
 }
 
-/* Single author */
-.author_books .book {
+/* Single director */
+.director_movies .movie {
   width: 150px;
   font-size: 16px;
   margin: 0px 10px 10px 0px;
 }
 
-.author_books .book img {
+.director_movies .movie img {
   width: 150px;
   height: 200px;
 }
 
 @media (max-width: 629px) {
   
-    .author_books .book {
+    .director_movies .movie {
       margin: 10px 0px;
     }
   
@@ -654,7 +654,7 @@ a.see_all:link, a.see_all:visited {
   text-align: center;
 }
 
-.single_item.genre .books {
+.single_item.genre .movies {
   padding-top: 15px;
 }
 

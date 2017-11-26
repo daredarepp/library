@@ -1,28 +1,28 @@
 
-<!-- Book -->
-<% if (typeof book !== 'undefined') { %>
+<!-- Movie -->
+<% if (typeof movie !== 'undefined') { %>
 
-    <div class = "single_item book">
+    <div class = "single_item movie">
         
-        <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
+        <img src = "/images/movies/<%= movie.title %>.jpg" alt = "Movie poster">
 
         <div class = "info">
 
-            <h3><%= book.title %></h3>
+            <h3><%= movie.title %></h3>
 
-            <div class = "book_author">
-                <i>Author</i>
-                <a href = "<%= book.author.url %>" class = "category_items author"><%= book.author.name %></a>
+            <div class = "movie_director">
+                <i>Director</i>
+                <a href = "<%= movie.director.url %>" class = "category_items director"><%= movie.director.name %></a>
             </div>
 
-            <div class = "book_summary">
-                <i>Summary</i>
-                <p><%= book.summary %></p>
+            <div class = "movie_storyline">
+                <i>Storyline</i>
+                <p><%= movie.storyline %></p>
             </div>
 
-            <div class = "book_genre">
+            <div class = "movie_genre">
                 <i>Genre</i>
-                <% book.genre.forEach(function(genre) { %>
+                <% movie.genre.forEach(function(genre) { %>
                     <a href = "<%= genre.url %>" class = "category_items genre"><%= genre.name %></a><br/>
                 <% }) %>
             </div>
@@ -31,43 +31,48 @@
 
     </div>
 
-<!-- Author -->
-<% } else if (typeof author !== 'undefined') { %>
+<!-- Director -->
+<% } else if (typeof director !== 'undefined') { %>
 
-    <div class = "single_item author">
+    <div class = "single_item director">
 
-        <img src = "/images/authors/<%= author.name %>.jpg" alt = "Author photo">
+        <img src = "/images/directors/<%= director.name %>.jpg" alt = "Director photo">
 
         <div class = "info">
 
-            <h3><%= author.name %></h3>
+            <h3><%= director.name %></h3>
 
-            <div class = "author_birth">
+            <div class = "director_birth">
                 <i>Date of birth</i>
-                <p><%= author.date_of_birth.toLocaleDateString() %></p>
+                <p><%= director.date_of_birth.toLocaleDateString() %></p>
             </div>
 
-            <div class = "author_death">
+            <div class = "director_death">
                 <i>Date of death</i>
-                <p><%= author.date_of_death.toLocaleDateString() %></p>
+                <p><%= director.date_of_death.toLocaleDateString() %></p>
+            </div>
+
+            <div class = "director_bio">
+                <i>Bio</i>
+                <p><%= director.bio</p>
             </div>
             
         </div>
 
-        <!-- author's books -->
-        <i>Books</i>
-        <div class = "author_books">
-            <% if (author_books.length === 0) { %>
+        <!-- Director's movies -->
+        <i>Movies</i>
+        <div class = "director_movies">
+            <% if (director_movies.length === 0) { %>
 
-                <p class = "empty">No books from this author.</p>
+                <p class = "empty">No movies from this director.</p>
 
             <% } else { %>
 
-                <% author_books.forEach(function(book) { %>
+                <% director_movies.forEach(function(movie) { %>
 
-                    <a href = '<%= book.url %>' class = 'category_items book' >
-                        <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
-                        <%= book.title %>
+                    <a href = '<%= movie.url %>' class = 'category_items movie' >
+                        <img src = "/images/movies/<%= movie.title %>.jpg" alt = "Movie poster">
+                        <%= movie.title %>
                     </a>
 
                 <% }) %>
@@ -95,19 +100,19 @@
             <span id = "clear_search" class = "material-icons" title = "Clear">close</span>
         </div>
 
-        <!-- genre's books -->
-        <div class = "books">
-            <% if (genre_books.length === 0) { %>
+        <!-- genre's movies -->
+        <div class = "movies">
+            <% if (genre_movies.length === 0) { %>
 
-                <p class = "empty">No books from this genre.</p>
+                <p class = "empty">No movies from this genre.</p>
 
             <% } else { %>
 
-                <% genre_books.forEach(function(book) { %>
+                <% genre_movies.forEach(function(movie) { %>
 
-                    <a href = '<%= book.url %>' class = 'category_items book' >
-                        <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
-                        <%= book.title %>
+                    <a href = '<%= movie.url %>' class = 'category_items movie' >
+                        <img src = "/images/movies/<%= movie.title %>.jpg" alt = "Movie poster">
+                        <%= movie.title %>
                     </a>
 
                 <% }) %>
