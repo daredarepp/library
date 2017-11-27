@@ -24,13 +24,13 @@ module.exports.catalog_category_get = function(req, res, next) {
     
     switch(category) {
         
-        // movies
+        // Movies
         case 'movies':
-
+            console.log('movies request received');
             Movie.find({}, 'title').sort('title').populate('director', 'first_name last_name').exec(function(err, movies) {
 
                 if (err) throw err;
-
+                console.log('movies request processing');
                 // AJAX
                 if (req.xhr) {
 
@@ -40,31 +40,31 @@ module.exports.catalog_category_get = function(req, res, next) {
                 // Regular
                 }else{
 
-                    res.render('catalog', {category: 'movies', icon: 'local_movies', result: movies});
-
+                    res.render('catalog', {category: 'Movies', icon: 'local_movies', result: movies});
+                    
                 };
 
             });
             break;
 
-        // directors
+        // Directors
         case 'directors':
-
-            director.find({}, 'first_name last_name').sort('first_name').exec(function(err, directors) {
-
+            
+            Director.find({}, 'first_name last_name').sort('first_name').exec(function(err, directors) {
+                
                 if (err) throw err;
-
+                
                 // AJAX
                 if (req.xhr) {
 
                     res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Directors',
                     icon: 'people', result: directors});
-                
+                    
                 // Regular
                 } else {
 
-                    res.render('catalog', {category: 'directors', icon: 'people', result: directors});
-
+                    res.render('catalog', {category: 'Directors', icon: 'people', result: directors});
+                    
                 }
 
             });
@@ -72,11 +72,11 @@ module.exports.catalog_category_get = function(req, res, next) {
 
         // Genres
         case 'genres':
-
+            
             Genre.find({}, 'name').sort('name').exec(function(err, genres) {
 
                 if (err) throw err;
-
+                
                 // AJAX
                 if (req.xhr) {
                     

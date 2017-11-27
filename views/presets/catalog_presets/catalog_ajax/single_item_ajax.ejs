@@ -10,9 +10,16 @@
 
             <h3><%= movie.title %></h3>
 
+            <div class = "movie_year">
+                <i>Release year</i>
+                <p><%= movie.year.getFullYear() %></p>
+            </div>
+
             <div class = "movie_director">
                 <i>Director</i>
-                <a href = "<%= movie.director.url %>" class = "category_items director"><%= movie.director.name %></a>
+                <% movie.director.forEach(function(director){ %>
+                    <a href = "<%= director.url %>" class = "category_items director"><%= director.name %></a><br>
+                <% }) %>
             </div>
 
             <div class = "movie_storyline">
@@ -23,7 +30,7 @@
             <div class = "movie_genre">
                 <i>Genre</i>
                 <% movie.genre.forEach(function(genre) { %>
-                    <a href = "<%= genre.url %>" class = "category_items genre"><%= genre.name %></a><br/>
+                    <a href = "<%= genre.url %>" class = "category_items genre"><%= genre.name %></a><br>
                 <% }) %>
             </div>
 
@@ -44,17 +51,21 @@
 
             <div class = "director_birth">
                 <i>Date of birth</i>
-                <p><%= director.date_of_birth.toLocaleDateString() %></p>
+                <p><%= director.date_of_birth.getDate() + ' ' + 
+                    director.date_of_birth.toLocaleString('en-us',{month:'long'}) + ' ' + 
+                    director.date_of_birth.getFullYear() %></p>
             </div>
 
-            <div class = "director_death">
-                <i>Date of death</i>
-                <p><%= director.date_of_death.toLocaleDateString() %></p>
-            </div>
+            <% if (typeof director.date_of_death !== 'undefined') { %>
+                <div class = "director_death">
+                    <i>Date of death</i>
+                    <p><%= director.date_of_death %></p>
+                </div>
+            <% } %>
 
             <div class = "director_bio">
                 <i>Bio</i>
-                <p><%= director.bio</p>
+                <p><%= director.bio %></p>
             </div>
             
         </div>
@@ -72,7 +83,7 @@
 
                     <a href = '<%= movie.url %>' class = 'category_items movie' >
                         <img src = "/images/movies/<%= movie.title %>.jpg" alt = "Movie poster">
-                        <%= movie.title %>
+                        <%= movie.title %> %>
                     </a>
 
                 <% }) %>
