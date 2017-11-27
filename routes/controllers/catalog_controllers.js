@@ -26,11 +26,11 @@ module.exports.catalog_category_get = function(req, res, next) {
         
         // Movies
         case 'movies':
-            console.log('movies request received');
-            Movie.find({}, 'title').sort('title').populate('director', 'first_name last_name').exec(function(err, movies) {
+            
+            Movie.find({}, 'title year').sort('title').exec(function(err, movies) {
 
                 if (err) throw err;
-                console.log('movies request processing');
+                
                 // AJAX
                 if (req.xhr) {
 
@@ -136,7 +136,7 @@ module.exports.catalog_item_get = function(req, res, next) {
         case 'directors':
 
             var directorPromise = Director.findOne({'_id': id}).exec();
-            var directorMoviesPromise = Movie.find({'director': id}, 'title').exec();
+            var directorMoviesPromise = Movie.find({'director': id}, 'title year').exec();           
 
             Promise.all([directorPromise, directorMoviesPromise]).then(function([director, director_movies]) {
 
@@ -165,7 +165,7 @@ module.exports.catalog_item_get = function(req, res, next) {
         case 'genres':
 
             var genrePromise = Genre.findOne({'_id': id}).exec();
-            var genreMoviesPromise = Movie.find({'genre': id}).exec();
+            var genreMoviesPromise = Movie.find({'genre': id}, 'title year').exec();
 
             Promise.all([genrePromise, genreMoviesPromise]).then(function([genre, genre_movies]) {
 

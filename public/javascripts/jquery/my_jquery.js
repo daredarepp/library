@@ -79,30 +79,30 @@ $(document).ready(function() {
     var homepageModule = function() {
 
         // Scroll popular movies right
-        var scrollRight = function() {
-
-            var popularmovies = $('#popular_movies');
+        var scrollRight = function(button) {
+            
+            var elementToScroll = button.parent();
 
             // Grab reference to the position of the scroll and increase it's value
-            var scrollPosition = popularmovies.scrollLeft();
+            var scrollPosition = elementToScroll.scrollLeft();
             scrollPosition += 247;
 
             // Apply the new value using animation
-            popularmovies.animate({scrollLeft: scrollPosition}, 200);
+            elementToScroll.animate({scrollLeft: scrollPosition}, 200);
 
         };
 
         // Scroll popular movies left
-        var scrollLeft = function() {
+        var scrollLeft = function(button) {
 
-            var popularmovies = $('#popular_movies');
+            var elementToScroll = button.parent();
 
             // Grab reference to the position of the scroll and decrease it's value
-            var scrollPosition = popularmovies.scrollLeft();
+            var scrollPosition = elementToScroll.scrollLeft();
             scrollPosition -= 247;
 
             // Apply the new value using animation
-           popularmovies.animate({scrollLeft: scrollPosition}, 200);
+           elementToScroll.animate({scrollLeft: scrollPosition}, 200);
 
         };
         
@@ -112,21 +112,23 @@ $(document).ready(function() {
 
 
     // Right scroll button
-    $('#arrow_right').off().on('click', function(event) {
+    $('.scroll_right').off().on('click', function(event) {
         
         event.preventDefault();
         
-        homepageModule.scrollRight();
+        var button = $(this);
+        homepageModule.scrollRight(button);
         
     });
     
 
     // Left scroll button
-    $('#arrow_left').off().on('click', function(event) {
+    $('.scroll_left').off().on('click', function(event) {
 
         event.preventDefault();
 
-        homepageModule.scrollLeft();
+        var button = $(this);
+        homepageModule.scrollLeft(button);
 
     });
 

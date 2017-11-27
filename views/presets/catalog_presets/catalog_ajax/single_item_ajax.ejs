@@ -14,20 +14,23 @@
                 <i>Release year</i>
                 <p><%= movie.year.getFullYear() %></p>
             </div>
-
-            <div class = "movie_director">
-                <i>Director</i>
-                <% movie.director.forEach(function(director){ %>
-                    <a href = "<%= director.url %>" class = "category_items director"><%= director.name %></a><br>
-                <% }) %>
-            </div>
-
+            
             <div class = "movie_storyline">
                 <i>Storyline</i>
                 <p><%= movie.storyline %></p>
             </div>
 
-            <div class = "movie_genre">
+            <div class = "movie_directors">
+                <i>Director</i>
+                <% movie.director.forEach(function(director){ %>
+                    <a href = "<%= director.url %>" class = "category_items director">
+                        <img src = "/images/directors/<%= director.name %>.jpg" alt = "Director photo">
+                        <%= director.name %>
+                    </a>
+                <% }) %>
+            </div>
+            
+            <div class = "movie_genres">
                 <i>Genre</i>
                 <% movie.genre.forEach(function(genre) { %>
                     <a href = "<%= genre.url %>" class = "category_items genre"><%= genre.name %></a><br>
@@ -53,7 +56,8 @@
                 <i>Date of birth</i>
                 <p><%= director.date_of_birth.getDate() + ' ' + 
                     director.date_of_birth.toLocaleString('en-us',{month:'long'}) + ' ' + 
-                    director.date_of_birth.getFullYear() %></p>
+                    director.date_of_birth.getFullYear() %>
+                </p>
             </div>
 
             <% if (typeof director.date_of_death !== 'undefined') { %>
@@ -70,9 +74,8 @@
             
         </div>
 
-        <!-- Director's movies -->
-        <i>Movies</i>
         <div class = "director_movies">
+            <i>Movies</i>
             <% if (director_movies.length === 0) { %>
 
                 <p class = "empty">No movies from this director.</p>
@@ -82,6 +85,7 @@
                 <% director_movies.forEach(function(movie) { %>
 
                     <a href = '<%= movie.url %>' class = 'category_items movie' >
+                        <p class = "year"><%= movie.year.getFullYear() %></p>
                         <img src = "/images/movies/<%= movie.title %>.jpg" alt = "Movie poster">
                         <%= movie.title %> %>
                     </a>
@@ -112,7 +116,7 @@
         </div>
 
         <!-- genre's movies -->
-        <div class = "movies">
+        <div class = "genre_movies">
             <% if (genre_movies.length === 0) { %>
 
                 <p class = "empty">No movies from this genre.</p>
@@ -122,6 +126,7 @@
                 <% genre_movies.forEach(function(movie) { %>
 
                     <a href = '<%= movie.url %>' class = 'category_items movie' >
+                        <p class = "year"><%= movie.year.getFullYear() %></p>
                         <img src = "/images/movies/<%= movie.title %>.jpg" alt = "Movie poster">
                         <%= movie.title %>
                     </a>

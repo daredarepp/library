@@ -12,8 +12,8 @@ module.exports.index_get = function(req, res, next) {
 
     mongoose.connect(uri, options);
     
-    var moviesPromise = Movie.find({}, 'title').exec();
-    var directorsPromise = Director.find({}, 'first_name last_name').exec();
+    var moviesPromise = Movie.find({}, 'title year').limit(8).sort('-year').exec();
+    var directorsPromise = Director.find({}, 'first_name last_name').limit(8).sort('first_name').exec();
     
     Promise.all([moviesPromise, directorsPromise]).then(function([movies, directors]){
 
