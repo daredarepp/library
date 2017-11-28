@@ -309,11 +309,17 @@ p {
 /* "See all" links */
 .see_all  {
   display: inline-block;
+  padding: 5px;
   margin-top: 15px;
 }
 
 .see_all:link, .see_all:visited {
+  text-decoration: none;
   color: rgb(2, 119, 189);
+}
+
+.see_all:hover {
+  background-color: rgba(0, 0, 0, 0.075);
 }
 
 
@@ -419,7 +425,7 @@ p {
 
 }
 
-/* Active link */
+/* Active bar link */
 .selection_bar a.active {
   color: rgba(0, 0, 0, 0.37);
   background-color: white;
@@ -428,53 +434,46 @@ p {
 
 /* Catalog window */
 
-.catalog .window_body {
+.catalog .movies, .catalog .directors {
+  padding: 0px 15px;
   text-align: left;
 }
 
-/* Movies list */
-.catalog .movies {
+.catalog .genres {
   padding: 0px 15px;
+  text-align: center;
 }
 
 @media (max-width: 629px) {
-  .catalog .movies {
+  .catalog .movies, .catalog .directors {
     text-align: center;
   }
 }
 
 /* Category items */
 .category_items {
+  display: inline-block;
   border-radius: 2px;
-  padding: 15px;
-  display: block;
-  text-align: center;
 }
 
 .category_items:link, .category_items:visited {
+  background-color: rgb(235, 230, 230);
   text-decoration: none;
   color: black;
 }
 
-.category_items:hover {
-  background-color: rgba(0, 0, 0, 0.075);
-  /* box-shadow: inset 5px 0px 0px rgba(0, 0, 0, 0.205); */
-}
-
-/* Movie items and Director items from movies list */
+/* Movie items and director items */
 .category_items.movie, .category_items.director {
-  display: inline-block;
   width: 200px;
   text-align: center;
   margin: 12px 20px;
   vertical-align: top;
   padding: 0px 0px 10px;
-  background-color: rgb(235, 230, 230);
   position: relative;
 }
 
 .category_items.movie:hover, .category_items.director:hover {
-  box-shadow:inset 0px -5px 0px 0px rgba(0, 0, 0, 0.301);
+  box-shadow: inset 0px -5px 0px 0px rgba(0, 0, 0, 0.301);
 }
 
 .category_items img {
@@ -496,13 +495,26 @@ p {
   border-radius: 0px 0px 10px 0px;
 }
 
-
-/* Genre items from genres list */
+/* Genre items */
 .category_items.genre {
+  width: 35%;
+  padding: 15px;
+  margin: 20px;
+}
+
+.category_items.genre:link, .category_items.genre:visited {
+  background-color: transparent;
+  color: rgb(2, 119, 189);
 }
 
 .category_items.genre:hover {
-  box-shadow: inset 5px 0px 0px rgba(0, 0, 0, 0.205);
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+@media (max-width: 629px) {
+  .category_items.genre {
+    width: 80%;
+  }
 }
 
 /* Single item */
@@ -510,6 +522,7 @@ p {
   display: inline-block;
   width: 100%;
   padding: 15px;
+  text-align: left;
 }
 
 .single_item > img {
@@ -574,7 +587,7 @@ p {
 }
 
 /* Single movie */
-.movie_year p {
+.release_year p {
   font-size: 18px;
 }
 
@@ -590,6 +603,12 @@ p {
 
 .movie_storyline {
   text-align: justify;
+}
+
+.movie_genres .genre {
+  display: inline;
+  margin: 0px 10px 0px 0px;
+  padding: 5px;
 }
 
 /* Single director */

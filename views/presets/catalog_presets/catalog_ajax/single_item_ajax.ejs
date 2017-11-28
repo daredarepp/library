@@ -10,7 +10,7 @@
 
             <h3><%= movie.title %></h3>
 
-            <div class = "movie_year">
+            <div class = "release_year">
                 <i>Release year</i>
                 <p><%= movie.year.getFullYear() %></p>
             </div>
@@ -33,7 +33,7 @@
             <div class = "movie_genres">
                 <i>Genre</i>
                 <% movie.genre.forEach(function(genre) { %>
-                    <a href = "<%= genre.url %>" class = "category_items genre"><%= genre.name %></a><br>
+                    <a href = "<%= genre.url %>" class = "category_items genre"><%= genre.name %></a>
                 <% }) %>
             </div>
 
