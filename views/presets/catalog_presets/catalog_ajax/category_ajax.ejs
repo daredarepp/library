@@ -6,81 +6,85 @@
 
     <!-- Title -->
     <h2 class="window_title">
+
         <i class="material-icons"><%= icon %></i>
+
         <%= category %>
+
+        <!-- Close button -->
+        <a id="close_button" href="#" title="Close" class="material-icons button">close</a>
+    
+        <!-- Show the back button only in single item windows on ajax requests -->
+        <% if (typeof single !== 'undefined' && ajax) { %>
+    
+            <!-- Back button -->
+            <a class = "material-icons back_button button" href = "#" title = "Back">arrow_back</a>
+    
+        <% } %>
+    
+        <!-- Don't show these search button and search bar in single item windows -->
+        <% if (typeof single === 'undefined') { %>
+    
+            <!-- Search button -->
+            <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
+    
+        <% } %>
+
     </h2>
     
-    <!-- Close button -->
-    <a id="close_button" href="#" title="Close" class="material-icons button">close</a>
-
-    <!-- Show the back button only in single item windows on ajax requests -->
-    <% if(typeof single !== 'undefined' && ajax){ %>
-
-        <!-- Back button -->
-        <a class = "material-icons back_button button" href = "#" title = "Back">arrow_back</a>
-
-    <% } %>
-
-    <!-- Don't show the search button in single item windows except in genre window -->
-    <!-- <% if(typeof single === 'undefined' || typeof genre !== 'undefined'){ %> -->
-
-        <!-- Search button -->
-        <!-- <a href = "#" class = "material-icons search_button button" title = "Search">search</a> -->
-
-    <!-- <% } %> -->
-
-    <!-- Don't show these search button and search bar in single item windows -->
-    <% if(typeof single === 'undefined'){ %>
-
-        <!-- Search button -->
-        <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
-
-        <!-- Search bar -->
-        <div class = "search_bar">
-            <label for = "search_field" class = "material-icons">search</label>
-            <input type = "text" placeholder = "Search" id = "search_field" autocomplete = "off"></input>
-            <i id = "clear_search" class = "material-icons" title = "Clear">close</i>
-        </div>
-
-    <% } %>
-
+    
     <!-- Window body -->
     <div class="window_body">
+            
+        <% if (typeof single === 'undefined') { %>
+    
+            <!-- Search bar -->
+            <div class = "search_bar">
+                <label for = "search_field" class = "material-icons">search</label>
+                <input type = "text" placeholder = "Search" id = "search_field" autocomplete = "off"></input>
+                <i id = "clear_search" class = "material-icons" title = "Clear">close</i>
+            </div>
+    
+        <% } %>
 
         <% <!-- Display either lists with category items or a single item --> %>
         
-        <% if(typeof single === 'undefined'){ %>
+        <% if (typeof single === 'undefined') { %>
 
-            <% <!-- Books list --> %>
-            <% if(category === 'Books'){ %>
+            <% <!-- Movies list --> %>
+            <% if (category === 'Movies') { %>
                 
-                <div class = "books">
-                    <% result.map(function(book){ %>
+                <div class = "movies">
+                    <% result.forEach(function(movie) { %>
 
-                        <a href = '<%= book.url %>' class = 'category_items book' >
-                            <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
-                            <%= book.title %>
+                        <a href = '<%= movie.url %>' class = 'category_items movie' >
+                            <p class = "year"><%= movie.year.getFullYear() %></p>
+                            <img src = "/images/movies/<%= movie.title %>.jpg" alt = "Movie poster">
+                            <%= movie.title %>
                         </a>
 
                     <% }) %>   
                 </div>
 
-            <% <!-- Authors list --> %>
-            <% }else if(category === 'Authors'){ %>
+            <% <!-- Directors list --> %>
+            <% } else if (category === 'Directors') { %>
 
-                <div class = "authors">
-                    <% result.map(function(author){ %>
+                <div class = "directors">
+                    <% result.forEach(function(director) { %>
 
-                        <a href = '<%= author.url %>' class = 'category_items author' ><%= author.name %></a>
-
+                        <a href = '<%= director.url %>' class = 'category_items director' >
+                            <img src = "/images/directors/<%= director.name %>.jpg" alt = "Director photo">
+                            <%= director.name %>
+                        </a>
+                        
                     <% }) %>
                 </div>
                     
             <% <!-- Genres list --> %>
-            <% }else if(category === 'Genres'){ %>
+            <% } else if (category === 'Genres') { %>
 
                 <div class = "genres">
-                    <% result.map(function(genre){ %>
+                    <% result.forEach(function(genre) { %>
 
                         <a href = '<%= genre.url %>' class = 'category_items genre' ><%= genre.name %></a>
                         
@@ -90,7 +94,7 @@
             <% } %>
         
         <% <!-- Single item --> %>
-        <% }else{ %>
+        <% } else { %>
             
             <% include single_item_ajax %>
 

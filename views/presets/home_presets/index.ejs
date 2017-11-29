@@ -7,7 +7,7 @@
     <div class = "row">
         <div class="col-xs-12 home_wrapper">
 
-            <% <!-- Popular books window --> %>
+            <% <!-- Newest movies window --> %>
 
             <div class="row">
                 <div class="window col-md-8 col-md-offset-2">
@@ -15,63 +15,76 @@
                     <!-- Title -->
                     <h2 class = "window_title">
 
-                        <i class="material-icons
-                        ">library_books</i>
-                        Popular Books
+                        <i class="material-icons">local_movies</i>
+
+                        Latest Movies
                         
-                        <!-- Toggle button -->
+                        <!-- toggle button -->
                         <a href = "#" class = "material-icons toggle_button button"
-                        title = "Toggle">keyboard_arrow_up</a>
+                        title = "Toggle">keyboard_arrow_down</a>
 
                     </h2>
 
                     <!-- Window body -->
-                    <div class = "window_body popular">
-                        <div id = "popular_books">
-                            <!-- Books (only regular, popular in progress) -->
-                            <% books.map(function(book){ %>
+                    <div class = "window_body">
+                        <div id = "latest_movies">
+                            <!-- Movies -->
+                            <% movies.forEach(function(movie) { %>
 
-                                <a href = '<%= book.url %>' class = 'category_items book' >
-                                    <img src = "/images/books/<%= book.title %>.jpg" alt = "Book cover">
-                                    <%= book.title %>
+                                <a href = '<%= movie.url %>' class = 'category_items movie'>
+                                    <p class = "year"><%= movie.year.getFullYear() %></p>
+                                    <img src = "/images/movies/<%= movie.title %>.jpg" alt = "Movie poster">
+                                    <%= movie.title %>
                                 </a>
 
                             <% }) %>
-                            <a href = "#" id = "arrow_left" class = "material-icons">keyboard_arrow_left</a>
-                            <a href = "#" id = "arrow_right" class = "material-icons">keyboard_arrow_right</a>
+                            <!-- Scroll buttons -->
+                            <a href = "#" class = "material-icons scroll_left">keyboard_arrow_left</a>
+                            <a href = "#" class = "material-icons scroll_right">keyboard_arrow_right</a>
                         </div>
-                        <a href="/catalog/books" class = "see_all" title = "See all books">See all books</a>
+
+                        <a href="/catalog/movies" class = "see_all" title = "See all movies">See all movies</a>
                     </div>
 
                 </div>
             </div>
 
-            <% <!-- Popular authors window --> %>
+            <% <!-- Active directors window --> %>
+
             <div class = "row">
                 <div class = "window col-md-8 col-md-offset-2">
 
                     <!-- Title -->
                     <h2 class = "window_title">
                         <i class = "material-icons">people</i>
-                        Popular Authors
-                        <!-- Toggle button -->
+
+                        Active Directors
+
+                        <!-- toggle button -->
                         <a href = "#" class = "material-icons toggle_button button"
-                        title = "Toggle">keyboard_arrow_up</a>
+                        title = "Toggle">keyboard_arrow_down</a>
                     </h2>
 
                     <!-- Window body -->
                     <div class = "window_body">
-                        <div class = "popular_authors">
-                            <!-- Authors (only regular, popular in progress) -->
-                            <% authors.map(function(author){ %>
+                        <div id = "active_directors">
+                            <!-- Directors -->
+                            <% directors.forEach(function(director) { %>
         
-                                <a href = '<%= author.url %>' class = 'category_items author' ><%= author.name %></a>
+                                <a href = '<%= director.url %>' class = 'category_items director' >
+                                    <img src = "/images/directors/<%= director.name %>.jpg" alt = "Director photo">
+                                    <%= director.name %>
+                                </a>
         
                             <% }) %>
+                            <!-- Scroll buttons -->
+                            <a href = "#" class = "material-icons scroll_left">keyboard_arrow_left</a>
+                            <a href = "#" class = "material-icons scroll_right">keyboard_arrow_right</a>
                         </div>
-                        <a href = "/catalog/authors" class = "see_all" title = "See all authors">See all authors</a>
-                    </div>
 
+                        <a href = "/catalog/directors" class = "see_all" title = "See all directors">See all directors</a>
+                    </div>
+                    
                 </div>
             </div>
 

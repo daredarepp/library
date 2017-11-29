@@ -1,32 +1,29 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-var Book = require('/Users/Darko/Desktop/Library/library/models/book');
-var Author = require('/Users/Darko/Desktop/Library/library/models/author');
+var Movie = require('/Users/Darko/Desktop/Library/library/models/movie');
+var Director = require('/Users/Darko/Desktop/Library/library/models/director');
 
 /* GET home page. */
 
-module.exports.index_get = function(req, res, next){
+module.exports.index_get = function(req, res, next) {
 
-    var uri = 'mongodb://localhost/mydb';
+    var uri = 'mongodb://localhost/moviedb';
     var options = { useMongoClient: true };
 
     mongoose.connect(uri, options);
     
-    // Books
-    Book.find({},'title').exec(function(err, books){
+    var moviesPromise = Movie.find({}, 'title year').limit(8).sort('-year').exec();
+    var directorsPromise = Director.find({}, 'first_name last_name').limit(8).sort('first_name').exec();
+    
+    Promise.all([moviesPromise, directorsPromise]).then(function([movies, directors]){
 
-        if(err) throw err;
-        
-        // Authors
-        Author.find({}, 'first_name family_name').exec(function(err, authors){
+        res.render('home', {movies: movies, directors: directors});
 
-            if (err) throw err;
+    }).catch(function(err){
 
-            
-            res.render('home', {title: "Home", books: books, authors: authors});
-            
-        });
-        
+        console.log(err);
+        res.send('Something went wrong');
+
     });
-
+            
 };

@@ -34,11 +34,13 @@ h1, h2, h3, h4 {
 a {
   font-family: "Antic";
   font-size: 18px;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
 /* All paragraphs */
 p {
   font-size: 16px;
+  transition: background-color 0.2s;
 }
 
 
@@ -79,8 +81,8 @@ p {
 }
 
 .navi a.current:link, .navi a.current:visited {
-  /* background-color: rgba(0, 0, 0, 0.205); */
-  box-shadow: inset 0px -3px 0px white;
+  background-color: rgba(0, 0, 0, 0.205);
+  /* box-shadow: inset 0px -3px 0px white; */
 }
 
 .navi a.icon {
@@ -96,10 +98,6 @@ p {
   .navi a:not(:first-child) {
     display: none;
   }
-  
-  .navi.responsive {
-    /* background-color: rgba(0, 0, 0, 0.205); */
-  }
 
   .navi.responsive a{
     display: block;
@@ -112,7 +110,6 @@ p {
     right: 0px;
     top: 0px;
   }
-
 
 }
 
@@ -148,7 +145,7 @@ p {
   border-radius: 25px;
 }
 
-.button:link, .button:visited, .button:focus {
+.button:link, .button:visited {
   text-decoration: none;
   background-color: transparent;
   color: rgb(2, 119, 189);
@@ -190,6 +187,11 @@ p {
   top: 10px;
 }
 
+#close_button:hover {
+  background-color: rgb(183, 28, 28);
+  color: white;
+}
+
 /* Search bar */
 .search_bar {
   display: none;
@@ -199,24 +201,24 @@ p {
 
 .search_bar label {
   position: absolute;
-  top: 15px;
+  top: 10px;
   left: 20px;
   color: rgba(0, 0, 0, 0.411);
 }
 
 /* Search field */
-.search_bar #search_field {
+#search_field {
   outline: none;
   border: none;
   width: 100%;
-  padding: 12px 0px 5px;
+  padding: 5px 0px 10px;
   font-size: 24px;
   background-color: transparent;
   color: rgba(0, 0, 0, 0.562);
 }
 
 /* Clear search button */
-.search_bar #clear_search {
+#clear_search {
   display: none;
   position: absolute;
   right: 20px;
@@ -226,7 +228,7 @@ p {
   font-size: 24px;
 }
 
-.search_bar #clear_search:hover {
+#clear_search:hover {
   color: black;
 }
 
@@ -254,62 +256,63 @@ p {
   padding: 25px 0px;
 }
 
-/* Popular books */
-#popular_books {
+/* Latest movies */
+#latest_movies, #active_directors {
   white-space: nowrap;
-  overflow-x: hidden;
+  overflow-x: scroll;
   width: 100%;
   padding: 0px 20px;
 }
 
-#popular_books .book {
+/* To override the nowrap inherited from their parents */
+#latest_movies .movie, #active_directors .director{
   white-space: initial;
 }
 
-#popular_books .book:first-child {
-  margin-left: 12px;
-}
-
-/* Popular books scroll buttons */
-a#arrow_left, a#arrow_right {
-  text-decoration: none;
+/* Scroll buttons */
+.scroll_left, .scroll_right {
   display: inline-block;
-  background-color: white;
   z-index: 1;
   padding: 20px 10px;
   border-radius: 5px;
   position: absolute;
   top: 44%;
-  font-weight: bold;
-  color: rgb(13, 92, 134);
-  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
 }
 
-a#arrow_left:hover, a#arrow_right:hover {
-  color: rgb(2, 120, 189);;
-}
-
-a#arrow_left {
+.scroll_left {
   left: 10px;
 }
 
-a#arrow_right {
+.scroll_right {
   right: 10px;
 }
 
-/* Link to full catalog */
-a.see_all  {
+.scroll_left:link, .scroll_left:visited, .scroll_right:link, .scroll_right:visited {
+  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  color: rgb(13, 92, 134);
+  font-weight: bold;
+  background-color: white;
+}
+
+.scroll_left:hover, .scroll_right:hover {
+  color: rgb(2, 120, 189);;
+}
+
+/* "See all" links */
+.see_all  {
   display: inline-block;
+  padding: 5px;
   margin-top: 15px;
 }
 
-a.see_all:link, a.see_all:visited {
+.see_all:link, .see_all:visited {
+  text-decoration: none;
   color: rgb(2, 119, 189);
 }
 
-/* Popular authors */
-.popular_authors {
-  text-align: left;
+.see_all:hover {
+  background-color: rgba(0, 0, 0, 0.075);
 }
 
 
@@ -409,13 +412,13 @@ a.see_all:link, a.see_all:visited {
 
   .selection_bar i.material-icons {
     font-size: 20px;
-    left: 10px;
+    left: 3px;
     top: 13px;
   }
 
 }
 
-/* Active link */
+/* Active bar link */
 .selection_bar a.active {
   color: rgba(0, 0, 0, 0.37);
   background-color: white;
@@ -424,85 +427,94 @@ a.see_all:link, a.see_all:visited {
 
 /* Catalog window */
 
-.catalog.catalog_error {
-  clear: both;
-  text-align: center;
-  font-size: 25px;
-  color: rgba(0, 0, 0, 0.534);
-}
-
-.catalog .window_body {
+.catalog .movies, .catalog .directors {
+  padding: 0px 15px;
   text-align: left;
 }
 
-/* Books list */
-.catalog .books {
-  padding: 0px 15px;
-  /* text-align: center; */
+.catalog .genres {
+  padding-left: 5%;
+  text-align: left;
 }
 
 @media (max-width: 629px) {
-  .catalog .books {
+  .catalog .movies, .catalog .directors {
+    text-align: center;
+  }
+
+  .catalog .genres {
+    padding: 15px 0px;
     text-align: center;
   }
 }
 
-/* Category items */
+/* Catalog lists */
 .category_items {
+  display: inline-block;
   border-radius: 2px;
-  padding: 15px;
-  display: block;
-  text-align: center;
 }
 
 .category_items:link, .category_items:visited {
+  background-color: rgb(235, 230, 230);
   text-decoration: none;
   color: black;
 }
 
-.category_items:hover {
-  background-color: rgba(0, 0, 0, 0.075);
-  /* box-shadow: inset 5px 0px 0px rgba(0, 0, 0, 0.205); */
-}
-
-/* Book items from books list */
-.category_items.book {
-  display: inline-block;
+/* Movies list and directors list */
+.category_items.movie, .category_items.director {
   width: 200px;
   text-align: center;
   margin: 12px 20px;
   vertical-align: top;
   padding: 0px 0px 10px;
-  background-color: rgba(0, 0, 0, 0.075);  
+  position: relative;
 }
 
-.category_items.book:hover {
-  box-shadow:inset 0px -5px 0px 0px rgba(0, 0, 0, 0.205);
+.category_items.movie:hover, .category_items.director:hover {
+  box-shadow: inset 0px -5px 0px 0px rgba(0, 0, 0, 0.301);
 }
 
-.category_items.book img {
-  width: 200px;
+.category_items img {
+  width: 100%;
   height: 300px;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
-/* Author items from authors list */
-.category_items.author {
-  /* padding-left: 30px; */
+.year {
+  font-size: 15px;
+  width: 60px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  text-align: center;
+  background-color: inherit;
+  color: inherit;
+  border-radius: 0px 0px 10px 0px;
 }
 
-.category_items.author:hover {
-  box-shadow: inset 5px 0px 0px rgba(0, 0, 0, 0.205);
-}
-
-/* Genre items from genres list */
+/* Genres list */
 .category_items.genre {
-  /* padding-left: 30px; */
+  text-align: center;
+  width: 25%;
+  padding: 2%;
+  margin: 2% 3%;
+}
+
+.category_items.genre:link, .category_items.genre:visited {
+  background-color: transparent;
+  color: rgb(2, 119, 189);
 }
 
 .category_items.genre:hover {
-  box-shadow: inset 5px 0px 0px rgba(0, 0, 0, 0.205);
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+@media (max-width: 629px) {
+  .category_items.genre {
+    width: 100%;
+    margin: 10px 0px;
+  }
 }
 
 /* Single item */
@@ -510,6 +522,7 @@ a.see_all:link, a.see_all:visited {
   display: inline-block;
   width: 100%;
   padding: 15px;
+  text-align: left;
 }
 
 .single_item > img {
@@ -540,7 +553,6 @@ a.see_all:link, a.see_all:visited {
 
 .single_item p {
   margin: 0px;
-  text-align: justify;
 }
 
 .single_item .empty {
@@ -574,37 +586,49 @@ a.see_all:link, a.see_all:visited {
 
 }
 
-/* Single book */
-.single_item.book a {
-  display: inline;
-  padding: 0px;
+/* Single movie */
+.release_year p {
+  font-size: 18px;
 }
 
-.single_item.book a:link, .single_item.book a:visited {
-  color: rgb(2, 120, 189);
-}
-
-.single_item.book a:hover {
-  background-color: white;
-  box-shadow: none;
-  text-decoration: underline;
-}
-
-/* Single author */
-.author_books .book {
-  width: 150px;
+.movie_directors .director {
+  width: 145px;
   font-size: 16px;
   margin: 0px 10px 10px 0px;
 }
 
-.author_books .book img {
-  width: 150px;
+.movie_directors .director img {
+  height: 200px;
+}
+
+.movie_storyline {
+  text-align: justify;
+}
+
+.movie_genres .genre {
+  display: inline;
+  margin: 10px 10px 10px 0px;
+  padding: 5px;
+}
+
+/* Single director */
+.director_bio {
+  text-align: justify;
+}
+
+.director_movies .movie {
+  width: 145px;
+  font-size: 16px;
+  margin: 0px 10px 10px 0px;
+}
+
+.director_movies .movie img {
   height: 200px;
 }
 
 @media (max-width: 629px) {
   
-    .author_books .book {
+    .director_movies .movie {
       margin: 10px 0px;
     }
   
@@ -635,7 +659,7 @@ a.see_all:link, a.see_all:visited {
   left: 5px;
 }
 
-.single_item.genre .search_bar #clear_search {
+.single_item.genre #clear_search {
   right: 5px;
 }
 
@@ -645,11 +669,113 @@ a.see_all:link, a.see_all:visited {
   text-align: center;
 }
 
-.single_item.genre .books {
+.genre_movies {
   padding-top: 15px;
+}
+
+.genre_movies .movie {
+  margin: 12px 17px;
 }
 
 .single_item.genre .empty {
   text-align: center;
   margin: 10px;
+}
+
+
+/* Admin page ------------------------------------------------------------------------------------------------------- */
+
+
+.admin_wrapper{
+  padding: 25px 0px;
+}
+
+/* Admin titles */
+.admin .window_title {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.466);
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.admin .window_title i {
+  color: rgba(255, 255, 255, 0.883);
+}
+
+/* Admin buttons */
+.admin .button:link, .admin .button:visited {
+  color: white;
+}
+
+.admin .button:hover, .admin .button.active {
+  background-color: rgba(0, 0, 0, 0.246);
+  color: white;
+}
+
+
+.admin .add {
+  display: inline-block;
+  font-size: 30px;
+  vertical-align: top;
+}
+
+.add:link, .add:visited {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.719);
+}
+
+.add:hover {
+  color: white;
+  
+}
+
+/* Admin window body */
+.admin .window_body {
+  max-height: 400px;
+}
+
+/* Admin search */
+.admin .search_bar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.356);
+  margin-bottom: 5px;
+}
+
+/* Admin lists */
+.admin .category_items {
+  display: block;
+  width: 100%;
+  padding: 10px 110px 10px 70px;
+  text-align: left;
+  margin: 0px;
+  position: relative;
+}
+
+.admin .category_items:hover {
+  background-color: rgba(0, 0, 0, 0.075)
+}
+
+/* Delete button */
+.delete {
+  position: absolute;
+  right: 40px;
+}
+
+.delete:link, .delete:visited {
+  text-decoration: none;
+  color:rgba(0, 0, 0, 0.466);
+}
+
+.admin .category_items:hover .delete {
+  color: rgb(160, 19, 19);
+}
+
+@media (max-width: 629px) {
+  
+  .admin .category_items {
+    padding: 10px 80px 10px 20px;
+  }
+
+  .delete {
+    right: 10px;
+  }
+
 }

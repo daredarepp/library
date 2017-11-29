@@ -1,7 +1,168 @@
     <% <!-- Include the header --> %>
+
     <% include ../header %>
 
-    <h2>Admin page in progress...</h2>
+    <% <!-- Main section --> %>
+
+    <div class = "row">
+        <div class = "col-xs-12 admin_wrapper">
+
+            <!-- Movies -->
+            <div class = "row">
+                <div class = "window col-md-8 col-md-offset-2 admin movies">
+
+                    <!-- Title -->
+                    <h2 class = "window_title">
+
+                        <i class = "material-icons ">local_movies</i>
+
+                        Movies
+
+                        <!-- Add button -->
+                        <a href = "#" class = "material-icons add" title = "Add movie">add_box</a>
+
+                        <!-- Search button -->
+                        <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
+                
+                        <!-- toggle button -->
+                        <a href = "#" class = "material-icons toggle_button button"
+                        title = "Toggle">keyboard_arrow_down</a>
+
+                    </h2>
+
+                    <!-- Window body -->
+                    <div class = "window_body">
+
+                        <!-- Search bar -->
+                        <div class = "search_bar">
+                            <label for = "search_field" class = "material-icons">search</label>
+                            <input type = "text" placeholder = "Search" id = "search_field" autocomplete = "off"></input>
+                            <i id = "clear_search" class = "material-icons" title = "Clear">close</i>
+                        </div>
+                        
+                        <% <!-- movies list --> %>
+                        <div class = "movies">
+                            <% movies.forEach(function(movie) { %>
+        
+                                <p class = "category_items">
+                                    <%= movie.title %>
+                                    <a href = "#" class = "material-icons delete">delete</a>
+                                    <!-- <a href = "#" class = "material-icons edit">edit</a> -->
+                                </p>
+        
+                            <% }) %>   
+                        </div>
+            
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Directors -->
+            <div class = "row">
+                <div class = "window col-md-8 col-md-offset-2 admin directors">
+
+                    <!-- Title -->
+                    <h2 class = "window_title">
+
+                        <i class = "material-icons ">people</i>
+
+                        Directors
+
+                        <!-- Add button -->
+                        <a href = "#" class = "material-icons add" title = "Add director">add_box</a>
+
+                        <!-- Search button -->
+                        <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
+
+                        <!-- toggle button -->
+                        <a href = "#" class = "material-icons toggle_button button"
+                        title = "Toggle">keyboard_arrow_down</a>
+
+                    </h2>
+
+                    <!-- Window body -->
+                    <div class = "window_body">
+
+                        <!-- Search bar -->
+                        <div class = "search_bar">
+                            <label for = "search_field" class = "material-icons">search</label>
+                            <input type = "text" placeholder = "Search" id = "search_field" autocomplete = "off"></input>
+                            <i id = "clear_search" class = "material-icons" title = "Clear">close</i>
+                        </div>
+
+                        <% <!-- Directors list --> %>
+                        <div class = "directors">
+                            <% directors.forEach(function(director) { %>
+        
+                                <p class = "category_items">
+                                    <%= director.name %>
+                                    <a href = "#" class = "material-icons delete">delete</a>
+                                    <!-- <a href = "#" class = "material-icons edit">edit</a> -->
+                                </p>
+        
+                            <% }) %>   
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Genres -->
+            <div class = "row">
+                <div class = "window col-md-8 col-md-offset-2 admin genres">
+
+                    <!-- Title -->
+                    <h2 class = "window_title">
+
+                        <i class = "material-icons ">view_agenda</i>
+
+                        Genres
+
+                        <!-- Add button -->
+                        <a href = "#" class = "material-icons add" title = "Add genre">add_box</a>
+
+                        <!-- Search button -->
+                        <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
+
+                        <!-- toggle button (active on start) -->
+                        <a href = "#" class = "material-icons toggle_button button"
+                        title = "Toggle">keyboard_arrow_down</a>
+
+                    </h2>
+
+                    <!-- Window body -->
+                    <div class = "window_body">
+
+                        <!-- Search bar -->
+                        <div class = "search_bar">
+                            <label for = "search_field" class = "material-icons">search</label>
+                            <input type = "text" placeholder = "Search" id = "search_field" autocomplete = "off"></input>
+                            <i id = "clear_search" class = "material-icons" title = "Clear">close</i>
+                        </div>
+
+                        <% <!-- Movies list --> %>
+                        <div class = "genres">
+                            <% genres.forEach(function(genre) { %>
+        
+                                <p class = "category_items">
+                                    <%= genre.name %>
+                                    <a href = "#" class = "material-icons delete">delete</a>
+                                    <!-- <a href = "#" class = "material-icons edit">edit</a> -->
+                                </p>
+        
+                            <% }) %>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
 <% <!--Closing tag for the fluid container  --> %>
 </div>
