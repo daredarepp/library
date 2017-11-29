@@ -34,11 +34,13 @@ h1, h2, h3, h4 {
 a {
   font-family: "Antic";
   font-size: 18px;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
 }
 
 /* All paragraphs */
 p {
   font-size: 16px;
+  transition: background-color 0.2s;
 }
 
 
@@ -79,8 +81,8 @@ p {
 }
 
 .navi a.current:link, .navi a.current:visited {
-  /* background-color: rgba(0, 0, 0, 0.205); */
-  box-shadow: inset 0px -3px 0px white;
+  background-color: rgba(0, 0, 0, 0.205);
+  /* box-shadow: inset 0px -3px 0px white; */
 }
 
 .navi a.icon {
@@ -96,10 +98,6 @@ p {
   .navi a:not(:first-child) {
     display: none;
   }
-  
-  .navi.responsive {
-    /* background-color: rgba(0, 0, 0, 0.205); */
-  }
 
   .navi.responsive a{
     display: block;
@@ -112,7 +110,6 @@ p {
     right: 0px;
     top: 0px;
   }
-
 
 }
 
@@ -162,10 +159,6 @@ p {
   background-color: rgba(0, 0, 0, 0.075);
 }
 
-/* .back_button:active, #close_button:active {
-  background-color: rgba(0, 0, 0, 0.075);
-} */
-
 /* Toggle button */
 .toggle_button  {
   position: absolute;
@@ -195,7 +188,7 @@ p {
 }
 
 #close_button:hover {
-  background-color: #B71C1C;
+  background-color: rgb(183, 28, 28);
   color: white;
 }
 
@@ -266,7 +259,7 @@ p {
 /* Latest movies */
 #latest_movies, #active_directors {
   white-space: nowrap;
-  overflow-x: hidden;
+  overflow-x: scroll;
   width: 100%;
   padding: 0px 20px;
 }
@@ -440,17 +433,22 @@ p {
 }
 
 .catalog .genres {
-  padding: 0px 15px;
-  text-align: center;
+  padding-left: 5%;
+  text-align: left;
 }
 
 @media (max-width: 629px) {
   .catalog .movies, .catalog .directors {
     text-align: center;
   }
+
+  .catalog .genres {
+    padding: 15px 0px;
+    text-align: center;
+  }
 }
 
-/* Category items */
+/* Catalog lists */
 .category_items {
   display: inline-block;
   border-radius: 2px;
@@ -462,7 +460,7 @@ p {
   color: black;
 }
 
-/* Movie items and director items */
+/* Movies list and directors list */
 .category_items.movie, .category_items.director {
   width: 200px;
   text-align: center;
@@ -495,11 +493,12 @@ p {
   border-radius: 0px 0px 10px 0px;
 }
 
-/* Genre items */
+/* Genres list */
 .category_items.genre {
-  width: 35%;
-  padding: 15px;
-  margin: 20px;
+  text-align: center;
+  width: 25%;
+  padding: 2%;
+  margin: 2% 3%;
 }
 
 .category_items.genre:link, .category_items.genre:visited {
@@ -513,7 +512,8 @@ p {
 
 @media (max-width: 629px) {
   .category_items.genre {
-    width: 80%;
+    width: 100%;
+    margin: 10px 0px;
   }
 }
 
@@ -607,7 +607,7 @@ p {
 
 .movie_genres .genre {
   display: inline;
-  margin: 0px 10px 0px 0px;
+  margin: 10px 10px 10px 0px;
   padding: 5px;
 }
 
@@ -690,6 +690,7 @@ p {
   padding: 25px 0px;
 }
 
+/* Admin titles */
 .admin .window_title {
   border: none;
   background-color: rgba(0, 0, 0, 0.466);
@@ -700,36 +701,81 @@ p {
   color: rgba(255, 255, 255, 0.883);
 }
 
+/* Admin buttons */
 .admin .button:link, .admin .button:visited {
-  color: rgb(255, 255, 255);
+  color: white;
 }
 
-.admin .button:hover {
-  background-color: rgba(0, 0, 0, 0.356);
+.admin .button:hover, .admin .button.active {
+  background-color: rgba(0, 0, 0, 0.246);
+  color: white;
 }
 
-.admin .button.active {
-  background-color: rgba(0, 0, 0, 0.356);
+
+.admin .add {
+  display: inline-block;
+  font-size: 30px;
+  vertical-align: top;
 }
 
+.add:link, .add:visited {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.719);
+}
+
+.add:hover {
+  color: white;
+  
+}
+
+/* Admin window body */
+.admin .window_body {
+  max-height: 400px;
+}
+
+/* Admin search */
+.admin .search_bar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.356);
+  margin-bottom: 5px;
+}
+
+/* Admin lists */
 .admin .category_items {
-  padding: 10px 40px;
+  display: block;
+  width: 100%;
+  padding: 10px 110px 10px 70px;
   text-align: left;
   margin: 0px;
   position: relative;
 }
 
-.admin .delete {
+.admin .category_items:hover {
+  background-color: rgba(0, 0, 0, 0.075)
+}
+
+/* Delete button */
+.delete {
   position: absolute;
   right: 40px;
 }
 
-.admin .edit {
-  position: absolute;
-  right: 70px;
+.delete:link, .delete:visited {
+  text-decoration: none;
+  color:rgba(0, 0, 0, 0.466);
 }
 
-.admin .search_bar {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.356);
-  margin-bottom: 5px;
+.admin .category_items:hover .delete {
+  color: rgb(160, 19, 19);
+}
+
+@media (max-width: 629px) {
+  
+  .admin .category_items {
+    padding: 10px 80px 10px 20px;
+  }
+
+  .delete {
+    right: 10px;
+  }
+
 }
