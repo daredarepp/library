@@ -70,8 +70,9 @@
                         <div id = "active_directors">
                             <!-- Directors -->
                             <% directors.forEach(function(director) { %>
-        
-                                <a href = '<%= director.url %>' class = 'category_items director' >
+                                
+                                <a href = "<%= director.url %>" class = 'category_items director' >
+                                    <p class = "numOfMovies"><%= director.numberOfMovies %></p>
                                     <img src = "/images/directors/<%= director.name %>.jpg" alt = "Director photo">
                                     <%= director.name %>
                                 </a>

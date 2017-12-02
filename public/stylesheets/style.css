@@ -34,7 +34,7 @@ h1, h2, h3, h4 {
 a {
   font-family: "Antic";
   font-size: 18px;
-  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s;
 }
 
 /* All paragraphs */
@@ -481,9 +481,11 @@ p {
   margin-bottom: 10px;
 }
 
-.year {
+.year, .numOfMovies {
   font-size: 15px;
-  width: 60px;
+  width: auto;
+  padding: 0px 15px;
+  margin: 0px;
   position: absolute;
   top: 0px;
   left: 0px;
@@ -491,6 +493,7 @@ p {
   background-color: inherit;
   color: inherit;
   border-radius: 0px 0px 10px 0px;
+  color: rgb(95, 95, 95);
 }
 
 /* Genres list */
@@ -499,6 +502,7 @@ p {
   width: 25%;
   padding: 2%;
   margin: 2% 3%;
+  /* border: 1px solid rgb(240, 237, 237); */
 }
 
 .category_items.genre:link, .category_items.genre:visited {
@@ -531,6 +535,7 @@ p {
   float: left;
   margin-right: 30px;
   background-color: rgba(0, 0, 0, 0.075);
+  border: 3px solid silver;
 }
 
 .single_item .info {
@@ -549,6 +554,7 @@ p {
   font-size: 16px;
   color: rgba(0, 0, 0, 0.486);
   margin-top: 25px;
+  margin-bottom: 10px;
 }
 
 .single_item p {
@@ -606,9 +612,15 @@ p {
 }
 
 .movie_genres .genre {
-  display: inline;
-  margin: 10px 10px 10px 0px;
-  padding: 5px;
+  display: inline-block;
+  width: auto;
+  margin: 0px 10px 10px 0px;
+  padding: 5px 10px;
+  box-shadow: inset 0px 0px 0px 1px silver;
+}
+
+.movie_genres .genre:hover {
+  box-shadow: none;
 }
 
 /* Single director */
