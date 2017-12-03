@@ -345,27 +345,25 @@ $(document).ready(function() {
         // Open single item
         var openSingleItem = function(url) {
             
-            // Remove the old catalog
-            var oldCatalog = $('.catalog');
-            oldCatalog.remove();
+            var existingCatalog = $('.catalog');
 
-            // Highlight the active category when opening cross-category items
-            var oldActiveCategory = $('.selection_bar a').filter('.active');
-            oldActiveCategory.removeClass('active');
+            // Highlight the active category even when opening cross-category items
+            var existingActiveCategory = $('.selection_bar a').filter('.active');
+            existingActiveCategory.removeClass('active');
 
-            if (url.indexOf('/movies') > -1 ) {
+            if (url.indexOf('/movies') > -1 ) { 
 
-                var newActiveCategory = $('.selection_bar a').filter('.movies');
+                let newActiveCategory = $('.selection_bar a').filter('.movies');
                 newActiveCategory.addClass('active');
 
             } else if (url.indexOf('/directors') > -1) {
 
-                var newActiveCategory = $('.selection_bar a').filter('.directors');
+                let newActiveCategory = $('.selection_bar a').filter('.directors');
                 newActiveCategory.addClass('active');
 
             } else if (url.indexOf('/genres') > -1) {
 
-                var newActiveCategory = $('.selection_bar a').filter('.genres');
+                let newActiveCategory = $('.selection_bar a').filter('.genres');
                 newActiveCategory.addClass('active');
 
             }
@@ -381,7 +379,7 @@ $(document).ready(function() {
             .done(function(item) {
                 
                 // Display the item
-                wrapper.append(item);
+                existingCatalog.html(item);
 
                 // Add the event listeners
                 catalogModule.addEventListeners();

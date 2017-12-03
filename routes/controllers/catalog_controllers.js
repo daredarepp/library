@@ -35,12 +35,12 @@ module.exports.catalog_category_get = function(req, res, next) {
                 if (req.xhr) {
 
                     res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Movies', 
-                    icon: 'local_movies', result: movies});
+                    icon: 'local_movies', result: movies, ajax: req.xhr});
                     
                 // Regular
                 }else{
 
-                    res.render('catalog', {category: 'Movies', icon: 'local_movies', result: movies});
+                    res.render('catalog', {category: 'Movies', icon: 'local_movies', result: movies, ajax: req.xhr});
                     
                 };
 
@@ -89,12 +89,12 @@ module.exports.catalog_category_get = function(req, res, next) {
                 if (req.xhr) {
 
                     res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Directors',
-                    icon: 'people', result: directors});
+                    icon: 'people', result: directors, ajax: req.xhr});
                     
                 // Regular
                 } else {
 
-                    res.render('catalog', {category: 'Directors', icon: 'people', result: directors});
+                    res.render('catalog', {category: 'Directors', icon: 'people', result: directors, ajax: req.xhr});
                     
                 }
 
@@ -112,12 +112,12 @@ module.exports.catalog_category_get = function(req, res, next) {
                 if (req.xhr) {
                     
                     res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Genres', 
-                    icon: 'view_agenda', result: genres});
+                    icon: 'view_agenda', result: genres, ajax: req.xhr});
                 
                 // Regular
                 } else {
 
-                    res.render('catalog', {category: 'Genres', icon: 'view_agenda', result: genres});
+                    res.render('catalog', {category: 'Genres', icon: 'view_agenda', result: genres, ajax: req.xhr});
 
                 }
 

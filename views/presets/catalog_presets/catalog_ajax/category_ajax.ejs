@@ -1,8 +1,11 @@
 
 <% <!-- Catalog window --> %>
 
+<% <!-- Hide the main catalog wrapper on single item requests --> %>
+<% if (typeof single === 'undefined' || !ajax) { %>
 <div class="window col-xs-12 col-md-8 col-md-offset-2 catalog"
  data-category = <%= category.toLowerCase()%>>
+<% } %>
 
     <!-- Title -->
     <h2 class="window_title">
@@ -102,4 +105,6 @@
         <% } %>
 
     </div>
+<% if (typeof single === 'undefined' || !ajax) { %>
 </div>  
+<% } %>
