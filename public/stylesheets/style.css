@@ -325,10 +325,9 @@ p {
 }
 
 /* Selection windows */
-
 .selection_window a {
   display: block;
-  padding: 70px 45px;
+  padding: 23%;
   font-size: 20px;
   text-align: center;
 }
@@ -506,17 +505,17 @@ p {
 }
 
 .category_items.genre:link, .category_items.genre:visited {
-  background-color: transparent;
-  color: rgb(2, 119, 189);
+  background-color: rgba(0, 0, 0, 0.075);
+  /* color: rgb(2, 119, 189); */
 }
 
 .category_items.genre:hover {
-  background-color: rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0px -5px 0px rgba(0, 0, 0, 0.205);
 }
 
 @media (max-width: 629px) {
   .category_items.genre {
-    width: 100%;
+    width: 80%;
     margin: 10px 0px;
   }
 }
@@ -616,11 +615,6 @@ p {
   width: auto;
   margin: 0px 10px 10px 0px;
   padding: 5px 10px;
-  box-shadow: inset 0px 0px 0px 1px silver;
-}
-
-.movie_genres .genre:hover {
-  box-shadow: none;
 }
 
 /* Single director */
@@ -721,23 +715,6 @@ p {
 .admin .button:hover, .admin .button.active {
   background-color: rgba(0, 0, 0, 0.246);
   color: white;
-}
-
-
-.admin .add {
-  display: inline-block;
-  font-size: 30px;
-  vertical-align: top;
-}
-
-.add:link, .add:visited {
-  text-decoration: none;
-  color: rgba(255, 255, 255, 0.719);
-}
-
-.add:hover {
-  color: white;
-  
 }
 
 /* Admin window body */

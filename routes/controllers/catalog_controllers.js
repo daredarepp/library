@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-var Movie = require('/Users/Darko/Desktop/MovieDb/MovieDb/models/movie');
-var Director = require('/Users/Darko/Desktop/MovieDb/MovieDb/models/director');
-var Genre = require('/Users/Darko/Desktop/MovieDb/MovieDb/models/genre');
+var Movie = require('/Users/Darko/Desktop/Movies/Movies/models/movie');
+var Director = require('/Users/Darko/Desktop/Movies/Movies/models/director');
+var Genre = require('/Users/Darko/Desktop/Movies/Movies/models/genre');
 
 /* GET catalog index page. */
 
