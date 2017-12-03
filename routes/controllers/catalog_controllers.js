@@ -50,10 +50,41 @@ module.exports.catalog_category_get = function(req, res, next) {
         // Directors
         case 'directors':
             
-            Director.find({}, 'first_name last_name').sort('first_name').exec(function(err, directors) {
+            Director.aggregate([
+                
+                {$lookup: 
+                    {
+                        from: 'movies',
+                        localField: '_id',
+                        foreignField: 'director',
+                        as: 'movies'
+                    }
+                },
+                {$project:
+                    {
+                        first_name: 1,
+                        last_name: 1,
+                        numberOfMovies: {$size: "$movies"}
+                    }
+                },
+                {$sort: 
+                    {
+                        first_name: 1
+                    }
+                }
+            ])
+            .exec(function(err, directors) {
                 
                 if (err) throw err;
                 
+                directors.forEach(function(director){
+                    
+                    director.url= "/catalog/directors/" + director._id;
+                    director.name = director.first_name + ' ' + director.last_name;
+                    director.numberOfMovies > 1 ? director.numberOfMovies += ' movies' : director.numberOfMovies += ' movie'
+        
+                })
+
                 // AJAX
                 if (req.xhr) {
 
@@ -112,24 +143,76 @@ module.exports.catalog_item_get = function(req, res, next) {
         // Single movie 
         case 'movies':
 
-            Movie.findOne({'_id': id}).populate('director', 'first_name last_name').populate('genre').exec(function(err, movie) {
+            var moviePromise = Movie.findOne({'_id': id}).populate('genre').exec();
+            var movieDirectorsPromise = function(movie){
 
-                if (err) throw err;
-                
-                // AJAX
-                if (req.xhr) {
+                    return Director.aggregate([
+                        {$match: 
+                            {
+                                _id: {$in: movie.director}
+                            }
+                        },
+                        {$lookup: 
+                            {
+                                from: 'movies',
+                                localField: '_id',
+                                foreignField: 'director',
+                                as: 'movies'
+                            }
+                        },
+                        {$project:
+                            {
+                                first_name: 1,
+                                last_name: 1,
+                                numberOfMovies: {$size: "$movies"}
+                            }
+                        },
+                        {$sort: 
+                            {
+                                first_name: 1
+                            }
+                        }
+                    ])
+                    .exec();
+
+            };
+
+            moviePromise
+                .then(function(movie){
                     
-                    res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Movies', 
-                    icon: 'local_movies', movie: movie, single: true, ajax: req.xhr});
+                    return Promise.all([movie, movieDirectorsPromise(movie)])
+                    
+                })
+                .then(function([movie, movieDirectors]){
 
-                // Regular
-                } else {
+                    movieDirectors.forEach(function(director){
+                        
+                        director.url= "/catalog/directors/" + director._id;
+                        director.name = director.first_name + ' ' + director.last_name;
+                        director.numberOfMovies > 1 ? director.numberOfMovies += ' movies' : director.numberOfMovies += ' movie'
+            
+                    })
 
-                    res.render('catalog', {category: 'Movies', icon: 'local_movies', movie: movie, single: true, ajax: req.xhr});
+                    // AJAX
+                    if (req.xhr) {
+                        
+                        res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Movies', 
+                        icon: 'local_movies', movie: movie, movieDirectors: movieDirectors, single: true, ajax: req.xhr});
 
-                }
+                    // Regular
+                    } else {
 
-            });
+                        res.render('catalog', {category: 'Movies', icon: 'local_movies', movie: movie, movieDirectors: movieDirectors, single: true, ajax: req.xhr});
+
+                    }
+
+                })
+                .catch(function(err){
+                    
+                    console.log(err);
+                    res.send("Something went wrong");
+
+                })
             break;
 
         // Single director
@@ -167,7 +250,8 @@ module.exports.catalog_item_get = function(req, res, next) {
             var genrePromise = Genre.findOne({'_id': id}).exec();
             var genreMoviesPromise = Movie.find({'genre': id}, 'title year').exec();
 
-            Promise.all([genrePromise, genreMoviesPromise]).then(function([genre, genre_movies]) {
+            Promise.all([genrePromise, genreMoviesPromise])
+                .then(function([genre, genre_movies]) {
 
                 // AJAX
                 if (req.xhr) {
