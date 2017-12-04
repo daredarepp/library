@@ -459,11 +459,26 @@ $(document).ready(function() {
             });
 
             // Category items
-            $('.catalog').find('.category_items').off().on('click', function(event) {
+            $('.catalog').find('.window_body').off().on('click', function(event) {
 
-                event.preventDefault();
-                var url = $(this).attr('href');
-                catalogModule.openSingleItem(url);
+                var clicked = $(event.target);
+                var itemParents = clicked.parents('a').filter('.category_items');
+
+                // If the clicked element is an item link
+                if ((clicked.prop('tagName') === 'A') && (clicked.attr('class').indexOf('category_items') > -1)) { 
+
+                    event.preventDefault();
+                    let url = clicked.attr('href');
+                    catalogModule.openSingleItem(url);
+
+                // If the clicked element is a descendant of item link
+                } else if (itemParents.length > 0) {
+
+                    event.preventDefault();
+                    let url = $(itemParents).attr('href');
+                    catalogModule.openSingleItem(url);
+
+                }
 
             });
             
