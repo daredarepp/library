@@ -296,7 +296,7 @@ p {
 }
 
 .scroll_left:hover, .scroll_right:hover {
-  color: rgb(2, 120, 189);;
+  color: rgb(2, 120, 189);
 }
 
 /* "See all" links */
@@ -501,12 +501,10 @@ p {
   width: 25%;
   padding: 2%;
   margin: 2% 3%;
-  /* border: 1px solid rgb(240, 237, 237); */
 }
 
 .category_items.genre:link, .category_items.genre:visited {
   background-color: rgba(0, 0, 0, 0.075);
-  /* color: rgb(2, 119, 189); */
 }
 
 .category_items.genre:hover {
@@ -697,7 +695,7 @@ p {
 }
 
 /* Admin titles */
-.admin .window_title {
+/* .admin .window_title {
   border: none;
   background-color: rgba(0, 0, 0, 0.466);
   color: rgba(255, 255, 255, 0.87);
@@ -705,36 +703,36 @@ p {
 
 .admin .window_title i {
   color: rgba(255, 255, 255, 0.883);
-}
+} */
 
 /* Admin buttons */
-.admin .button:link, .admin .button:visited {
+/* .admin .button:link, .admin .button:visited {
   color: white;
 }
 
 .admin .button:hover, .admin .button.active {
   background-color: rgba(0, 0, 0, 0.246);
   color: white;
-}
+} */
 
 /* Admin window body */
 .admin .window_body {
   max-height: 400px;
+  overflow-y: hidden;
+  padding-bottom: 50px;
 }
 
 /* Admin search */
 .admin .search_bar {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.356);
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 /* Admin lists */
 .admin .category_items {
   display: block;
-  width: 100%;
-  padding: 10px 110px 10px 70px;
+  padding: 10px 10% 10px 5%;
   text-align: left;
-  margin: 0px;
+  margin: 10px 15px;
   position: relative;
 }
 
@@ -745,7 +743,7 @@ p {
 /* Delete button */
 .delete {
   position: absolute;
-  right: 40px;
+  right: 4%;
 }
 
 .delete:link, .delete:visited {
@@ -755,6 +753,35 @@ p {
 
 .admin .category_items:hover .delete {
   color: rgb(160, 19, 19);
+}
+
+/* Scroll buttons */
+.scroll_bar {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  padding: 2px 0px;
+  width: 100%;
+  background-color: white;
+}
+
+.admin .scroll_up, .admin .scroll_down {
+  display: inline-block;
+  padding: 2px 0px;
+  border-radius: 5px;
+  margin: 10px 2px;
+  font-size: 22px;
+}
+
+.scroll_up:link, .scroll_up:visited, .scroll_down:link, .scroll_down:visited {
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  color: rgb(13, 92, 134);
+}
+
+.scroll_up:hover, .scroll_down:hover {
+  color: rgb(2, 120, 189);
+  /* background-color: rgba(0, 0, 0, 0.63); */
 }
 
 @media (max-width: 629px) {

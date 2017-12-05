@@ -524,12 +524,67 @@ $(document).ready(function() {
     /* Admin page ------------------------------------------------------------------------------------------------------- */
     
     var adminModule = function() {
-    
         
+        // Scroll up
+        var scrollUp = function(button) {
+            
+            var elementToScroll = button.parents('.window_body');
+
+            // Grab reference to the position of the scroll and decrease it's value
+            var scrollPosition = elementToScroll.scrollTop();
+            scrollPosition -= 260;
+
+            // Apply the new value using animation
+            elementToScroll.animate({scrollTop: scrollPosition}, 200);
+
+        };
+
+        // Scroll down
+        var scrollDown = function(button) {
+            
+            var elementToScroll = button.parents('.window_body');
+
+            // Grab reference to the position of the scroll and decrease it's value
+            var scrollPosition = elementToScroll.scrollTop();
+            scrollPosition += 260;
+
+            // Apply the new value using animation
+            elementToScroll.animate({scrollTop: scrollPosition}, 200);
+            
+        };
+
+        // Add event listeners
+        var addEventListeners = function(){
+
+            // Scroll up button
+            $('.scroll_up').off().on('click', function(event) {
+                
+                event.preventDefault();
+                
+                var button = $(this);
+                adminModule.scrollUp(button);
+                
+            });
+
+            // Scroll down button
+            $('.scroll_down').off().on('click', function(event) {
+                
+                event.preventDefault();
+                
+                var button = $(this);
+                adminModule.scrollDown(button);
+                
+            });
+
+        };
+
+        return {scrollUp: scrollUp, scrollDown: scrollDown, addEventListeners: addEventListeners}
     
     }();
 
-
+    // Add the event listeners
+    adminModule.addEventListeners();
+     
 
 });
 
