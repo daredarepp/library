@@ -724,7 +724,26 @@ p {
 
 /* Admin search */
 .admin .search_bar {
-  margin-bottom: 15px;
+  position: absolute;
+  z-index: 1;
+  top: 51px;
+  left: 0px;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  /* margin-bottom: 15px; */
+  background-color: white;
+  /* border: 1px solid black; */
+}
+
+.admin .search_bar label {
+  top: 20px;
+  left: 20px;
+}
+
+.admin #clear_search {
+  top: 20px;
+  right: 25px;
 }
 
 /* Admin lists */
@@ -776,11 +795,11 @@ p {
 .scroll_up:link, .scroll_up:visited, .scroll_down:link, .scroll_down:visited {
   box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
   text-decoration: none;
-  color: rgb(13, 92, 134);
+  color: grey;
 }
 
 .scroll_up:hover, .scroll_down:hover {
-  color: rgb(2, 120, 189);
+  color: black;
   /* background-color: rgba(0, 0, 0, 0.63); */
 }
 

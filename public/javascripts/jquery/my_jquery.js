@@ -260,9 +260,12 @@ $(document).ready(function() {
         // Open search bar
         var openSearch = function(searchButton) {
 
+            var parentWindow = searchButton.parents('.window');
+            var windowBody = parentWindow.children('.window_body');
+            var searchBar = windowBody.children('.search_bar');
+            var searchField = searchBar.children('#search_field');
+            
             // Toggle the active button only when the search field is empty
-            var window = searchButton.parents('.window');
-            var searchField = window.find('#search_field');
             if (searchField.val().length === 0) {
 
                 searchButton.toggleClass('active');
@@ -270,10 +273,16 @@ $(document).ready(function() {
             }
             
             // Toggle the search bar
-            var searchBar = window.find('.search_bar');
             searchBar.slideToggle(100);
 
             searchField.focus();
+
+            // In admin windows, slide down the elements under the search bar
+            if (parentWindow.attr('class').indexOf('admin') > -1) {
+
+                windowBody.css('paddingTop') === "15px" ? windowBody.animate({paddingTop: "+=50px"}, {duration: 100, queue: false}) : windowBody.animate({paddingTop: "-=50px"}, {duration: 100, queue: false});
+
+            }
 
         };
         
@@ -281,11 +290,11 @@ $(document).ready(function() {
         var searchItems = function(searchField, searchValue) {
 
             // Remove previous no match string
-            var window = searchField.parents('.window');
-            window.find('.no_match').remove();
+            var parentWindow = searchField.parents('.window');
+            parentWindow.find('.no_match').remove();
 
             // Show only the category items that match the search
-            var categoryItems = window.find('.category_items');
+            var categoryItems = parentWindow.find('.category_items');
             categoryItems.each(function(i,item) {
 
                 var itemName = $(item).text().toLowerCase();
@@ -303,7 +312,7 @@ $(document).ready(function() {
             });
 
             // Show the button that clears the search
-            var clearSearchButton = window.find('#clear_search');
+            var clearSearchButton = parentWindow.find('#clear_search');
             searchValue.length > 0 ? clearSearchButton.show() : clearSearchButton.hide();
 
             // No match
@@ -314,7 +323,7 @@ $(document).ready(function() {
                 var noMatch = $('<p></p>').addClass('no_match');
                 noMatch.text('No items match your search.');
 
-                var windowBody = window.find('.window_body');
+                var windowBody = parentWindow.children('.window_body');
                 windowBody.append(noMatch);
 
             };        
@@ -325,16 +334,16 @@ $(document).ready(function() {
         var clearSearch = function(button) {
             
             // Remove no match string
-            var window = $(button).parents('.window');
-            window.find('.no_match').remove();
+            var parentWindow = $(button).parents('.window');
+            parentWindow.find('.no_match').remove();
             
             // Empty the search field and focus on it
-            var searchField = window.find('#search_field');
+            var searchField = parentWindow.find('#search_field');
             searchField.val('');
             searchField.focus();
 
             // Show all the category items
-            var categoryItems = window.find('.category_items');
+            var categoryItems = parentWindow.find('.category_items');
             categoryItems.show();
 
             // Hide the button
@@ -386,6 +395,9 @@ $(document).ready(function() {
 
                 // Update the URL
                 catalogModule.updateURL(url);
+
+                // Smoothly scroll to the top
+                $('html').animate({scrollTop: 0}, 500);
 
             })
 
@@ -584,6 +596,8 @@ $(document).ready(function() {
 
     // Add the event listeners
     adminModule.addEventListeners();
+
+    /* setInterval(function(){console.log($('.admin .search_bar').position().top + ' ' + $('.admin .search_bar').css("color"))}, 2000) */
      
 
 });
