@@ -78,70 +78,55 @@ $(document).ready(function() {
 
     var homepageModule = function() {
 
-        // Scroll popular movies right
-        var scrollRight = function(button) {
+        // Scroll popular movies left and right
+        var scrollLeftAndRight = function(button) {
             
             var elementToScroll = button.parent();
-
-            // Grab reference to the position of the scroll and increase it's value
             var scrollPosition = elementToScroll.scrollLeft();
-            scrollPosition += 247;
 
-            // Apply the new value using animation
-            elementToScroll.animate({scrollLeft: scrollPosition}, 200);
+            if (button.attr('class').indexOf('scroll_left') > -1) {
+                
+                elementToScroll.animate({scrollLeft: scrollPosition - 247}, 200);
+
+            } else if (button.attr('class').indexOf('scroll_right') > -1) {
+
+                elementToScroll.animate({scrollLeft: scrollPosition + 247}, 200);
+
+            }
 
         };
 
-        // Scroll popular movies left
-        var scrollLeft = function(button) {
+        // Add homepage event listeners
+        var addEventListeners = function() {
 
-            var elementToScroll = button.parent();
+            // Scroll left and right buttons
+            $('.home_wrapper').find('.scroll_left, .scroll_right').off().on('click', function(event) {
+                
+                event.preventDefault();
+                
+                var button = $(this);
+                homepageModule.scrollLeftAndRight(button);
+                
+            });
 
-            // Grab reference to the position of the scroll and decrease it's value
-            var scrollPosition = elementToScroll.scrollLeft();
-            scrollPosition -= 247;
+            // Toggle button
+            $('a.toggle_button').off().on('click', function(event) {
 
-            // Apply the new value using animation
-           elementToScroll.animate({scrollLeft: scrollPosition}, 200);
+                event.preventDefault();
+
+                var toggleButton = $(this);
+                websiteModule.toggleWindow(toggleButton);
+
+            });
 
         };
         
-        return {scrollRight: scrollRight, scrollLeft: scrollLeft};
+        return {scrollLeftAndRight: scrollLeftAndRight, addEventListeners: addEventListeners};
 
     }();
 
-
-    // Right scroll button
-    $('.scroll_right').off().on('click', function(event) {
-        
-        event.preventDefault();
-        
-        var button = $(this);
-        homepageModule.scrollRight(button);
-        
-    });
-    
-
-    // Left scroll button
-    $('.scroll_left').off().on('click', function(event) {
-
-        event.preventDefault();
-
-        var button = $(this);
-        homepageModule.scrollLeft(button);
-
-    });
-
-
-    // Toggle button
-    $('a.toggle_button').off().on('click', function(event) {
-
-        event.preventDefault();
-
-        var toggleButton = $(this);
-        websiteModule.toggleWindow(toggleButton);
-
-    });
+    // Add the event listeners
+    homepageModule.addEventListeners();
 
     /* Catalog page ------------------------------------------------------------------------------------------------- */
  
@@ -272,15 +257,32 @@ $(document).ready(function() {
 
             }
             
-            // Toggle the search bar
+            // Toggle and focus the search bar
             searchBar.slideToggle(100);
-
             searchField.focus();
 
             // In admin windows, slide down the elements under the search bar
-            if (parentWindow.attr('class').indexOf('admin') > -1) {
+            if ((parentWindow.attr('class').indexOf('admin') > -1)) {
 
-                windowBody.css('paddingTop') === "15px" ? windowBody.animate({paddingTop: "+=50px"}, {duration: 100, queue: false}) : windowBody.animate({paddingTop: "-=50px"}, {duration: 100, queue: false});
+                if (windowBody.css('paddingTop') === "15px") {
+                    
+                    windowBody.animate({paddingTop: "+=50px"},
+                                       {duration: 100, 
+                                        queue: false, 
+                                        done: function() {
+                                            adminModule.checkScrollAvailability(windowBody)
+                                        }});
+                    
+                } else {
+                    
+                    windowBody.animate({paddingTop: "-=50px"},
+                                        {duration: 100, 
+                                        queue: false, 
+                                        done: function() {
+                                            adminModule.checkScrollAvailability(windowBody)
+                                        }});
+                    
+                }
 
             }
 
@@ -289,8 +291,10 @@ $(document).ready(function() {
         // Search items
         var searchItems = function(searchField, searchValue) {
 
-            // Remove previous no match string
             var parentWindow = searchField.parents('.window');
+            var windowBody = parentWindow.children('.window_body');
+
+            // Remove previous no match string
             parentWindow.find('.no_match').remove();
 
             // Show only the category items that match the search
@@ -320,21 +324,29 @@ $(document).ready(function() {
 
             if (invisibleItems.length === categoryItems.length) { 
 
-                var noMatch = $('<p></p>').addClass('no_match');
+                let noMatch = $('<p></p>').addClass('no_match');
                 noMatch.text('No items match your search.');
 
-                var windowBody = parentWindow.children('.window_body');
                 windowBody.append(noMatch);
 
             };        
+
+            // In admin windows, check for scroll availability 
+            if ((parentWindow.attr('class').indexOf('admin') > -1)) {
+
+                adminModule.checkScrollAvailability(windowBody);
+
+            }
 
         };
 
         // Clear search
         var clearSearch = function(button) {
             
-            // Remove no match string
             var parentWindow = $(button).parents('.window');
+            var windowBody = parentWindow.children('.window_body')
+
+            // Remove no match string
             parentWindow.find('.no_match').remove();
             
             // Empty the search field and focus on it
@@ -348,6 +360,13 @@ $(document).ready(function() {
 
             // Hide the button
             button.hide();
+
+            // In admin windows, check for scroll availability 
+            if ((parentWindow.attr('class').indexOf('admin') > -1)) {
+
+                adminModule.checkScrollAvailability(windowBody);
+
+            }
 
         };
 
@@ -397,7 +416,7 @@ $(document).ready(function() {
                 catalogModule.updateURL(url);
 
                 // Smoothly scroll to the top
-                $('html').animate({scrollTop: 0}, 500);
+                $('html').animate({scrollTop: 0}, 200);
 
             })
 
@@ -537,67 +556,116 @@ $(document).ready(function() {
     
     var adminModule = function() {
         
-        // Scroll up
-        var scrollUp = function(button) {
+        // Scroll up and down
+        var scrollUpAndDown = function(button) {
             
-            var elementToScroll = button.parents('.window_body');
+            var windowBody = button.parents('.window_body');
+            var scrollPosition = windowBody.scrollTop();
+            
+            // Scroll up
+            if (button.attr('class').indexOf('scroll_up') > -1) {
 
-            // Grab reference to the position of the scroll and decrease it's value
-            var scrollPosition = elementToScroll.scrollTop();
-            scrollPosition -= 260;
+                windowBody.animate({scrollTop: scrollPosition - 260}, 
+                                    {duration: 200,
+                                    done: function() {
+                                        adminModule.checkScrollAvailability(windowBody)
+                                    }});
 
-            // Apply the new value using animation
-            elementToScroll.animate({scrollTop: scrollPosition}, 200);
+            // Scroll down
+            } else if (button.attr('class').indexOf('scroll_down') > -1) {
+
+                windowBody.animate({scrollTop: scrollPosition + 260},
+                                    {duration: 200,
+                                    done: function() {
+                                        adminModule.checkScrollAvailability(windowBody)
+                                    }});
+
+            }
 
         };
 
-        // Scroll down
-        var scrollDown = function(button) {
+        // Check scroll availability
+        var checkScrollAvailability = function(windowBody) {
             
-            var elementToScroll = button.parents('.window_body');
-
-            // Grab reference to the position of the scroll and decrease it's value
-            var scrollPosition = elementToScroll.scrollTop();
-            scrollPosition += 260;
-
-            // Apply the new value using animation
-            elementToScroll.animate({scrollTop: scrollPosition}, 200);
+            var scrollUpButton = windowBody.find('.scroll_up');
+            var scrollDownButton = windowBody.find('.scroll_down');
             
+            // Highlight the scroll up button if available
+            if (windowBody.scrollTop() > 0) {
+                
+                scrollUpButton.addClass('active');
+
+            } else {
+
+                scrollUpButton.removeClass('active');
+
+            }
+
+            var windowHeader = windowBody.parents('.window').children('.window_title').innerHeight();
+            var paddingTop = windowBody.css('padding-top');
+            var distance = parseInt(paddingTop.slice(0, paddingTop.length - 2)) + windowHeader;
+            
+            var list = windowBody.children('.list');
+            var listBottomPosition = list.innerHeight() + list.position().top - distance;
+
+            // Highlight the scroll down button if available
+            if (listBottomPosition > windowBody.height()){
+            
+                scrollDownButton.addClass('active');
+
+            } else {
+
+                scrollDownButton.removeClass('active');
+
+            }
+            console.log('list: ' + listBottomPosition);
+            console.log('body: ' + windowBody.height());
+
         };
 
         // Add event listeners
         var addEventListeners = function(){
 
-            // Scroll up button
-            $('.scroll_up').off().on('click', function(event) {
+            // Scroll up and down buttons
+            $('.admin').find('.scroll_up, .scroll_down').off().on('click', function(event) {
                 
                 event.preventDefault();
                 
                 var button = $(this);
-                adminModule.scrollUp(button);
-                
-            });
-
-            // Scroll down button
-            $('.scroll_down').off().on('click', function(event) {
-                
-                event.preventDefault();
-                
-                var button = $(this);
-                adminModule.scrollDown(button);
+                adminModule.scrollUpAndDown(button);
                 
             });
 
         };
 
-        return {scrollUp: scrollUp, scrollDown: scrollDown, addEventListeners: addEventListeners}
+        return {scrollUpAndDown: scrollUpAndDown, checkScrollAvailability: checkScrollAvailability, addEventListeners: addEventListeners}
     
     }();
+
+    // Highlight the scroll availability
+    (function() {
+
+        var adminWindows = $('.admin');
+
+        adminWindows.each(function(i, adminWindow) {
+
+            let windowBody = $(adminWindow).children('.window_body');
+            let itemsList = windowBody.children('.list');
+            let scrollDownButton = itemsList.find('.scroll_down');
+
+            if (itemsList.innerHeight() > windowBody.height()) {
+
+                scrollDownButton.addClass('active');
+
+            }
+
+        })
+
+    })();
 
     // Add the event listeners
     adminModule.addEventListeners();
 
-    /* setInterval(function(){console.log($('.admin .search_bar').position().top + ' ' + $('.admin .search_bar').css("color"))}, 2000) */
      
 
 });
