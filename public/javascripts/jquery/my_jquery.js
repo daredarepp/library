@@ -84,13 +84,53 @@ $(document).ready(function() {
             var elementToScroll = button.parent();
             var scrollPosition = elementToScroll.scrollLeft();
 
+            // Scroll left
             if (button.attr('class').indexOf('scroll_left') > -1) {
                 
-                elementToScroll.animate({scrollLeft: scrollPosition - 247}, 200);
+                elementToScroll.animate({scrollLeft: scrollPosition - 247}, 
+                                        {duration: 200,
+                                        done: function() {
+                                            homepageModule.checkHorizontalScroll(elementToScroll);
+                                        }});
 
+            // Scroll right
             } else if (button.attr('class').indexOf('scroll_right') > -1) {
 
-                elementToScroll.animate({scrollLeft: scrollPosition + 247}, 200);
+                elementToScroll.animate({scrollLeft: scrollPosition + 247},
+                                        {duration: 200,
+                                        done: function() {
+                                            homepageModule.checkHorizontalScroll(elementToScroll);
+                                        }});
+
+            }
+
+        };
+
+        // Check horizontal scroll
+        var checkHorizontalScroll = function (elementToScroll) {
+
+            var scrollLeftButton = elementToScroll.find('.scroll_left');
+            var scrollRightButton = elementToScroll.find('.scroll_right');
+            var lastItem = elementToScroll.find('.category_items').last();
+            var lastItemPosition = lastItem.position().left + lastItem.innerWidth();
+
+            // Highlight right scroll button
+            if (elementToScroll.scrollLeft() <= 0) { 
+
+                scrollLeftButton.removeClass('active');
+                scrollRightButton.addClass('active');
+
+            // Highlight both scroll buttons
+            } else if ((elementToScroll.scrollLeft() > 0) && (lastItemPosition > scrollRightButton.position().left)) {
+
+                scrollLeftButton.addClass('active');
+                scrollRightButton.addClass('active');
+
+            // Highlight left scroll button
+            } else {
+
+                scrollRightButton.removeClass('active');
+                scrollLeftButton.addClass('active');
 
             }
 
@@ -119,12 +159,46 @@ $(document).ready(function() {
 
             });
 
+            // Windows resize
+            $(window).resize(function() {
+
+                console.log('width: ' + $('.window:first-child').innerHeight());
+
+            })
         };
         
-        return {scrollLeftAndRight: scrollLeftAndRight, addEventListeners: addEventListeners};
+        return {scrollLeftAndRight: scrollLeftAndRight, checkHorizontalScroll: checkHorizontalScroll, addEventListeners: addEventListeners};
 
     }();
 
+    // Check for scroll availability (on resize too)
+    if (location.href === 'http://localhost:3000/') {
+        
+        (function() {
+            
+            var homepageWindows = $('.home_wrapper').find('.window');
+            homepageWindows.each(function(i, homepageWindow) {
+    
+                let elementToScroll = $(homepageWindow).find('#latest_movies, #active_directors');
+                homepageModule.checkHorizontalScroll(elementToScroll);
+    
+            })
+
+            $(window).off().on('resize', function() {
+                
+                homepageWindows.each(function(i, homepageWindow) {
+                    
+                    let elementToScroll = $(homepageWindow).find('#latest_movies, #active_directors');
+                    homepageModule.checkHorizontalScroll(elementToScroll);
+        
+                })  
+
+            })
+
+        })()
+            
+    }
+    
     // Add the event listeners
     homepageModule.addEventListeners();
 
@@ -264,13 +338,15 @@ $(document).ready(function() {
             // In admin windows, slide down the elements under the search bar
             if ((parentWindow.attr('class').indexOf('admin') > -1)) {
 
+                
                 if (windowBody.css('paddingTop') === "15px") {
                     
+                    windowBody.scrollTop(0);
                     windowBody.animate({paddingTop: "+=50px"},
                                        {duration: 100, 
                                         queue: false, 
                                         done: function() {
-                                            adminModule.checkScrollAvailability(windowBody)
+                                            adminModule.checkVerticalScroll(windowBody)
                                         }});
                     
                 } else {
@@ -279,7 +355,7 @@ $(document).ready(function() {
                                         {duration: 100, 
                                         queue: false, 
                                         done: function() {
-                                            adminModule.checkScrollAvailability(windowBody)
+                                            adminModule.checkVerticalScroll(windowBody)
                                         }});
                     
                 }
@@ -334,7 +410,7 @@ $(document).ready(function() {
             // In admin windows, check for scroll availability 
             if ((parentWindow.attr('class').indexOf('admin') > -1)) {
 
-                adminModule.checkScrollAvailability(windowBody);
+                adminModule.checkVerticalScroll(windowBody);
 
             }
 
@@ -364,7 +440,7 @@ $(document).ready(function() {
             // In admin windows, check for scroll availability 
             if ((parentWindow.attr('class').indexOf('admin') > -1)) {
 
-                adminModule.checkScrollAvailability(windowBody);
+                adminModule.checkVerticalScroll(windowBody);
 
             }
 
@@ -519,7 +595,7 @@ $(document).ready(function() {
 
     }();
    
-    // On first catalog page load
+    // On catalog page load
     if(location.href.indexOf('/catalog') > -1) {
 
         let catalogCategory = $('.catalog').attr('data-category');
@@ -532,7 +608,7 @@ $(document).ready(function() {
         history.replaceState({wrapper: catalogModule.wrapper.html()}, '', location.href);
 
     }
-
+    
     // Add the event listeners
     catalogModule.addEventListeners();
 
@@ -568,7 +644,7 @@ $(document).ready(function() {
                 windowBody.animate({scrollTop: scrollPosition - 260}, 
                                     {duration: 200,
                                     done: function() {
-                                        adminModule.checkScrollAvailability(windowBody)
+                                        adminModule.checkVerticalScroll(windowBody)
                                     }});
 
             // Scroll down
@@ -577,27 +653,29 @@ $(document).ready(function() {
                 windowBody.animate({scrollTop: scrollPosition + 260},
                                     {duration: 200,
                                     done: function() {
-                                        adminModule.checkScrollAvailability(windowBody)
+                                        adminModule.checkVerticalScroll(windowBody)
                                     }});
 
             }
 
         };
 
-        // Check scroll availability
-        var checkScrollAvailability = function(windowBody) {
+        // Check vertical scroll
+        var checkVerticalScroll = function(windowBody) {
             
             var scrollUpButton = windowBody.find('.scroll_up');
             var scrollDownButton = windowBody.find('.scroll_down');
             
-            // Highlight the scroll up button if available
-            if (windowBody.scrollTop() > 0) {
+            // Highlight the scroll up button
+            if (windowBody.scrollTop() <= 0) {
+                
+                scrollUpButton.removeClass('active');
+                scrollUpButton.removeAttr('title');
+                
+            } else {
                 
                 scrollUpButton.addClass('active');
-
-            } else {
-
-                scrollUpButton.removeClass('active');
+                scrollUpButton.attr('title', 'Scroll up');
 
             }
 
@@ -608,18 +686,18 @@ $(document).ready(function() {
             var list = windowBody.children('.list');
             var listBottomPosition = list.innerHeight() + list.position().top - distance;
 
-            // Highlight the scroll down button if available
+            // Highlight the scroll down button
             if (listBottomPosition > windowBody.height()){
             
                 scrollDownButton.addClass('active');
+                scrollDownButton.attr('title', 'Scroll down');
 
             } else {
 
                 scrollDownButton.removeClass('active');
+                scrollDownButton.removeAttr('title');
 
             }
-            console.log('list: ' + listBottomPosition);
-            console.log('body: ' + windowBody.height());
 
         };
 
@@ -638,30 +716,27 @@ $(document).ready(function() {
 
         };
 
-        return {scrollUpAndDown: scrollUpAndDown, checkScrollAvailability: checkScrollAvailability, addEventListeners: addEventListeners}
+        return {scrollUpAndDown: scrollUpAndDown, checkVerticalScroll: checkVerticalScroll, addEventListeners: addEventListeners}
     
     }();
 
-    // Highlight the scroll availability
-    (function() {
+    // Check for scroll availability
+    if (location.href === "http://localhost:3000/admin") {
+        
+        (function() {
 
-        var adminWindows = $('.admin');
+            var adminWindows = $('.admin');
+    
+            adminWindows.each(function(i, adminWindow) {
+    
+                let windowBody = $(adminWindow).children('.window_body');
+                adminModule.checkVerticalScroll(windowBody);
+    
+            })
 
-        adminWindows.each(function(i, adminWindow) {
-
-            let windowBody = $(adminWindow).children('.window_body');
-            let itemsList = windowBody.children('.list');
-            let scrollDownButton = itemsList.find('.scroll_down');
-
-            if (itemsList.innerHeight() > windowBody.height()) {
-
-                scrollDownButton.addClass('active');
-
-            }
-
-        })
-
-    })();
+        })();
+            
+    }
 
     // Add the event listeners
     adminModule.addEventListeners();

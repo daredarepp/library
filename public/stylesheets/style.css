@@ -288,15 +288,19 @@ p {
 }
 
 .scroll_left:link, .scroll_left:visited, .scroll_right:link, .scroll_right:visited {
-  box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2); */
   text-decoration: none;
-  color: rgb(13, 92, 134);
   font-weight: bold;
-  background-color: white;
+  background-color: transparent;
+  color: silver;
+  cursor: context-menu;
 }
 
-.scroll_left:hover, .scroll_right:hover {
+.scroll_left.active:link, .scroll_left.active:visited, .scroll_right.active:link, .scroll_right.active:visited {
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+  background-color: white;
   color: rgb(2, 120, 189);
+  cursor: pointer;
 }
 
 /* "See all" links */
@@ -764,19 +768,22 @@ p {
 .admin .scroll_up, .admin .scroll_down {
   display: inline-block;
   padding: 2px 0px;
-  border-radius: 5px;
+  border-radius: 25px;
   margin: 10px 2px;
   font-size: 22px;
 }
 
 .scroll_up:link, .scroll_up:visited, .scroll_down:link, .scroll_down:visited {
-  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
   text-decoration: none;
   color: silver;
+  cursor: context-menu;
 }
 
 .scroll_up.active:link, .scroll_up.active:visited, .scroll_down.active:link, .scroll_down.active:visited {
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.5);
   color: black;
+  cursor: pointer;
 }
 
 @media (max-width: 629px) {
