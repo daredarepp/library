@@ -15,23 +15,35 @@ $(document).ready(function() {
         // Toggle window
         var toggleWindow= function(toggleButton) {
             
-            // Toggle the parent window
             var windowBody = toggleButton.parents('.window').children('.window_body');
-            windowBody.toggle();
+            var scrollButtons = windowBody.find('.scroll_left, .scroll_right, .scroll_bar');
+                
+            // Slide up
+            if (toggleButton.text() === "keyboard_arrow_down") {
+                
+                windowBody.slideUp(200);
 
+                // smoothly hide the scroll buttons
+                scrollButtons.fadeOut(100);
 
-            // Toggle the active button
-            if (toggleButton.text() === 'keyboard_arrow_left') {
-
-                toggleButton.text('keyboard_arrow_down');
-                toggleButton.toggleClass('active');
-
+                // highlight the toggle button and change arrow direction
+                toggleButton.addClass('active');
+                toggleButton.text('keyboard_arrow_left');
+                
+            // Slide down
             } else {
 
-                toggleButton.text('keyboard_arrow_left');
-                toggleButton.toggleClass('active');
-                
+                windowBody.slideDown(200);
+
+                // smoothly show the scroll buttons
+                scrollButtons.fadeIn(100);
+
+                // remove highlight from the toggle button and change arrow direction
+                toggleButton.removeClass('active');
+                toggleButton.text('keyboard_arrow_down');
+
             }
+
         };
 
         // Highlight navigation buttons
@@ -78,70 +90,123 @@ $(document).ready(function() {
 
     var homepageModule = function() {
 
-        // Scroll popular movies right
-        var scrollRight = function(button) {
+        // Scroll popular movies left and right
+        var scrollLeftAndRight = function(button) {
             
             var elementToScroll = button.parent();
-
-            // Grab reference to the position of the scroll and increase it's value
             var scrollPosition = elementToScroll.scrollLeft();
-            scrollPosition += 247;
 
-            // Apply the new value using animation
-            elementToScroll.animate({scrollLeft: scrollPosition}, 200);
+            // Scroll left
+            if (button.attr('class').indexOf('scroll_left') > -1) {
+                
+                elementToScroll.animate({scrollLeft: scrollPosition - 247}, 
+                                        {duration: 200,
+                                        done: function() {
+                                            homepageModule.checkHorizontalScroll(elementToScroll);
+                                        }});
+
+            // Scroll right
+            } else if (button.attr('class').indexOf('scroll_right') > -1) {
+
+                elementToScroll.animate({scrollLeft: scrollPosition + 247},
+                                        {duration: 200,
+                                        done: function() {
+                                            homepageModule.checkHorizontalScroll(elementToScroll);
+                                        }});
+
+            }
 
         };
 
-        // Scroll popular movies left
-        var scrollLeft = function(button) {
+        // Check horizontal scroll
+        var checkHorizontalScroll = function (elementToScroll) {
 
-            var elementToScroll = button.parent();
+            var scrollLeftButton = elementToScroll.find('.scroll_left');
+            var scrollRightButton = elementToScroll.find('.scroll_right');
+            var lastItem = elementToScroll.find('.category_items').last();
+            var lastItemPosition = lastItem.position().left + lastItem.innerWidth();
 
-            // Grab reference to the position of the scroll and decrease it's value
-            var scrollPosition = elementToScroll.scrollLeft();
-            scrollPosition -= 247;
+            // Highlight right scroll button
+            if (elementToScroll.scrollLeft() <= 0) { 
 
-            // Apply the new value using animation
-           elementToScroll.animate({scrollLeft: scrollPosition}, 200);
+                scrollLeftButton.removeClass('active');
+                scrollRightButton.addClass('active');
+
+            // Highlight both scroll buttons
+            } else if ((elementToScroll.scrollLeft() > 0) && (lastItemPosition > scrollRightButton.position().left)) {
+
+                scrollLeftButton.addClass('active');
+                scrollRightButton.addClass('active');
+
+            // Highlight left scroll button
+            } else {
+
+                scrollRightButton.removeClass('active');
+                scrollLeftButton.addClass('active');
+
+            }
+
+        };
+
+        // Add homepage event listeners
+        var addEventListeners = function() {
+
+            // Scroll left and right buttons
+            $('.home_wrapper').find('.scroll_left, .scroll_right').off().on('click', function(event) {
+                
+                event.preventDefault();
+                
+                var button = $(this);
+                homepageModule.scrollLeftAndRight(button);
+                
+            });
+
+            // Toggle button
+            $('a.toggle_button').off().on('click', function(event) {
+
+                event.preventDefault();
+
+                var toggleButton = $(this);
+                websiteModule.toggleWindow(toggleButton);
+
+            });
 
         };
         
-        return {scrollRight: scrollRight, scrollLeft: scrollLeft};
+        return {scrollLeftAndRight: scrollLeftAndRight, checkHorizontalScroll: checkHorizontalScroll, addEventListeners: addEventListeners};
 
     }();
 
-
-    // Right scroll button
-    $('.scroll_right').off().on('click', function(event) {
+    // Check for scroll availability (on resize too)
+    if (location.href === 'http://localhost:3000/') {
         
-        event.preventDefault();
-        
-        var button = $(this);
-        homepageModule.scrollRight(button);
-        
-    });
+        (function() {
+            
+            var homepageWindows = $('.home_wrapper').find('.window');
+            homepageWindows.each(function(i, homepageWindow) {
     
+                let elementToScroll = $(homepageWindow).find('#latest_movies, #active_directors');
+                homepageModule.checkHorizontalScroll(elementToScroll);
+    
+            })
 
-    // Left scroll button
-    $('.scroll_left').off().on('click', function(event) {
+            $(window).off().on('resize', function() {
+                
+                homepageWindows.each(function(i, homepageWindow) {
+                    
+                    let elementToScroll = $(homepageWindow).find('#latest_movies, #active_directors');
+                    homepageModule.checkHorizontalScroll(elementToScroll);
+        
+                })  
 
-        event.preventDefault();
+            })
 
-        var button = $(this);
-        homepageModule.scrollLeft(button);
-
-    });
-
-
-    // Toggle button
-    $('a.toggle_button').off().on('click', function(event) {
-
-        event.preventDefault();
-
-        var toggleButton = $(this);
-        websiteModule.toggleWindow(toggleButton);
-
-    });
+        })()
+            
+    }
+    
+    // Add the event listeners
+    homepageModule.addEventListeners();
 
     /* Catalog page ------------------------------------------------------------------------------------------------- */
  
@@ -204,7 +269,7 @@ $(document).ready(function() {
             $.ajax({
                 url: url,
                 cache: false,
-                type: 'GET'
+                method: 'GET'
             })
 
             // When done
@@ -250,42 +315,63 @@ $(document).ready(function() {
 
         };
 
-        // Go back
-        var goBack = function() {
-          
-            history.back();
-
-        };
-
         // Open search bar
         var openSearch = function(searchButton) {
 
+            var parentWindow = searchButton.parents('.window');
+            var windowBody = parentWindow.children('.window_body');
+            var searchBar = windowBody.find('.search_bar');
+            var searchField = searchBar.children('#search_field');
+            
             // Toggle the active button only when the search field is empty
-            var window = searchButton.parents('.window');
-            var searchField = window.find('#search_field');
             if (searchField.val().length === 0) {
 
                 searchButton.toggleClass('active');
 
             }
             
-            // Toggle the search bar
-            var searchBar = window.find('.search_bar');
-            searchBar.slideToggle(100);
-
+            // Toggle the search bar and focus it
+            $(searchBar).slideToggle(100);
             searchField.focus();
+
+            // In admin windows, slide down the elements under the search bar
+            if ((parentWindow.attr('class').indexOf('admin') > -1)) {
+
+                
+                if (windowBody.css('paddingTop') === "15px") {
+                    
+                    windowBody.scrollTop(0);
+                    windowBody.animate({paddingTop: "+=50px"},
+                                       {duration: 100, 
+                                        done: function() {
+                                            adminModule.checkVerticalScroll(windowBody)
+                                        }});
+                    
+                } else {
+                    
+                    windowBody.animate({paddingTop: "-=50px"},
+                                        {duration: 100, 
+                                        done: function() {
+                                            adminModule.checkVerticalScroll(windowBody)
+                                        }});
+                    
+                }
+
+            }
 
         };
         
         // Search items
         var searchItems = function(searchField, searchValue) {
 
+            var parentWindow = searchField.parents('.window');
+            var windowBody = parentWindow.children('.window_body');
+
             // Remove previous no match string
-            var window = searchField.parents('.window');
-            window.find('.no_match').remove();
+            parentWindow.find('.no_match').remove();
 
             // Show only the category items that match the search
-            var categoryItems = window.find('.category_items');
+            var categoryItems = parentWindow.find('.category_items');
             categoryItems.each(function(i,item) {
 
                 var itemName = $(item).text().toLowerCase();
@@ -303,7 +389,7 @@ $(document).ready(function() {
             });
 
             // Show the button that clears the search
-            var clearSearchButton = window.find('#clear_search');
+            var clearSearchButton = parentWindow.find('#clear_search');
             searchValue.length > 0 ? clearSearchButton.show() : clearSearchButton.hide();
 
             // No match
@@ -311,61 +397,74 @@ $(document).ready(function() {
 
             if (invisibleItems.length === categoryItems.length) { 
 
-                var noMatch = $('<p></p>').addClass('no_match');
+                let noMatch = $('<p></p>').addClass('no_match');
                 noMatch.text('No items match your search.');
 
-                var windowBody = window.find('.window_body');
                 windowBody.append(noMatch);
 
             };        
+
+            // In admin windows, check for scroll availability 
+            if ((parentWindow.attr('class').indexOf('admin') > -1)) {
+
+                adminModule.checkVerticalScroll(windowBody);
+
+            }
 
         };
 
         // Clear search
         var clearSearch = function(button) {
             
+            var parentWindow = $(button).parents('.window');
+            var windowBody = parentWindow.children('.window_body')
+
             // Remove no match string
-            var window = $(button).parents('.window');
-            window.find('.no_match').remove();
+            parentWindow.find('.no_match').remove();
             
             // Empty the search field and focus on it
-            var searchField = window.find('#search_field');
+            var searchField = parentWindow.find('#search_field');
             searchField.val('');
             searchField.focus();
 
             // Show all the category items
-            var categoryItems = window.find('.category_items');
+            var categoryItems = parentWindow.find('.category_items');
             categoryItems.show();
 
             // Hide the button
             button.hide();
+
+            // In admin windows, check for scroll availability 
+            if ((parentWindow.attr('class').indexOf('admin') > -1)) {
+
+                adminModule.checkVerticalScroll(windowBody);
+
+            }
 
         };
 
         // Open single item
         var openSingleItem = function(url) {
             
-            // Remove the old catalog
-            var oldCatalog = $('.catalog');
-            oldCatalog.remove();
+            var existingCatalog = $('.catalog');
 
-            // Highlight the active category when opening cross-category items
-            var oldActiveCategory = $('.selection_bar a').filter('.active');
-            oldActiveCategory.removeClass('active');
+            // Highlight the active category even when opening cross-category items
+            var existingActiveCategory = $('.selection_bar a').filter('.active');
+            existingActiveCategory.removeClass('active');
 
-            if (url.indexOf('/movies') > -1 ) {
+            if (url.indexOf('/movies') > -1 ) { 
 
-                var newActiveCategory = $('.selection_bar a').filter('.movies');
+                let newActiveCategory = $('.selection_bar a').filter('.movies');
                 newActiveCategory.addClass('active');
 
             } else if (url.indexOf('/directors') > -1) {
 
-                var newActiveCategory = $('.selection_bar a').filter('.directors');
+                let newActiveCategory = $('.selection_bar a').filter('.directors');
                 newActiveCategory.addClass('active');
 
             } else if (url.indexOf('/genres') > -1) {
 
-                var newActiveCategory = $('.selection_bar a').filter('.genres');
+                let newActiveCategory = $('.selection_bar a').filter('.genres');
                 newActiveCategory.addClass('active');
 
             }
@@ -374,20 +473,23 @@ $(document).ready(function() {
             $.ajax({
                 url: url,
                 cache: false,
-                type: 'GET'
+                method: 'GET'
             })
 
             // When done
             .done(function(item) {
                 
                 // Display the item
-                wrapper.append(item);
+                existingCatalog.html(item);
 
                 // Add the event listeners
                 catalogModule.addEventListeners();
 
                 // Update the URL
                 catalogModule.updateURL(url);
+
+                // Smoothly scroll to the top
+                $('html').animate({scrollTop: 0}, 200);
 
             })
 
@@ -435,7 +537,7 @@ $(document).ready(function() {
             $('.back_button').off().on('click', function(event) {
 
                 event.preventDefault();
-                catalogModule.goBack();
+                history.back();
 
             });
 
@@ -461,21 +563,36 @@ $(document).ready(function() {
             });
 
             // Category items
-            $('.catalog').find('.category_items').off().on('click', function(event) {
+            $('.catalog').find('.window_body').off().on('click', function(event) {
 
-                event.preventDefault();
-                var url = $(this).attr('href');
-                catalogModule.openSingleItem(url);
+                var clicked = $(event.target);
+                var itemParents = clicked.parents('a').filter('.category_items');
+
+                // If the clicked element is an item link
+                if ((clicked.prop('tagName') === 'A') && (clicked.attr('class').indexOf('category_items') > -1)) { 
+
+                    event.preventDefault();
+                    let url = clicked.attr('href');
+                    catalogModule.openSingleItem(url);
+
+                // If the clicked element is a descendant of item link
+                } else if (itemParents.length > 0) {
+
+                    event.preventDefault();
+                    let url = $(itemParents).attr('href');
+                    catalogModule.openSingleItem(url);
+
+                }
 
             });
             
         };
         
-        return { wrapper: wrapper, openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, goBack: goBack, openSearch: openSearch, searchItems: searchItems, clearSearch: clearSearch, openSingleItem: openSingleItem, addEventListeners: addEventListeners };
+        return { wrapper: wrapper, openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, openSearch: openSearch, searchItems: searchItems, clearSearch: clearSearch, openSingleItem: openSingleItem, addEventListeners: addEventListeners };
 
     }();
    
-    // On first catalog page load
+    // On catalog page load
     if(location.href.indexOf('/catalog') > -1) {
 
         let catalogCategory = $('.catalog').attr('data-category');
@@ -488,7 +605,7 @@ $(document).ready(function() {
         history.replaceState({wrapper: catalogModule.wrapper.html()}, '', location.href);
 
     }
-
+    
     // Add the event listeners
     catalogModule.addEventListeners();
 
@@ -511,12 +628,199 @@ $(document).ready(function() {
     /* Admin page ------------------------------------------------------------------------------------------------------- */
     
     var adminModule = function() {
-    
         
+        // Scroll up and down
+        var scrollUpAndDown = function(button) {
+            
+            var windowBody = button.parents('.window_body');
+            var scrollPosition = windowBody.scrollTop();
+            
+            // Scroll up
+            if (button.attr('class').indexOf('scroll_up') > -1) {
+
+                windowBody.animate({scrollTop: scrollPosition - 260}, 
+                                    {duration: 200,
+                                    done: function() {
+                                        adminModule.checkVerticalScroll(windowBody)
+                                    }});
+
+            // Scroll down
+            } else if (button.attr('class').indexOf('scroll_down') > -1) {
+
+                windowBody.animate({scrollTop: scrollPosition + 260},
+                                    {duration: 200,
+                                    done: function() {
+                                        adminModule.checkVerticalScroll(windowBody)
+                                    }});
+
+            }
+
+        };
+
+        // Check vertical scroll
+        var checkVerticalScroll = function(windowBody) {
+            
+            var scrollUpButton = windowBody.find('.scroll_up');
+            var scrollDownButton = windowBody.find('.scroll_down');
+            
+            var windowHeader = windowBody.parents('.window').children('.window_title').innerHeight();
+            var paddingTop = windowBody.css('padding-top');
+            var distance = parseInt(paddingTop.slice(0, paddingTop.length - 2)) + windowHeader;
+            
+            var list = windowBody.children('.list');
+            var listBottomPosition = list.innerHeight() + list.position().top - distance;
+
+            // Highlight the scroll up button
+            if (windowBody.scrollTop() <= 0) {
+                
+                scrollUpButton.removeClass('active');
+                scrollUpButton.removeAttr('title');
+                
+            } else {
+                
+                scrollUpButton.addClass('active');
+                scrollUpButton.attr('title', 'Scroll up');
+
+            }
+
+            // Highlight the scroll down button
+            if (listBottomPosition > windowBody.height()){
+            
+                scrollDownButton.addClass('active');
+                scrollDownButton.attr('title', 'Scroll down');
+
+            } else {
+
+                scrollDownButton.removeClass('active');
+                scrollDownButton.removeAttr('title');
+
+            }
+
+        };
+
+        // Delete item
+        var deleteItem = function(button) {
+
+            // Hide the first delete button
+            button.addClass('active');
+            
+            // Activate the item
+            var item = button.parent();
+            item.addClass('active');
+
+            // Make Delete final button
+            var deleteFinal = $('<a></a>').attr('href','#').addClass('delete_final').text('DELETE');
+            var deleteFinalIcon = $('<i></i>').addClass('material-icons').text('delete');
+            deleteFinal.append(deleteFinalIcon);
+
+            // Make Cancel button
+            var cancel = $('<a></a>').attr('href','#').addClass('cancel').text('CANCEL');
+            var cancelIcon = $('<i></i>').addClass('material-icons').text('close');
+            cancel.append(cancelIcon);
+
+            // Display both buttons
+            item.append(deleteFinal,cancel);
+            
+            // Delete final 
+            deleteFinal.off().on('click', function(event) {
+               
+                event.preventDefault();
+                adminModule.deleteFinal(item);
+
+            })
+
+            // Cancel
+            cancel.off().on('click', function(event) {
+
+                event.preventDefault();
+                adminModule.cancelDelete(item);
+
+            })
+
+        }
+
+        // Delete Final
+        var deleteFinal = function(item) {
+
+            var url = item.children('.delete').attr('href');
+
+            $.ajax({url: url,
+                    method: 'POST'
+            })
+            .done(function(response, textStatus) {
+                
+                if (textStatus === 'success') {
+                    
+                    // Remove the
+                    item.children('.delete_final, .cancel').remove();
+                    item.addClass('remove');
+                    item.slideUp(200, function() {item.remove()});
+
+                }
+
+            })
+
+        }
+
+        // Cancel delete
+        var cancelDelete = function(item) {
+
+            item.removeClass('active');
+            item.children('.delete_final, .cancel').remove();
+            item.children('.delete').removeClass('active');
+
+        }
+
+        // Add event listeners
+        var addEventListeners = function() {
+
+            // Scroll up and down buttons
+            $('.admin').find('.scroll_up, .scroll_down').off().on('click', function(event) {
+                
+                event.preventDefault();
+                
+                var button = $(this);
+                adminModule.scrollUpAndDown(button);
+                
+            });
+
+            $('.admin').find('.delete').off().on('click', function(event) {
+
+                event.preventDefault();
+                
+                var button = $(this);
+                adminModule.deleteItem(button);
+
+            })
+
+        };
+
+        return {scrollUpAndDown: scrollUpAndDown, checkVerticalScroll: checkVerticalScroll, deleteItem: deleteItem, deleteFinal: deleteFinal, cancelDelete: cancelDelete, addEventListeners: addEventListeners}
     
     }();
 
+    // Check for scroll availability
+    if (location.href === "http://localhost:3000/admin") {
+        
+        (function() {
 
+            var adminWindows = $('.admin');
+    
+            adminWindows.each(function(i, adminWindow) {
+    
+                let windowBody = $(adminWindow).children('.window_body');
+                adminModule.checkVerticalScroll(windowBody);
+                
+            })
+
+        })();
+            
+    }
+
+    // Add the event listeners
+    adminModule.addEventListeners();
+
+     
 
 });
 

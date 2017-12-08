@@ -9,7 +9,7 @@
 
             <!-- Movies -->
             <div class = "row">
-                <div class = "window col-md-8 col-md-offset-2 admin movies">
+                <div class = "window col-md-6 col-md-offset-3 admin movies">
 
                     <!-- Title -->
                     <h2 class = "window_title">
@@ -17,9 +17,6 @@
                         <i class = "material-icons ">local_movies</i>
 
                         Movies
-
-                        <!-- Add button -->
-                        <a href = "#" class = "material-icons add" title = "Add movie">add_box</a>
 
                         <!-- Search button -->
                         <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
@@ -41,16 +38,22 @@
                         </div>
                         
                         <% <!-- movies list --> %>
-                        <div class = "movies">
+                        <div class = "movies list">
                             <% movies.forEach(function(movie) { %>
         
                                 <p class = "category_items">
                                     <%= movie.title %>
-                                    <a href = "#" class = "material-icons delete">delete</a>
-                                    <!-- <a href = "#" class = "material-icons edit">edit</a> -->
+                                    <a href = "/admin/remove/movies/<%= movie._id %>" class = "material-icons delete" title = "Delete movie">delete</a>
                                 </p>
         
-                            <% }) %>   
+                            <% }) %>
+                            
+                            <!-- Scroll buttons -->
+                            <div class = "scroll_bar">
+                                <a href = "#" class = "material-icons scroll_up">keyboard_arrow_up</a>
+                                <a href = "#" class = "material-icons scroll_down">keyboard_arrow_down</a>
+                            </div>
+
                         </div>
             
                     </div>
@@ -60,7 +63,7 @@
 
             <!-- Directors -->
             <div class = "row">
-                <div class = "window col-md-8 col-md-offset-2 admin directors">
+                <div class = "window col-md-6 col-md-offset-3 admin directors">
 
                     <!-- Title -->
                     <h2 class = "window_title">
@@ -68,9 +71,6 @@
                         <i class = "material-icons ">people</i>
 
                         Directors
-
-                        <!-- Add button -->
-                        <a href = "#" class = "material-icons add" title = "Add director">add_box</a>
 
                         <!-- Search button -->
                         <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
@@ -92,16 +92,24 @@
                         </div>
 
                         <% <!-- Directors list --> %>
-                        <div class = "directors">
+                        <div class = "directors list">
                             <% directors.forEach(function(director) { %>
         
                                 <p class = "category_items">
                                     <%= director.name %>
-                                    <a href = "#" class = "material-icons delete">delete</a>
-                                    <!-- <a href = "#" class = "material-icons edit">edit</a> -->
+                                    <a href = "/admin/remove/directors/<%= director._id %>" class = "material-icons delete" title = "Delete director">delete</a>
                                 </p>
         
                             <% }) %>   
+
+                            <!-- Scroll buttons -->
+                            <div class = "scroll_bar">
+                                <a href = "#" class = "material-icons scroll_up" 
+                                title = "Scroll up">keyboard_arrow_up</a>
+                                <a href = "#" class = "material-icons scroll_down"
+                                title = "Scroll down">keyboard_arrow_down</a>
+                            </div>
+
                         </div>
 
                     </div>
@@ -111,7 +119,7 @@
 
             <!-- Genres -->
             <div class = "row">
-                <div class = "window col-md-8 col-md-offset-2 admin genres">
+                <div class = "window col-md-6 col-md-offset-3 admin genres">
 
                     <!-- Title -->
                     <h2 class = "window_title">
@@ -119,9 +127,6 @@
                         <i class = "material-icons ">view_agenda</i>
 
                         Genres
-
-                        <!-- Add button -->
-                        <a href = "#" class = "material-icons add" title = "Add genre">add_box</a>
 
                         <!-- Search button -->
                         <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
@@ -142,17 +147,25 @@
                             <i id = "clear_search" class = "material-icons" title = "Clear">close</i>
                         </div>
 
-                        <% <!-- Movies list --> %>
-                        <div class = "genres">
+                        <% <!-- Genres list --> %>
+                        <div class = "genres list">
                             <% genres.forEach(function(genre) { %>
         
                                 <p class = "category_items">
                                     <%= genre.name %>
-                                    <a href = "#" class = "material-icons delete">delete</a>
-                                    <!-- <a href = "#" class = "material-icons edit">edit</a> -->
+                                    <a href = "/admin/remove/genres/<%= genre._id %>" class = "material-icons delete" title = "Delete genre">delete</a>
                                 </p>
         
                             <% }) %>
+
+                            <!-- Scroll buttons -->
+                            <div class = "scroll_bar">
+                                <a href = "#" class = "material-icons scroll_up" 
+                                title = "Scroll up">keyboard_arrow_up</a>
+                                <a href = "#" class = "material-icons scroll_down" 
+                                title = "Scroll down">keyboard_arrow_down</a>
+                            </div>
+
                         </div>
 
                     </div>
