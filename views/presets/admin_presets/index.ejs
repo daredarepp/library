@@ -43,7 +43,7 @@
         
                                 <p class = "category_items">
                                     <%= movie.title %>
-                                    <a href = "#" class = "material-icons delete">delete</a>
+                                    <a href = "/admin/remove/movies/<%= movie._id %>" class = "material-icons delete" title = "Delete movie">delete</a>
                                 </p>
         
                             <% }) %>
@@ -97,7 +97,7 @@
         
                                 <p class = "category_items">
                                     <%= director.name %>
-                                    <a href = "#" class = "material-icons delete">delete</a>
+                                    <a href = "/admin/remove/directors/<%= director._id %>" class = "material-icons delete" title = "Delete director">delete</a>
                                 </p>
         
                             <% }) %>   
@@ -153,7 +153,7 @@
         
                                 <p class = "category_items">
                                     <%= genre.name %>
-                                    <a href = "#" class = "material-icons delete">delete</a>
+                                    <a href = "/admin/remove/genres/<%= genre._id %>" class = "material-icons delete" title = "Delete genre">delete</a>
                                 </p>
         
                             <% }) %>

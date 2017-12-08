@@ -52,6 +52,7 @@ p {
 .header {
   background-color: rgb(2, 119, 189);
   font-family: "Antic";
+  width: 100%;
 }
 
 /* Header title */
@@ -82,7 +83,6 @@ p {
 
 .navi a.current:link, .navi a.current:visited {
   background-color: rgba(0, 0, 0, 0.205);
-  /* box-shadow: inset 0px -3px 0px white; */
 }
 
 .navi a.icon {
@@ -90,6 +90,15 @@ p {
 }
 
 @media (max-width: 991px){
+
+  .header {
+    position: fixed;
+    z-index: 2;
+  }
+
+  .home_wrapper, .catalog_wrapper, .admin_wrapper {
+    margin-top: 54px;
+  }
   
   .navi {
     position: relative;
@@ -188,7 +197,7 @@ p {
 }
 
 #close_button:hover {
-  background-color: rgb(183, 28, 28);
+  background-color: rgba(229, 56, 53, 0.7);
   color: white;
 }
 
@@ -352,7 +361,7 @@ p {
 }
 
 .selection_window i.material-icons {
-  font-size: 40px;
+  font-size: 35px;
   display: block;
 }
 
@@ -485,7 +494,7 @@ p {
 }
 
 .year, .numOfMovies {
-  font-size: 15px;
+  font-size: 14px;
   width: auto;
   padding: 0px 15px;
   margin: 0px;
@@ -494,9 +503,12 @@ p {
   left: 0px;
   text-align: center;
   background-color: inherit;
-  color: inherit;
   border-radius: 0px 0px 10px 0px;
-  color: rgb(95, 95, 95);
+  color: rgb(80, 79, 79);
+}
+
+.year, .numOfMovies::first-letter {
+  color: black;
 }
 
 /* Genres list */
@@ -508,11 +520,13 @@ p {
 }
 
 .category_items.genre:link, .category_items.genre:visited {
-  background-color: rgba(0, 0, 0, 0.075);
+  background-color: white;
+  color: rgb(2, 119, 189);
 }
 
 .category_items.genre:hover {
-  box-shadow: inset 0px -5px 0px rgba(0, 0, 0, 0.205);
+  /* box-shadow: inset 0px -5px 0px rgba(0, 0, 0, 0.205); */
+  background-color: rgba(0, 0, 0, 0.075);
 }
 
 @media (max-width: 629px) {
@@ -614,9 +628,19 @@ p {
 
 .movie_genres .genre {
   display: inline-block;
+  font-size: 17px;
   width: auto;
   margin: 0px 10px 10px 0px;
   padding: 5px 10px;
+}
+
+.movie_genres .genre:link, .movie_genres .genre:visited {
+  background-color: rgba(0, 0, 0, 0.075);
+  color: black;
+} 
+
+.movie_genres .genre:hover {
+  background-color: rgba(0, 0, 0, 0.171);
 }
 
 /* Single director */
@@ -727,23 +751,38 @@ p {
   right: 25px;
 }
 
-/* Admin lists */
+/* Admin items */
 .admin .category_items {
-  display: block;
-  padding: 10px 10% 10px 5%;
-  text-align: left;
-  margin: 10px 15px;
   position: relative;
+  display: block;
+  padding: 10px 75px 10px 25px;
+  margin: 10px 15px;
+  text-align: left;
 }
 
 .admin .category_items:hover {
-  background-color: rgba(0, 0, 0, 0.075)
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+/* Admin active items */
+.admin .category_items.active {
+  padding-right: 220px;
+  background-color: rgba(0, 0, 0, 0.466);
+  color: white;
+}
+
+/* Admin removed items */
+.admin .category_items.remove {
+  background-color: rgba(211, 47, 47, 0.6);
 }
 
 /* Delete button */
 .delete {
   position: absolute;
-  right: 4%;
+  top: 8px;
+  right: 25px;
+  border-radius: 25px;
+  padding: 2px;
 }
 
 .delete:link, .delete:visited {
@@ -751,8 +790,70 @@ p {
   color:rgba(0, 0, 0, 0.466);
 }
 
+/* on item hover color the delete button */
 .admin .category_items:hover .delete {
-  color: rgb(160, 19, 19);
+  color: rgba(211, 47, 47, 0.8);
+}
+
+/* on active item hide the delete button */
+.delete.active {
+  display: none;
+}
+
+/* Delete final and cancel buttons */
+.delete_final, .cancel {
+  position: absolute;
+  display: inline-block;
+  top: 0px;
+  height: 42px;
+  width: 95px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-align: center;
+  padding-top: 6px;
+  padding-left: 7px;
+}
+
+.delete_final {
+  right: 95px;
+}
+
+.cancel {
+  right: 0px;
+}
+
+.delete_final:link, .delete_final:visited {
+  text-decoration: none;
+  background-color: rgba(211, 47, 47, 0.6);
+  color: white;
+}
+
+.delete_final:hover {
+  background-color: rgba(211, 47, 47, 0.8);
+}
+
+.delete_final:active {
+  background-color: rgba(211, 47, 47, 0.4);
+}
+
+.cancel:link, .cancel:visited {
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.37);
+  color: white;
+}
+
+.cancel:hover {
+  background-color: rgba(0, 0, 0, 0.47);
+}
+
+.cancel:active {
+  background-color: rgba(0, 0, 0, 0.27);
+}
+
+/* Delete final and cancel icons */
+.delete_final i, .cancel i {
+  vertical-align: bottom;
+  margin-left: 3px;
 }
 
 /* Scroll buttons */
@@ -780,6 +881,7 @@ p {
   cursor: context-menu;
 }
 
+/* Active scroll buttons */
 .scroll_up.active:link, .scroll_up.active:visited, .scroll_down.active:link, .scroll_down.active:visited {
   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.5);
   color: black;
@@ -788,12 +890,9 @@ p {
 
 @media (max-width: 629px) {
   
+  /* Admin items */
   .admin .category_items {
-    padding: 10px 80px 10px 20px;
-  }
-
-  .delete {
-    right: 10px;
+    margin: 10px 0px;
   }
 
 }

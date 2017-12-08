@@ -6,7 +6,7 @@ var Genre = require('/Users/Darko/Desktop/Movies/Movies/models/genre');
 
 /* GET admin page. */
 
-module.exports.admin_get = function(req,res,next){
+module.exports.admin_get = function(req,res,next) {
 
     var uri = 'mongodb://localhost/moviedb';
     var options = {useMongoClient: true};
@@ -30,3 +30,72 @@ module.exports.admin_get = function(req,res,next){
         });
 
 };
+
+/* Delete items from database */
+
+module.exports.delete_items = function(req, res, next) {
+
+    var category = req.params.category;
+    var id = req.params.id;
+
+    var uri = 'mongodb://localhost/moviedb';
+    var options = {useMongoClient: true};
+
+    mongoose.connect(uri, options);
+
+    switch(category) {
+
+        case "movies":
+
+            Movie.find({'_id': id}).remove().exec()
+            
+                .then(function(result) {
+
+                    console.log(result);
+                    res.send('Successfully deleted');
+
+                })
+                .catch(function(err) {
+
+                    console.log(err);
+                    res.send('Something went wrong');
+
+                })
+                break;
+
+        case "directors":
+                
+            Director.find({'_id': id}).remove().exec()
+                .then(function(result) {
+
+                    console.log(result);
+                    res.send('Successfully deleted');
+
+                })
+                .catch(function(err) {
+
+                    console.log(err);
+                    res.send('Something went wrong');
+
+                })
+                break;
+
+        case "genres":
+                
+            Genre.find({'_id': id}).remove().exec()
+                .then(function(result) {
+
+                    console.log('mongoose result: ' + result);
+                    res.send('Successfully deleted');
+
+                })
+                .catch(function(err) {
+
+                    console.log(err);
+                    res.send('Something went wrong');
+
+                })
+                break;
+    }
+
+}

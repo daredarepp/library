@@ -15,23 +15,35 @@ $(document).ready(function() {
         // Toggle window
         var toggleWindow= function(toggleButton) {
             
-            // Toggle the parent window
             var windowBody = toggleButton.parents('.window').children('.window_body');
-            windowBody.toggle();
+            var scrollButtons = windowBody.find('.scroll_left, .scroll_right, .scroll_bar');
+                
+            // Slide up
+            if (toggleButton.text() === "keyboard_arrow_down") {
+                
+                windowBody.slideUp(200);
 
+                // smoothly hide the scroll buttons
+                scrollButtons.fadeOut(100);
 
-            // Toggle the active button
-            if (toggleButton.text() === 'keyboard_arrow_left') {
-
-                toggleButton.text('keyboard_arrow_down');
-                toggleButton.toggleClass('active');
-
+                // highlight the toggle button and change arrow direction
+                toggleButton.addClass('active');
+                toggleButton.text('keyboard_arrow_left');
+                
+            // Slide down
             } else {
 
-                toggleButton.text('keyboard_arrow_left');
-                toggleButton.toggleClass('active');
-                
+                windowBody.slideDown(200);
+
+                // smoothly show the scroll buttons
+                scrollButtons.fadeIn(100);
+
+                // remove highlight from the toggle button and change arrow direction
+                toggleButton.removeClass('active');
+                toggleButton.text('keyboard_arrow_down');
+
             }
+
         };
 
         // Highlight navigation buttons
@@ -159,12 +171,6 @@ $(document).ready(function() {
 
             });
 
-            // Windows resize
-            $(window).resize(function() {
-
-                console.log('width: ' + $('.window:first-child').innerHeight());
-
-            })
         };
         
         return {scrollLeftAndRight: scrollLeftAndRight, checkHorizontalScroll: checkHorizontalScroll, addEventListeners: addEventListeners};
@@ -263,7 +269,7 @@ $(document).ready(function() {
             $.ajax({
                 url: url,
                 cache: false,
-                type: 'GET'
+                method: 'GET'
             })
 
             // When done
@@ -309,19 +315,12 @@ $(document).ready(function() {
 
         };
 
-        // Go back
-        var goBack = function() {
-          
-            history.back();
-
-        };
-
         // Open search bar
         var openSearch = function(searchButton) {
 
             var parentWindow = searchButton.parents('.window');
             var windowBody = parentWindow.children('.window_body');
-            var searchBar = windowBody.children('.search_bar');
+            var searchBar = windowBody.find('.search_bar');
             var searchField = searchBar.children('#search_field');
             
             // Toggle the active button only when the search field is empty
@@ -331,8 +330,8 @@ $(document).ready(function() {
 
             }
             
-            // Toggle and focus the search bar
-            searchBar.slideToggle(100);
+            // Toggle the search bar and focus it
+            $(searchBar).slideToggle(100);
             searchField.focus();
 
             // In admin windows, slide down the elements under the search bar
@@ -344,7 +343,6 @@ $(document).ready(function() {
                     windowBody.scrollTop(0);
                     windowBody.animate({paddingTop: "+=50px"},
                                        {duration: 100, 
-                                        queue: false, 
                                         done: function() {
                                             adminModule.checkVerticalScroll(windowBody)
                                         }});
@@ -353,7 +351,6 @@ $(document).ready(function() {
                     
                     windowBody.animate({paddingTop: "-=50px"},
                                         {duration: 100, 
-                                        queue: false, 
                                         done: function() {
                                             adminModule.checkVerticalScroll(windowBody)
                                         }});
@@ -476,7 +473,7 @@ $(document).ready(function() {
             $.ajax({
                 url: url,
                 cache: false,
-                type: 'GET'
+                method: 'GET'
             })
 
             // When done
@@ -540,7 +537,7 @@ $(document).ready(function() {
             $('.back_button').off().on('click', function(event) {
 
                 event.preventDefault();
-                catalogModule.goBack();
+                history.back();
 
             });
 
@@ -591,7 +588,7 @@ $(document).ready(function() {
             
         };
         
-        return { wrapper: wrapper, openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, goBack: goBack, openSearch: openSearch, searchItems: searchItems, clearSearch: clearSearch, openSingleItem: openSingleItem, addEventListeners: addEventListeners };
+        return { wrapper: wrapper, openCatalog: openCatalog, changeCatalog: changeCatalog, updateURL: updateURL, loadCatalogContent: loadCatalogContent, closeCatalog: closeCatalog, openSearch: openSearch, searchItems: searchItems, clearSearch: clearSearch, openSingleItem: openSingleItem, addEventListeners: addEventListeners };
 
     }();
    
@@ -666,6 +663,13 @@ $(document).ready(function() {
             var scrollUpButton = windowBody.find('.scroll_up');
             var scrollDownButton = windowBody.find('.scroll_down');
             
+            var windowHeader = windowBody.parents('.window').children('.window_title').innerHeight();
+            var paddingTop = windowBody.css('padding-top');
+            var distance = parseInt(paddingTop.slice(0, paddingTop.length - 2)) + windowHeader;
+            
+            var list = windowBody.children('.list');
+            var listBottomPosition = list.innerHeight() + list.position().top - distance;
+
             // Highlight the scroll up button
             if (windowBody.scrollTop() <= 0) {
                 
@@ -678,13 +682,6 @@ $(document).ready(function() {
                 scrollUpButton.attr('title', 'Scroll up');
 
             }
-
-            var windowHeader = windowBody.parents('.window').children('.window_title').innerHeight();
-            var paddingTop = windowBody.css('padding-top');
-            var distance = parseInt(paddingTop.slice(0, paddingTop.length - 2)) + windowHeader;
-            
-            var list = windowBody.children('.list');
-            var listBottomPosition = list.innerHeight() + list.position().top - distance;
 
             // Highlight the scroll down button
             if (listBottomPosition > windowBody.height()){
@@ -701,8 +698,81 @@ $(document).ready(function() {
 
         };
 
+        // Delete item
+        var deleteItem = function(button) {
+
+            // Hide the first delete button
+            button.addClass('active');
+            
+            // Activate the item
+            var item = button.parent();
+            item.addClass('active');
+
+            // Make Delete final button
+            var deleteFinal = $('<a></a>').attr('href','#').addClass('delete_final').text('DELETE');
+            var deleteFinalIcon = $('<i></i>').addClass('material-icons').text('delete');
+            deleteFinal.append(deleteFinalIcon);
+
+            // Make Cancel button
+            var cancel = $('<a></a>').attr('href','#').addClass('cancel').text('CANCEL');
+            var cancelIcon = $('<i></i>').addClass('material-icons').text('close');
+            cancel.append(cancelIcon);
+
+            // Display both buttons
+            item.append(deleteFinal,cancel);
+            
+            // Delete final 
+            deleteFinal.off().on('click', function(event) {
+               
+                event.preventDefault();
+                adminModule.deleteFinal(item);
+
+            })
+
+            // Cancel
+            cancel.off().on('click', function(event) {
+
+                event.preventDefault();
+                adminModule.cancelDelete(item);
+
+            })
+
+        }
+
+        // Delete Final
+        var deleteFinal = function(item) {
+
+            var url = item.children('.delete').attr('href');
+
+            $.ajax({url: url,
+                    method: 'POST'
+            })
+            .done(function(response, textStatus) {
+                
+                if (textStatus === 'success') {
+                    
+                    // Remove the
+                    item.children('.delete_final, .cancel').remove();
+                    item.addClass('remove');
+                    item.slideUp(200, function() {item.remove()});
+
+                }
+
+            })
+
+        }
+
+        // Cancel delete
+        var cancelDelete = function(item) {
+
+            item.removeClass('active');
+            item.children('.delete_final, .cancel').remove();
+            item.children('.delete').removeClass('active');
+
+        }
+
         // Add event listeners
-        var addEventListeners = function(){
+        var addEventListeners = function() {
 
             // Scroll up and down buttons
             $('.admin').find('.scroll_up, .scroll_down').off().on('click', function(event) {
@@ -714,9 +784,18 @@ $(document).ready(function() {
                 
             });
 
+            $('.admin').find('.delete').off().on('click', function(event) {
+
+                event.preventDefault();
+                
+                var button = $(this);
+                adminModule.deleteItem(button);
+
+            })
+
         };
 
-        return {scrollUpAndDown: scrollUpAndDown, checkVerticalScroll: checkVerticalScroll, addEventListeners: addEventListeners}
+        return {scrollUpAndDown: scrollUpAndDown, checkVerticalScroll: checkVerticalScroll, deleteItem: deleteItem, deleteFinal: deleteFinal, cancelDelete: cancelDelete, addEventListeners: addEventListeners}
     
     }();
 
@@ -731,7 +810,7 @@ $(document).ready(function() {
     
                 let windowBody = $(adminWindow).children('.window_body');
                 adminModule.checkVerticalScroll(windowBody);
-    
+                
             })
 
         })();
