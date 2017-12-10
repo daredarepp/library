@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-var Movie = require('/Users/Darko/Desktop/Movies/Movies/models/movie');
-var Director = require('/Users/Darko/Desktop/Movies/Movies/models/director');
-var Genre = require('/Users/Darko/Desktop/Movies/Movies/models/genre');
+var Movie = require('../../models/movie');
+var Director = require('../../models/director');
+var Genre = require('../../models/genre');
 
 /* GET admin page. */
 
