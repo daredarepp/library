@@ -99,7 +99,7 @@ $(document).ready(function() {
             // Scroll left
             if (button.attr('class').indexOf('scroll_left') > -1) {
                 
-                elementToScroll.animate({scrollLeft: scrollPosition - 247}, 
+                elementToScroll.animate({scrollLeft: scrollPosition - 235}, 
                                         {duration: 200,
                                         done: function() {
                                             homepageModule.checkHorizontalScroll(elementToScroll);
@@ -108,7 +108,7 @@ $(document).ready(function() {
             // Scroll right
             } else if (button.attr('class').indexOf('scroll_right') > -1) {
 
-                elementToScroll.animate({scrollLeft: scrollPosition + 247},
+                elementToScroll.animate({scrollLeft: scrollPosition + 235},
                                         {duration: 200,
                                         done: function() {
                                             homepageModule.checkHorizontalScroll(elementToScroll);
@@ -743,7 +743,7 @@ $(document).ready(function() {
         var deleteFinal = function(item) {
 
             var url = item.children('.delete').attr('href');
-
+            
             $.ajax({url: url,
                     method: 'POST'
             })
@@ -751,7 +751,7 @@ $(document).ready(function() {
                 
                 if (textStatus === 'success') {
                     
-                    // Remove the
+                    // Smoothly remove the item
                     item.children('.delete_final, .cancel').remove();
                     item.addClass('remove');
                     item.slideUp(200, function() {item.remove()});

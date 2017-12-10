@@ -276,6 +276,7 @@ p {
 /* To override the nowrap inherited from their parents */
 #latest_movies .movie, #active_directors .director{
   white-space: initial;
+  margin: 0px 15px;
 }
 
 /* Scroll buttons */
@@ -438,26 +439,24 @@ p {
 }
 
 /* Catalog window */
-
+/* movies and directors grid */
 .catalog .movies, .catalog .directors {
-  padding: 0px 15px;
-  text-align: left;
+  margin: 15px 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fit, 1fr);
+  grid-gap: 15px;
+  justify-items: center;
 }
 
+/* genres grid */
 .catalog .genres {
-  padding-left: 5%;
-  text-align: left;
-}
-
-@media (max-width: 629px) {
-  .catalog .movies, .catalog .directors {
-    text-align: center;
-  }
-
-  .catalog .genres {
-    padding: 15px 0px;
-    text-align: center;
-  }
+  margin: 15px 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-rows: repeat(auto-fit, 1fr);
+  grid-gap: 50px 35px;
+  justify-items: center;
 }
 
 /* Catalog lists */
@@ -474,12 +473,10 @@ p {
 
 /* Movies list and directors list */
 .category_items.movie, .category_items.director {
-  width: 200px;
-  text-align: center;
-  margin: 12px 20px;
-  vertical-align: top;
-  padding: 0px 0px 10px;
   position: relative;
+  width: 200px;
+  padding: 0px 0px 10px;
+  text-align: center;
 }
 
 .category_items.movie:hover, .category_items.director:hover {
@@ -513,10 +510,9 @@ p {
 
 /* Genres list */
 .category_items.genre {
+  width: 80%;
+  padding: 15px 10px;
   text-align: center;
-  width: 25%;
-  padding: 2%;
-  margin: 2% 3%;
 }
 
 .category_items.genre:link, .category_items.genre:visited {
@@ -525,15 +521,7 @@ p {
 }
 
 .category_items.genre:hover {
-  /* box-shadow: inset 0px -5px 0px rgba(0, 0, 0, 0.205); */
   background-color: rgba(0, 0, 0, 0.075);
-}
-
-@media (max-width: 629px) {
-  .category_items.genre {
-    width: 80%;
-    margin: 10px 0px;
-  }
 }
 
 /* Single item */
@@ -658,14 +646,6 @@ p {
   height: 200px;
 }
 
-@media (max-width: 629px) {
-  
-    .director_movies .movie {
-      margin: 10px 0px;
-    }
-  
-}
-
 /* Single genre */
 .single_item.genre {
   padding-top: 0px;
@@ -702,11 +682,12 @@ p {
 }
 
 .genre_movies {
-  padding-top: 15px;
-}
-
-.genre_movies .movie {
-  margin: 12px 17px;
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-rows: repeat(auto-fit, 1fr);
+  grid-gap: 15px; 
+  justify-items: center;
 }
 
 .single_item.genre .empty {
