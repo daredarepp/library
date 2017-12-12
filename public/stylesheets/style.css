@@ -1,12 +1,9 @@
 /* General styling ________________________________________________________________________________________________ */
 
-::-webkit-scrollbar { 
-  display: none; 
-}
 
-/* html {
+html {
   overflow-y: scroll;
-} */
+}
 
 * {
   box-sizing: border-box;
