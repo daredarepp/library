@@ -124,6 +124,10 @@ $(document).ready(function() {
             var scrollLeftButton = elementToScroll.find('.scroll_left');
             var scrollRightButton = elementToScroll.find('.scroll_right');
             var lastItem = elementToScroll.find('.category_items').last();
+
+            // Remove next row after database fix
+            if (elementToScroll.find('.category_items').length < 1) {return}
+
             var lastItemPosition = lastItem.position().left + lastItem.innerWidth();
 
             // Highlight right scroll button

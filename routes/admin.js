@@ -8,6 +8,11 @@ var admin_controllers = require('./controllers/admin_controllers');
 router.get('/', admin_controllers.admin_get);
 
 /* Delete items from database */
-router.post('/remove/:category/:id', admin_controllers.delete_items)
+
+router.post('/remove/:category/:id', admin_controllers.delete_items);
+
+// Reset the database
+
+router.get('/reset', admin_controllers.reset_database);
 
 module.exports = router;

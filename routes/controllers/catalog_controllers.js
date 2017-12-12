@@ -21,6 +21,8 @@ module.exports.catalog_category_get = function(req, res, next) {
     var category = req.params.category;
 
     mongoose.connect(uri, options);
+    var db = mongoose.connection;
+    db.once('error', console.error.bind(console, 'MongoDB connection error:'));
     
     switch(category) {
         
@@ -137,6 +139,8 @@ module.exports.catalog_item_get = function(req, res, next) {
     var id = req.params.id;
 
     mongoose.connect(uri, options);
+    var db = mongoose.connection;
+    db.once('error', console.error.bind(console, 'MongoDB connection error:'));
 
     switch(category) {
 
@@ -253,25 +257,26 @@ module.exports.catalog_item_get = function(req, res, next) {
             Promise.all([genrePromise, genreMoviesPromise])
                 .then(function([genre, genre_movies]) {
 
-                // AJAX
-                if (req.xhr) {
+                    // AJAX
+                    if (req.xhr) {
+                        
+                        res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Genres', 
+                        icon: 'view_agenda', genre: genre, genre_movies: genre_movies, single: true, ajax: req.xhr});
+
+                    // Regular
+                    } else {
+
+                        res.render('catalog', {category: 'Genres', icon: 'view_agenda', genre: genre, genre_movies: genre_movies, single: true, ajax: req.xhr});
+
+                    }
+
+                }) 
+                .catch(function(err) { 
                     
-                    res.render('presets/catalog_presets/catalog_ajax/category_ajax', {category: 'Genres', 
-                    icon: 'view_agenda', genre: genre, genre_movies: genre_movies, single: true, ajax: req.xhr});
+                    console.log(err);
+                    res.send('Something went wrong');
 
-                // Regular
-                } else {
-
-                    res.render('catalog', {category: 'Genres', icon: 'view_agenda', genre: genre, genre_movies: genre_movies, single: true, ajax: req.xhr});
-
-                }
-
-            }).catch(function(err) { 
-                
-                console.log(err);
-                res.send('Something went wrong');
-
-            });
+                });
             
     }
 

@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+require('events').EventEmitter.prototype._maxListeners = 100;
 
 var index = require('./routes/index');
 var catalog = require('./routes/catalog');

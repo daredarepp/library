@@ -79,6 +79,7 @@ p {
 
 .navi a:hover {
   background-color: rgba(0, 0, 0, 0.205);
+  color: white;
 }
 
 .navi a.current:link, .navi a.current:visited {
@@ -94,6 +95,7 @@ p {
   .header {
     position: fixed;
     z-index: 2;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.288);
   }
 
   .home_wrapper, .catalog_wrapper, .admin_wrapper {
@@ -108,16 +110,16 @@ p {
     display: none;
   }
 
-  .navi.responsive a{
-    display: block;
-    float: none;
-  }
-
   .navi a.icon{
     display: block;
     position: absolute;
     right: 0px;
     top: 0px;
+  }
+
+  .navi.responsive a{
+    display: block;
+    float: none;
   }
 
 }
@@ -408,6 +410,14 @@ p {
   color: white;
 }
 
+/* Active bar link */
+.selection_bar a.active {
+  color: rgba(0, 0, 0, 0.37);
+  background-color: white;
+  box-shadow: inset 0px -4px 0px rgba(0, 0, 0, 0.17);
+  cursor: context-menu;
+}
+
 .selection_bar i.material-icons {
   position: absolute;
   font-size: 24px;
@@ -415,12 +425,10 @@ p {
   top: 12px;
 }
 
-/* Max medium screen size */
 @media (max-width:991px){
 
   .selection_bar a {
     font-size: 17px;
-    padding-left: 2%;
   }
 
   .selection_bar i.material-icons {
@@ -431,12 +439,14 @@ p {
 
 }
 
-/* Active bar link */
-.selection_bar a.active {
-  color: rgba(0, 0, 0, 0.37);
-  background-color: white;
-  cursor: context-menu;
+@media (max-width:629px){
+
+  .selection_bar a {
+    padding-left: 6%;
+  }
+
 }
+
 
 /* Catalog window */
 /* movies and directors grid */
@@ -453,7 +463,7 @@ p {
 .catalog .genres {
   margin: 15px 0px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-template-rows: repeat(auto-fit, 1fr);
   grid-gap: 50px 35px;
   justify-items: center;
