@@ -54,7 +54,7 @@ $(document).ready(function() {
             var catalogButton = navButtons.filter('[href = "/catalog"]');
             var adminButton = navButtons.filter('[href = "/admin"]');
 
-            if (location.href === 'http://localhost:3000/') {
+            if (location.href === 'http://localhost:4000/') {
 
                 homeButton.addClass('current');
 
@@ -99,20 +99,26 @@ $(document).ready(function() {
             // Scroll left
             if (button.attr('class').indexOf('scroll_left') > -1) {
                 
-                elementToScroll.animate({scrollLeft: scrollPosition - 235}, 
-                                        {duration: 200,
-                                        done: function() {
-                                            homepageModule.checkHorizontalScroll(elementToScroll);
-                                        }});
+                elementToScroll.animate({
+                    scrollLeft: scrollPosition - 235
+                }, {
+                    duration: 200,
+                    done: function() {
+                        homepageModule.checkHorizontalScroll(elementToScroll);
+                    }
+                });
 
             // Scroll right
             } else if (button.attr('class').indexOf('scroll_right') > -1) {
 
-                elementToScroll.animate({scrollLeft: scrollPosition + 235},
-                                        {duration: 200,
-                                        done: function() {
-                                            homepageModule.checkHorizontalScroll(elementToScroll);
-                                        }});
+                elementToScroll.animate({
+                    scrollLeft: scrollPosition + 235
+                }, {
+                    duration: 200,
+                    done: function() {
+                        homepageModule.checkHorizontalScroll(elementToScroll);
+                    }
+                });
 
             }
 
@@ -125,7 +131,7 @@ $(document).ready(function() {
             var scrollRightButton = elementToScroll.find('.scroll_right');
             var lastItem = elementToScroll.find('.category_items').last();
 
-            // Remove next row after database fix
+            // If there are no items displayed, do nothing
             if (elementToScroll.find('.category_items').length < 1) {return}
 
             var lastItemPosition = lastItem.position().left + lastItem.innerWidth();
@@ -175,6 +181,13 @@ $(document).ready(function() {
 
             });
 
+            $('.home_wrapper').find('#latest_movies, #active_directors').off().on('scroll', function() {
+
+                var elementToScroll = $(this);
+                homepageModule.checkHorizontalScroll(elementToScroll);
+
+            })
+
         };
         
         return {scrollLeftAndRight: scrollLeftAndRight, checkHorizontalScroll: checkHorizontalScroll, addEventListeners: addEventListeners};
@@ -182,7 +195,7 @@ $(document).ready(function() {
     }();
 
     // Check for scroll availability (on resize too)
-    if (location.href === 'http://localhost:3000/') {
+    if (location.href === 'http://localhost:4000/') {
         
         (function() {
             
@@ -345,20 +358,25 @@ $(document).ready(function() {
                 if (windowBody.css('paddingTop') === "15px") {
                     
                     windowBody.scrollTop(0);
-                    windowBody.animate({paddingTop: "+=50px"},
-                                       {duration: 100, 
-                                        done: function() {
-                                            adminModule.checkVerticalScroll(windowBody)
-                                        }});
+                    windowBody.animate({
+                        paddingTop: "+=50px"
+                    }, {
+                        duration: 100,
+                        done: function() {
+                            adminModule.checkVerticalScroll(windowBody)
+                        }
+                    });
                     
                 } else {
                     
-                    windowBody.animate({paddingTop: "-=50px"},
-                                        {duration: 100, 
-                                        done: function() {
-                                            adminModule.checkVerticalScroll(windowBody)
-                                        }});
-                    
+                    windowBody.animate({
+                        paddingTop: "-=50px"
+                    }, {
+                        duration: 100,
+                        done: function() {
+                            adminModule.checkVerticalScroll(windowBody)
+                        }
+                    });
                 }
 
             }
@@ -493,7 +511,9 @@ $(document).ready(function() {
                 catalogModule.updateURL(url);
 
                 // Smoothly scroll to the top
-                $('html').animate({scrollTop: 0}, 200);
+                $('html').animate({
+                    scrollTop: 0
+                }, 200);
 
             })
 
@@ -642,20 +662,30 @@ $(document).ready(function() {
             // Scroll up
             if (button.attr('class').indexOf('scroll_up') > -1) {
 
-                windowBody.animate({scrollTop: scrollPosition - 260}, 
-                                    {duration: 200,
-                                    done: function() {
-                                        adminModule.checkVerticalScroll(windowBody)
-                                    }});
+                windowBody.animate(
+                    {
+                    scrollTop: scrollPosition - 260
+                    },
+                    {
+                    duration: 200,
+                    done: function() {
+                    adminModule.checkVerticalScroll(windowBody)
+                    }
+                });
 
             // Scroll down
             } else if (button.attr('class').indexOf('scroll_down') > -1) {
 
-                windowBody.animate({scrollTop: scrollPosition + 260},
-                                    {duration: 200,
-                                    done: function() {
-                                        adminModule.checkVerticalScroll(windowBody)
-                                    }});
+                windowBody.animate(
+                    {
+                    scrollTop: scrollPosition + 260
+                    },
+                    {
+                    duration: 200,
+                    done: function() {
+                        adminModule.checkVerticalScroll(windowBody)
+                    }
+                });
 
             }
 
@@ -804,7 +834,7 @@ $(document).ready(function() {
     }();
 
     // Check for scroll availability
-    if (location.href === "http://localhost:3000/admin") {
+    if (location.href === "http://localhost:4000/admin") {
         
         (function() {
 

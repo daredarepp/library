@@ -1,6 +1,6 @@
 /* General styling ________________________________________________________________________________________________ */
 
-
+/* Always show the vertical scrollbar */
 html {
   overflow-y: scroll;
 }
@@ -264,7 +264,7 @@ p {
   padding: 25px 0px;
 }
 
-/* Latest movies */
+/* Latest movies and active directors */
 #latest_movies, #active_directors {
   white-space: nowrap;
   overflow-x: scroll;
@@ -276,6 +276,11 @@ p {
 #latest_movies .movie, #active_directors .director{
   white-space: initial;
   margin: 0px 15px;
+}
+
+/* Hide the horizontal scrollbar on the latest movies and active directors */
+#latest_movies::-webkit-scrollbar, #active_directors::-webkit-scrollbar {
+  display: none;
 }
 
 /* Scroll buttons */
@@ -460,9 +465,9 @@ p {
 .catalog .genres {
   margin: 15px 0px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: repeat(auto-fit, 1fr);
-  grid-gap: 50px 35px;
+  grid-gap: 70px 35px;
   justify-items: center;
 }
 
@@ -517,7 +522,7 @@ p {
 
 /* Genres list */
 .category_items.genre {
-  width: 80%;
+  width: 250px;
   padding: 15px 10px;
   text-align: center;
 }
@@ -530,6 +535,13 @@ p {
 .category_items.genre:hover {
   background-color: rgba(0, 0, 0, 0.075);
 }
+
+@media (max-width: 629px) {
+  .category_items.genre {
+    width: 80%;
+  }
+}
+
 
 /* Single item */
 .single_item {
