@@ -807,7 +807,13 @@ $(document).ready(function() {
                     // Smoothly remove the item
                     item.children('.delete_final, .cancel').remove();
                     item.addClass('remove');
-                    item.slideUp(200, function() {item.remove()});
+                    item.slideUp(200, function() {
+
+                        // check the vertical scroll once the item disappears from the list
+                        adminModule.checkVerticalScroll(item.parents('.window_body'));
+                        item.remove();
+
+                    });
 
                 }
 

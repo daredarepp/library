@@ -309,7 +309,7 @@ p {
 }
 
 .scroll_left.active:link, .scroll_left.active:visited, .scroll_right.active:link, .scroll_right.active:visited {
-  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.308);
+  box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.2);
   background-color: white;
   color: black;
   cursor: pointer;
@@ -728,6 +728,15 @@ p {
   padding: 25px 0px;
 }
 
+/* Make space for the populate button */
+@media (max-width: 991px) {
+  
+    .admin_wrapper {
+      padding-top: 55px;
+    }
+  
+  }
+
 /* Admin window body */
 .admin .window_body {
   max-height: 400px;
@@ -903,10 +912,11 @@ p {
 
 }
 
-/* Populate reminder */
+/* Populate reminder on the homepage */
 .populate {
   display: none;
   text-align: center;
+  margin-bottom: 15px;
 }
 
 .populate p {
@@ -920,6 +930,13 @@ p {
   margin: 15px 0px;
   text-align: center;
   color: grey;
+}
+
+.populate_string i {
+  font-size: 80px;
+  position: relative;
+  top: 10px;
+  color: rgb(0, 150, 136);
 }
 
 /* Populate button */
@@ -939,4 +956,36 @@ p {
 
 .populate_button:hover {
   background-color: rgba(5, 121, 189, 0.9);
+}
+
+/* populate button on the homepage */
+.populate .populate_button {
+  margin: 15px auto;
+}
+
+/* Populate small */
+.populate_small {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  margin: 0px;
+  color: grey;
+}
+
+.populate_button.small {
+  display: inline-block;
+  width: auto;
+  margin: 0px;
+  font-size: 18px;
+  padding: 5px;
+  border-radius: 25px;
+  vertical-align: middle;
+}
+
+@media (max-width: 991px) {
+  
+  .populate_small {
+    right: 10px;
+  }  
+  
 }
