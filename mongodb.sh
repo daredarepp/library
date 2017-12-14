@@ -7,4 +7,4 @@ sudo apt-get update
 #Install the MongoDB packages
 sudo apt-get install -y mongodb-org
 #Start MongoDB
-sudo service mongod start
+sudo service mongod start &

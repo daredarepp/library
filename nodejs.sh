@@ -8,4 +8,3 @@
     ln -s /home/vagrant/node_modules/ node_modules
     cd /var/www
     sudo npm install
-    

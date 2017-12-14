@@ -135,8 +135,8 @@ $(document).ready(function() {
             if (elementToScroll.find('.category_items').length < 1) {
 
                 // Show a link to populate the database 
-                let reset = $('.reset');
-                reset.show();
+                let populate = $('.populate');
+                populate.show();
 
                 return
 
