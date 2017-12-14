@@ -4,6 +4,16 @@
     <% include presets/head %>
   </head>
   <body>
-    <% include presets/admin_presets/index %>
+    <% <!-- Admin index --> %>
+    <% if (typeof reset === 'undefined') { %>
+
+      <% include presets/admin_presets/index %>
+
+    <% <!-- Admin reset --> %>
+    <% } else { %>
+      
+      <% include presets/admin_presets/populate %>
+      
+    <% } %>
   </body>
 </html>

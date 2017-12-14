@@ -7,28 +7,28 @@
  data-category = <%= category.toLowerCase()%>>
 <% } %>
 
-    <!-- Title -->
+    <% <!-- Title --> %>
     <h2 class="window_title">
 
         <i class="material-icons"><%= icon %></i>
 
         <%= category %>
 
-        <!-- Close button -->
+        <% <!-- Close button --> %>
         <a id="close_button" href="#" title="Close" class="material-icons button">close</a>
     
-        <!-- Show the back button only in single item windows on ajax requests -->
+        <% <!-- Show the back button only in single item windows on ajax requests --> %>
         <% if (typeof single !== 'undefined' && ajax) { %>
     
-            <!-- Back button -->
+            <% <!-- Back button --> %>
             <a class = "material-icons back_button button" href = "#" title = "Back">arrow_back</a>
     
         <% } %>
     
-        <!-- Don't show these search button and search bar in single item windows -->
+        <% <!-- Don't show these search button and search bar in single item windows --> %>
         <% if (typeof single === 'undefined') { %>
     
-            <!-- Search button -->
+            <% <!-- Search button --> %>
             <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
     
         <% } %>
@@ -36,12 +36,12 @@
     </h2>
     
     
-    <!-- Window body -->
+    <% <!-- Window body --> %>
     <div class="window_body">
             
         <% if (typeof single === 'undefined') { %>
     
-            <!-- Search bar -->
+            <% <!-- Search bar --> %>
             <div class = "search_bar">
                 <label for = "search_field" class = "material-icons">search</label>
                 <input type = "text" placeholder = "Search" id = "search_field" autocomplete = "off"></input>

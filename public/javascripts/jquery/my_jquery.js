@@ -131,8 +131,16 @@ $(document).ready(function() {
             var scrollRightButton = elementToScroll.find('.scroll_right');
             var lastItem = elementToScroll.find('.category_items').last();
 
-            // If there are no items displayed, do nothing
-            if (elementToScroll.find('.category_items').length < 1) {return}
+            // If there are no items in at least one of the windows
+            if (elementToScroll.find('.category_items').length < 1) {
+
+                // Show a link to populate the database 
+                let reset = $('.reset');
+                reset.show();
+
+                return
+
+            }
 
             var lastItemPosition = lastItem.position().left + lastItem.innerWidth();
 
@@ -194,7 +202,7 @@ $(document).ready(function() {
 
     }();
 
-    // Check for scroll availability (on resize too)
+    // Check for horizontal scroll availability (on resize too)
     if (location.href === 'http://localhost:4000/') {
         
         (function() {
@@ -426,7 +434,7 @@ $(document).ready(function() {
 
             };        
 
-            // In admin windows, check for scroll availability 
+            // In admin windows, check for vertical scroll availability 
             if ((parentWindow.attr('class').indexOf('admin') > -1)) {
 
                 adminModule.checkVerticalScroll(windowBody);
@@ -456,7 +464,7 @@ $(document).ready(function() {
             // Hide the button
             button.hide();
 
-            // In admin windows, check for scroll availability 
+            // In admin windows, check for vertical scroll availability 
             if ((parentWindow.attr('class').indexOf('admin') > -1)) {
 
                 adminModule.checkVerticalScroll(windowBody);
@@ -693,6 +701,17 @@ $(document).ready(function() {
 
         // Check vertical scroll
         var checkVerticalScroll = function(windowBody) {
+
+            // If there are no items in at least one of the windows
+            if (windowBody.find('.category_items').length < 1) {
+
+                // Show a link to populate the database 
+                let populate = $('.populate');
+                populate.show();
+
+                return
+
+            }
             
             var scrollUpButton = windowBody.find('.scroll_up');
             var scrollDownButton = windowBody.find('.scroll_down');
@@ -833,7 +852,7 @@ $(document).ready(function() {
     
     }();
 
-    // Check for scroll availability
+    // Check for vertical scroll availability
     if (location.href === "http://localhost:4000/admin") {
         
         (function() {

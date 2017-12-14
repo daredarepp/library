@@ -7,28 +7,38 @@
     <div class = "row">
         <div class="col-xs-12 home_wrapper">
 
-            <% <!-- Newest movies window --> %>
+            <% <!-- Populate reminder --> %>
+            <div class = "row populate">
+                <div class = "col-md-6 col-md-offset-3">
+                    <p>
+                        Populate the database
+                        <a href = "/admin/populate" class = "populate_button">Populate</a>
+                    </p>
+                </div>
+            </div>
+
+            <% <!-- Latest movies window --> %>
 
             <div class="row">
                 <div class="window col-md-8 col-md-offset-2">
                     
-                    <!-- Title -->
+                    <% <!-- Title --> %>
                     <h2 class = "window_title">
 
                         <i class="material-icons">local_movies</i>
 
                         Latest Movies
                         
-                        <!-- toggle button -->
+                        <% <!-- toggle button --> %>
                         <a href = "#" class = "material-icons toggle_button button"
                         title = "Toggle">keyboard_arrow_down</a>
 
                     </h2>
 
-                    <!-- Window body -->
+                    <% <!-- Window body --> %>
                     <div class = "window_body">
                         <div id = "latest_movies">
-                            <!-- Movies -->
+                            <% <!-- Movies --> %>
                             <% movies.forEach(function(movie) { %>
 
                                 <a href = '<%= movie.url %>' class = 'category_items movie'>
@@ -38,7 +48,7 @@
                                 </a>
 
                             <% }) %>
-                            <!-- Scroll buttons -->
+                            <% <!-- Scroll buttons --> %>
                             <a href = "#" class = "material-icons scroll_left">keyboard_arrow_left</a>
                             <a href = "#" class = "material-icons scroll_right">keyboard_arrow_right</a>
                         </div>
@@ -54,21 +64,21 @@
             <div class = "row">
                 <div class = "window col-md-8 col-md-offset-2">
 
-                    <!-- Title -->
+                    <% <!-- Title --> %>
                     <h2 class = "window_title">
                         <i class = "material-icons">people</i>
 
                         Active Directors
 
-                        <!-- toggle button -->
+                        <% <!-- toggle button --> %>
                         <a href = "#" class = "material-icons toggle_button button"
                         title = "Toggle">keyboard_arrow_down</a>
                     </h2>
 
-                    <!-- Window body -->
+                    <% <!-- Window body --> %>
                     <div class = "window_body">
                         <div id = "active_directors">
-                            <!-- Directors -->
+                            <% <!-- Directors --> %>
                             <% directors.forEach(function(director) { %>
                                 
                                 <a href = "<%= director.url %>" class = 'category_items director' >
@@ -78,7 +88,7 @@
                                 </a>
         
                             <% }) %>
-                            <!-- Scroll buttons -->
+                            <% <!-- Scroll buttons --> %>
                             <a href = "#" class = "material-icons scroll_left">keyboard_arrow_left</a>
                             <a href = "#" class = "material-icons scroll_right">keyboard_arrow_right</a>
                         </div>

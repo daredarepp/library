@@ -13,6 +13,6 @@ router.post('/remove/:category/:id', admin_controllers.delete_items);
 
 // Reset the database
 
-router.get('/reset', admin_controllers.reset_database);
+router.get('/populate', admin_controllers.populate_database);
 
 module.exports = router;

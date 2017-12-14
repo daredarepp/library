@@ -75,8 +75,7 @@ p {
 }
 
 .navi a:hover {
-  background-color: rgba(0, 0, 0, 0.205);
-  color: white;
+  background-color: rgb(8, 130, 195);
 }
 
 .navi a.current:link, .navi a.current:visited {
@@ -470,6 +469,14 @@ p {
   grid-gap: 70px 35px;
   justify-items: center;
 }
+
+@media (max-width:629px){
+  
+    .catalog .genres {
+      grid-gap: 35px 35px;
+    }
+  
+  }
 
 /* Catalog lists */
 .category_items {
@@ -895,4 +902,42 @@ p {
     margin: 10px 0px;
   }
 
+}
+
+/* Populate reminder */
+.populate {
+  display: none;
+  text-align: center;
+}
+
+.populate p {
+  font-size: 30px;
+  color: grey;
+}
+
+/* Populate string */
+.populate_string {
+  font-size: 50px;
+  margin: 15px 0px;
+  text-align: center;
+  color: grey;
+}
+
+/* Populate button */
+.populate_button {
+  display: block;
+  width: 100px;
+  margin: 15px auto;
+  text-align: center;
+  padding: 15px 20px;
+}
+
+.populate_button:link, .populate_button:visited {
+  text-decoration: none;
+  background-color: rgb(5, 121, 189);
+  color: white;
+}
+
+.populate_button:hover {
+  background-color: rgba(5, 121, 189, 0.9);
 }

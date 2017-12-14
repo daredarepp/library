@@ -101,8 +101,8 @@ module.exports.delete_items = function(req, res, next) {
 
 }
 
-/* Reset database */
-module.exports.reset_database = function(req, res, next) {
+/* Populate database */
+module.exports.populate_database = function(req, res, next) {
 
     var uri = 'mongodb://localhost/moviedb';
     var options = {useMongoClient: true};
@@ -865,9 +865,10 @@ module.exports.reset_database = function(req, res, next) {
     // Save the 15th movie
     .then(function() {
 
-        console.log('Saved the 15th movie. Successfully filled the database.');
+        console.log('Saved the 15th movie.');
+        console.log('Successfully populated the database.');
 
-        res.send('You successfully filled the database');
+        res.render('admin', {reset: true});
 
     })
     .catch(function(err) {

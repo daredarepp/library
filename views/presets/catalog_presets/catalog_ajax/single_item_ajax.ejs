@@ -1,5 +1,5 @@
 
-<!-- Movie -->
+<% <!-- Movie --> %>
 <% if (typeof movie !== 'undefined') { %>
 
     <div class = "single_item movie">
@@ -42,7 +42,7 @@
 
     </div>
 
-<!-- Director -->
+<% <!-- Director --> %>
 <% } else if (typeof director !== 'undefined') { %>
 
     <div class = "single_item director">
@@ -98,25 +98,25 @@
 
     </div>
 
-<!-- Genre -->
+<% <!-- Genre --> %>
 <% } else if (typeof genre !== 'undefined') { %>
 
     <div class = "single_item genre">
 
         <h3>
             <%= genre.name %>
-            <!-- Search button -->
+            <% <!-- Search button --> %>
             <a href = "#" class = "material-icons search_button button" title = "Search">search</a>
         </h3>
 
-        <!-- Search bar -->
+        <% <!-- Search bar --> %>
         <div class = "search_bar">
             <label for = "search_field" class = "material-icons">search</label>
             <input type = "text" placeholder = "Search" id = "search_field" autocomplete = "off"></input>
             <span id = "clear_search" class = "material-icons" title = "Clear">close</span>
         </div>
 
-        <!-- genre's movies -->
+        <% <!-- genre's movies --> %>
         <div class = "genre_movies">
             <% if (genre_movies.length === 0) { %>
 
