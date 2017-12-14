@@ -289,7 +289,7 @@ p {
   padding: 10px 10px;
   border-radius: 25px;
   position: absolute;
-  top: 45%;
+  top: 48%;
 }
 
 .scroll_left {
@@ -301,7 +301,6 @@ p {
 }
 
 .scroll_left:link, .scroll_left:visited, .scroll_right:link, .scroll_right:visited {
-  /* box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.2); */
   text-decoration: none;
   font-weight: bold;
   background-color: transparent;
@@ -310,7 +309,7 @@ p {
 }
 
 .scroll_left.active:link, .scroll_left.active:visited, .scroll_right.active:link, .scroll_right.active:visited {
-  box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.308);
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.308);
   background-color: white;
   color: black;
   cursor: pointer;

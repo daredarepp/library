@@ -56,3 +56,13 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# Vagrant #
+.vagrant/
+boxes/*
+*.box
+website/.vagrant
+website/build
+acceptance_config.yml
+vagrant-spec.config.rb
+package-lock.json
