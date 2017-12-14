@@ -108,8 +108,6 @@ module.exports.populate_database = function(req, res, next) {
     var options = {useMongoClient: true};
 
     mongoose.connect(uri, options);
-    var db = mongoose.connection;
-    db.once('error', console.error.bind(console, 'MongoDB connection error:'));
 
     // Genres
     var allGenres = function() {

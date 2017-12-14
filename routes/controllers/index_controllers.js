@@ -11,8 +11,6 @@ module.exports.index_get = function(req, res, next) {
     var options = { useMongoClient: true };
 
     mongoose.connect(uri, options);
-    var db = mongoose.connection;
-    db.once('error', console.error.bind(console, 'MongoDB connection error:'));
     
     var moviesPromise = Movie.find({}, 'title year').limit(8).sort('-year').exec();
     var directorsPromise = Director.aggregate([

@@ -21,8 +21,6 @@ module.exports.catalog_category_get = function(req, res, next) {
     var category = req.params.category;
 
     mongoose.connect(uri, options);
-    var db = mongoose.connection;
-    db.once('error', console.error.bind(console, 'MongoDB connection error:'));
     
     switch(category) {
         
@@ -139,8 +137,6 @@ module.exports.catalog_item_get = function(req, res, next) {
     var id = req.params.id;
 
     mongoose.connect(uri, options);
-    var db = mongoose.connection;
-    db.once('error', console.error.bind(console, 'MongoDB connection error:'));
 
     switch(category) {
 
