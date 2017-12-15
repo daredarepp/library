@@ -913,33 +913,17 @@ p {
 }
 
 /* Populate reminder on the homepage */
-.populate {
+.populate_reminder {
   display: none;
   text-align: center;
   margin-bottom: 15px;
 }
 
-.populate p {
+.populate_reminder p {
   font-size: 30px;
   color: grey;
 }
 
-/* Populate string */
-.populate_string {
-  font-size: 50px;
-  margin: 15px 0px;
-  text-align: center;
-  color: grey;
-}
-
-.populate_string i {
-  font-size: 80px;
-  position: relative;
-  top: 10px;
-  color: rgb(0, 150, 136);
-}
-
-/* Populate button */
 .populate_button {
   display: block;
   width: 100px;
@@ -958,33 +942,78 @@ p {
   background-color: rgba(5, 121, 189, 0.9);
 }
 
-/* populate button on the homepage */
-.populate .populate_button {
-  margin: 15px auto;
+/* Populate page */
+.populate_string {
+  font-size: 50px;
+  margin: 15px 0px;
+  text-align: center;
+  color: grey;
 }
 
-/* Populate small */
-.populate_small {
+.populate_string i {
+  font-size: 80px;
+  position: relative;
+  top: 30px;
+  color: rgb(0, 150, 136);
+}
+
+.home_button {
+  display: block;
+  width: 100px;
+  margin: 40px auto;
+  text-align: center;
+  padding: 15px 20px;
+}
+
+.home_button:link, .home_button:visited {
+  text-decoration: none;
+  background-color: rgb(5, 121, 189);
+  color: white;
+}
+
+.home_button:hover {
+  background-color: rgba(5, 121, 189, 0.9);
+}
+
+/* Populate button on the admin page */
+.populate_admin {
   position: absolute;
   top: 15px;
   right: 20px;
   margin: 0px;
-  color: grey;
+  padding: 5px 10px;
 }
 
-.populate_button.small {
-  display: inline-block;
-  width: auto;
-  margin: 0px;
-  font-size: 18px;
-  padding: 5px;
-  border-radius: 25px;
-  vertical-align: middle;
+.populate_admin i {
+  vertical-align: bottom;
 }
+
+.populate_admin:link, .populate_admin:visited {
+  text-decoration: none;
+  background-color: rgb(2, 119, 189);
+  color: white;
+}
+
+.populate_admin:hover {
+  background-color: rgba(2, 120, 189, 0.9);
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* .populate_admin:active > i {
+  animation: rotation 1s linear infinite reverse;
+} */
 
 @media (max-width: 991px) {
   
-  .populate_small {
+  .populate_admin {
     right: 10px;
   }  
   
