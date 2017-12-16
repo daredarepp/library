@@ -830,6 +830,134 @@ $(document).ready(function() {
 
         }
 
+        var populateLists = function(button) {
+
+            var lists = $('.list');
+            var icon = button.children('i');
+
+            // Start rotating the icon in the button
+            icon.css({animation: 'rotation 0.5s linear infinite reverse'})
+
+            // Populate the server
+            $.ajax({
+                url: "/admin/populate",
+                method: "GET",
+                dataType: "json"
+            })
+            // Use the returned data to populate the lists
+            .done(function(returnedData) {
+
+                // Make an array of movie items
+                var movies = returnedData.movies.map(function(movie) {
+
+                    var movieItem = $('<p></p>')
+                    movieItem.addClass('category_items');
+                    movieItem.text(movie.title);
+
+                    var deleteButton = $('<a></a>');
+                    var deleteUrl = '/admin/remove/movies/' + movie._id;
+                    deleteButton.addClass('material-icons delete');
+                    deleteButton.attr('href', deleteUrl);
+                    deleteButton.attr('title', 'Delete movie');
+                    deleteButton.text('delete');
+
+                    movieItem.append(deleteButton);
+                    return movieItem
+
+                });
+
+                // Make an array of director items
+                var directors = returnedData.directors.map(function(director) {
+                    
+                    var directorItem = $('<p></p>')
+                    directorItem.addClass('category_items');
+                    directorItem.text(director.first_name + ' ' + director.last_name);
+
+                    var deleteButton = $('<a></a>');
+                    var deleteUrl = '/admin/remove/directors/' + director._id;
+                    deleteButton.addClass('material-icons delete');
+                    deleteButton.attr('href', deleteUrl);
+                    deleteButton.attr('title', 'Delete director');
+                    deleteButton.text('delete');
+
+                    directorItem.append(deleteButton);
+                    return directorItem
+
+                });
+
+                // Make an array of genre items
+                var genres = returnedData.genres.map(function(genre) {
+                    
+                    var genreItem = $('<p></p>')
+                    genreItem.addClass('category_items');
+                    genreItem.text(genre.name);
+
+                    var deleteButton = $('<a></a>');
+                    var deleteUrl = '/admin/remove/genres/' + genre._id;
+                    deleteButton.addClass('material-icons delete');
+                    deleteButton.attr('href', deleteUrl);
+                    deleteButton.attr('title', 'Delete genre');
+                    deleteButton.text('delete');
+
+                    genreItem.append(deleteButton);
+                    return genreItem
+
+                }); 
+
+                // Populate the lists with the new items
+                lists.each(function(i, list) {
+
+                        // Decrease the visibility of the lists
+                        $(list).animate({
+                            opacity: 0
+                        }, {
+                            duration: 200,
+                            done: function() {
+                        
+                                // Populate the lists with appropriate items
+                                // Movies
+                                if ($(list).attr('class').indexOf('movies') > -1) {
+                        
+                                    $(list).html(movies);
+                        
+                                // Directors
+                                } else if ($(list).attr('class').indexOf('directors') > -1) {
+                        
+                                    $(list).html(directors);
+                        
+                                // Genres
+                                } else {
+                        
+                                    $(list).html(genres);
+                        
+                                }
+                        
+                                // Revert the visibility of the lists to normal
+                                $(list).animate({
+                                    opacity: 1
+                                }, {
+                                    duration: 200,
+                                    done: function() {
+
+                                        // Stop rotating the icon (make one last rotation)
+                                        icon.css({animationIterationCount: '1'})
+
+                                        // Add the event listeners
+                                        adminModule.addEventListeners();
+
+                                    }
+                                })
+                        
+                            }
+                        })
+
+                    
+                })
+
+            })
+
+        };
+
         // Add event listeners
         var addEventListeners = function() {
 
@@ -843,6 +971,7 @@ $(document).ready(function() {
                 
             });
 
+            // Delete buttons
             $('.admin').find('.delete').off().on('click', function(event) {
 
                 event.preventDefault();
@@ -852,9 +981,19 @@ $(document).ready(function() {
 
             })
 
+            // Populate admin button
+            $('.populate_admin').off().on('click', function(event) {
+
+                event.preventDefault();
+
+                var button = $(this)
+                adminModule.populateLists(button);
+
+            })
+
         };
 
-        return {scrollUpAndDown: scrollUpAndDown, checkVerticalScroll: checkVerticalScroll, deleteItem: deleteItem, deleteFinal: deleteFinal, cancelDelete: cancelDelete, addEventListeners: addEventListeners}
+        return {scrollUpAndDown: scrollUpAndDown, checkVerticalScroll: checkVerticalScroll, deleteItem: deleteItem, deleteFinal: deleteFinal, cancelDelete: cancelDelete, populateLists: populateLists, addEventListeners: addEventListeners}
     
     }();
 

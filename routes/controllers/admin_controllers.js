@@ -6,7 +6,7 @@ var Genre = require('../../models/genre');
 
 /* GET admin page */
 
-module.exports.admin_get = function(req,res,next) {
+module.exports.admin_get = function(req, res, next) {
 
     var uri = 'mongodb://localhost/moviedb';
     var options = {useMongoClient: true};
@@ -866,7 +866,37 @@ module.exports.populate_database = function(req, res, next) {
         console.log('Saved the 15th movie.');
         console.log('Successfully populated the database.');
 
-        res.render('admin', {reset: true});
+        // Respond to regular requests
+        if (!req.xhr) {
+
+            res.render('admin', {reset: true});
+
+        // Get data for ajax requests
+        } else {
+            
+            var movies = Movie.find().select('title').sort('title');
+            var directors = Director.find().select('first_name last_name').sort('first_name');
+            var genres = Genre.find().select('name').sort('name');
+
+            return Promise.all([movies, directors, genres]);
+
+        }
+        
+
+    })
+    .then(function([movies ,directors, genres]) {
+
+        // Respond to ajax requests
+        if (req.xhr) {
+
+            var serverData = {
+                movies: movies,
+                directors: directors,
+                genres: genres
+            }
+
+            res.json(serverData)
+        }
 
     })
     .catch(function(err) {
@@ -876,6 +906,5 @@ module.exports.populate_database = function(req, res, next) {
         res.send('Something went wrong');
 
     })
-
 
 }
