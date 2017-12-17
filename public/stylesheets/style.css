@@ -975,8 +975,8 @@ p {
   background-color: rgba(5, 121, 189, 0.9);
 }
 
-/* Populate button on the admin page */
-.populate_admin {
+/* Reset button */
+.reset {
   position: absolute;
   top: 15px;
   right: 20px;
@@ -984,17 +984,17 @@ p {
   padding: 5px 10px;
 }
 
-.populate_admin i {
+.reset i {
   vertical-align: bottom;
 }
 
-.populate_admin:link, .populate_admin:visited {
+.reset:link, .reset:visited {
   text-decoration: none;
   background-color: rgb(2, 119, 189);
   color: white;
 }
 
-.populate_admin:hover {
+.reset:hover {
   background-color: rgba(2, 120, 189, 0.9);
 }
 
@@ -1007,13 +1007,9 @@ p {
   }
 }
 
-/* .populate_admin:active > i {
-  animation: rotation 1s linear infinite reverse;
-} */
-
 @media (max-width: 991px) {
   
-  .populate_admin {
+  .reset {
     right: 10px;
   }  
   
