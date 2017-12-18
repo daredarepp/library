@@ -844,25 +844,17 @@ p {
 }
 
 .delete_final:hover {
-  background-color: rgba(211, 47, 47, 0.8);
-}
-
-.delete_final:active {
-  background-color: rgba(211, 47, 47, 0.4);
+  background-color: rgba(223, 67, 56, 0.6);
 }
 
 .cancel:link, .cancel:visited {
   text-decoration: none;
-  background-color: rgba(0, 0, 0, 0.37);
+  background-color: rgba(83, 82, 82, 0.8);
   color: white;
 }
 
 .cancel:hover {
-  background-color: rgba(0, 0, 0, 0.47);
-}
-
-.cancel:active {
-  background-color: rgba(0, 0, 0, 0.27);
+  background-color: rgba(97, 97, 97, 0.8);
 }
 
 /* Delete final and cancel icons */
@@ -982,6 +974,7 @@ p {
   right: 20px;
   margin: 0px;
   padding: 5px 10px;
+  border-radius: 3px;
 }
 
 .reset i {
@@ -990,21 +983,24 @@ p {
 
 .reset:link, .reset:visited {
   text-decoration: none;
-  background-color: rgb(2, 119, 189);
-  color: white;
+  color: rgb(2, 119, 189);
+  background-color: rgba(255, 255, 255, 0.734);
+  box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.575);
 }
 
 .reset:hover {
-  background-color: rgba(2, 120, 189, 0.9);
+  background-color: rgba(255, 255, 255, 0.534);
 }
 
 @keyframes rotation {
+
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
+
 }
 
 @media (max-width: 991px) {
@@ -1012,5 +1008,39 @@ p {
   .reset {
     right: 10px;
   }  
+  
+}
+
+/* Reset notification */
+.notification.success, .notification.fail {
+  display: none;
+  position: absolute;
+  right: 45px;
+  top: 55px;
+  font-size: 35px;
+}
+
+.success {
+  color: rgb(0, 150, 136);
+}
+
+.fail {
+  color: rgba(223, 67, 56, 0.6);
+}
+
+@media (max-width: 991px) {
+  
+  .notification.success, .notification.fail {
+    top: 15px;
+    right: 100px;
+  }
+  
+  .notification.success {
+    /* right: 105px; */
+  }
+
+  .notification.fail {
+    /* right: 100px; */
+  }
   
 }

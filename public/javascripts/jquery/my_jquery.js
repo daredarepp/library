@@ -658,7 +658,10 @@ $(document).ready(function() {
 
 
     /* Admin page ------------------------------------------------------------------------------------------------------- */
-    
+
+    // Notification timer
+    var disappear
+
     var adminModule = function() {
         
         // Scroll up and down
@@ -756,6 +759,7 @@ $(document).ready(function() {
 
             // Hide the first delete button
             button.addClass('active');
+            console.log(button.parent().text())
             
             // Activate the item
             var item = button.parent();
@@ -830,138 +834,174 @@ $(document).ready(function() {
 
         }
 
-        // Reset
+        // Reset database
         var reset = async function(button) {
 
             var lists = $('.list');
             var icon = button.children('i');
 
+            // Hide previous notification
+            var notification = $('.notification');
+            notification.hide();
+
+            // Reset the timer for hiding notifications
+            clearTimeout(disappear);
+
             // Start rotating the icon in the button
             icon.css({
-                animation: 'rotation 0.5s linear infinite reverse'
+                animation: 'rotation 0.5s linear infinite normal'
             })
 
-            // Populate the server and get all the data
-            var returnedData = await $.ajax({
-                url: "/admin/populate",
-                method: "GET",
-                dataType: "json"
-            })
+            try {
 
-            // Make an array of movie items
-            var movies = returnedData.movies.map(function(movie) {
+                // Populate the server and get all the data
+                var returnedData = await $.ajax({
+                    url: button.attr('href'),
+                    method: "GET",
+                    timeout: 3000,
+                    dataType: "json"
+                })
 
-                var movieItem = $('<p></p>')
-                movieItem.addClass('category_items');
-                movieItem.text(movie.title);
+                // Make an array of movie items
+                var movies = returnedData.movies.map(function(movie) {
 
-                var deleteButton = $('<a></a>');
-                var deleteUrl = '/admin/remove/movies/' + movie._id;
-                deleteButton.addClass('material-icons delete');
-                deleteButton.attr('href', deleteUrl);
-                deleteButton.attr('title', 'Delete movie');
-                deleteButton.text('delete');
+                    var movieItem = $('<p></p>')
+                    movieItem.addClass('category_items');
+                    movieItem.text(movie.title);
 
-                movieItem.append(deleteButton);
-                return movieItem
+                    var deleteButton = $('<a></a>');
+                    var deleteUrl = '/admin/remove/movies/' + movie._id;
+                    deleteButton.addClass('material-icons delete');
+                    deleteButton.attr('href', deleteUrl);
+                    deleteButton.attr('title', 'Delete movie');
+                    deleteButton.text('delete');
 
-            });
+                    movieItem.append(deleteButton);
+                    return movieItem
 
-            // Make an array of director items
-            var directors = returnedData.directors.map(function(director) {
-                
-                var directorItem = $('<p></p>')
-                directorItem.addClass('category_items');
-                directorItem.text(director.first_name + ' ' + director.last_name);
+                });
 
-                var deleteButton = $('<a></a>');
-                var deleteUrl = '/admin/remove/directors/' + director._id;
-                deleteButton.addClass('material-icons delete');
-                deleteButton.attr('href', deleteUrl);
-                deleteButton.attr('title', 'Delete director');
-                deleteButton.text('delete');
-
-                directorItem.append(deleteButton);
-                return directorItem
-
-            });
-
-            // Make an array of genre items
-            var genres = returnedData.genres.map(function(genre) {
-                
-                var genreItem = $('<p></p>')
-                genreItem.addClass('category_items');
-                genreItem.text(genre.name);
-
-                var deleteButton = $('<a></a>');
-                var deleteUrl = '/admin/remove/genres/' + genre._id;
-                deleteButton.addClass('material-icons delete');
-                deleteButton.attr('href', deleteUrl);
-                deleteButton.attr('title', 'Delete genre');
-                deleteButton.text('delete');
-
-                genreItem.append(deleteButton);
-                return genreItem
-
-            });
-
-            // Hide lists
-            await lists.animate({
-                opacity: 0
-            },{
-                duration: 200
-            })
-
-            
-            // Update lists with new data
-            await lists.each(function(i, list) {
-                
-                // Movies
-                if ($(list).attr('class').indexOf('movies') > -1) {
+                // Make an array of director items
+                var directors = returnedData.directors.map(function(director) {
                     
-                    $(list).html(movies);
-        
-                // Directors
-                } else if ($(list).attr('class').indexOf('directors') > -1) {
-        
-                    $(list).html(directors);
-        
-                // Genres
-                } else {
-        
-                    $(list).html(genres);
-        
-                }
+                    var directorItem = $('<p></p>')
+                    directorItem.addClass('category_items');
+                    directorItem.text(director.first_name + ' ' + director.last_name);
 
-            })
+                    var deleteButton = $('<a></a>');
+                    var deleteUrl = '/admin/remove/directors/' + director._id;
+                    deleteButton.addClass('material-icons delete');
+                    deleteButton.attr('href', deleteUrl);
+                    deleteButton.attr('title', 'Delete director');
+                    deleteButton.text('delete');
 
-            // Show lists
-            await lists.animate({
-                opacity: 1
-            },{
-                duration: 200
-            })
+                    directorItem.append(deleteButton);
+                    return directorItem
 
-            // Update the scroll on each window and reset the search input
-            lists.each(function(i, list) {
+                });
 
-                let windowBody = $(list).parent();
+                // Make an array of genre items
+                var genres = returnedData.genres.map(function(genre) {
+                    
+                    var genreItem = $('<p></p>')
+                    genreItem.addClass('category_items');
+                    genreItem.text(genre.name);
 
-                adminModule.checkVerticalScroll(windowBody);
+                    var deleteButton = $('<a></a>');
+                    var deleteUrl = '/admin/remove/genres/' + genre._id;
+                    deleteButton.addClass('material-icons delete');
+                    deleteButton.attr('href', deleteUrl);
+                    deleteButton.attr('title', 'Delete genre');
+                    deleteButton.text('delete');
 
-                windowBody.find('#search_field').val('');
-                windowBody.find('#clear_search').hide();
+                    genreItem.append(deleteButton);
+                    return genreItem
+
+                });
+
+                // Hide lists
+                await lists.animate({
+                    opacity: 0
+                },{
+                    duration: 200
+                })
+
+                
+                // Update lists with new data
+                await lists.each(function(i, list) {
+                    
+                    // Movies
+                    if ($(list).attr('class').indexOf('movies') > -1) {
+                        
+                        $(list).html(movies);
+            
+                    // Directors
+                    } else if ($(list).attr('class').indexOf('directors') > -1) {
+            
+                        $(list).html(directors);
+            
+                    // Genres
+                    } else {
+            
+                        $(list).html(genres);
+            
+                    }
+
+                })
+
+                // Show lists
+                await lists.animate({
+                    opacity: 1
+                },{
+                    duration: 200
+                })
+
+                // Update the scroll on each window and reset the search input
+                lists.each(function(i, list) {
+
+                    let windowBody = $(list).parent();
+
+                    adminModule.checkVerticalScroll(windowBody);
+
+                    windowBody.find('#search_field').val('');
+                    windowBody.find('#clear_search').hide();
 
 
-            })
+                })
 
-            // Stop rotating the icon (make one last rotation)
-            icon.css({
-                animationIterationCount: '1'
-            })
+                // Stop rotating the icon (make one last rotation)
+                icon.css({
+                    animationIterationCount: '1'
+                })
 
-            // Add the event listeners
-            adminModule.addEventListeners();
+                // Add the event listeners
+                adminModule.addEventListeners();
+                
+                // Show a 'success' notification
+                var success = $('.success');
+                success.fadeIn(400);
+
+            // If something goes wrong
+            } catch(err) {
+
+                // Stop rotating the icon (make one last rotation)
+                icon.css({
+                    animationIterationCount: '1'
+                })
+
+                // Show a 'fail' notification
+                var fail = $('.fail');
+                fail.fadeIn(400);
+
+            }
+
+            // Set timer to hide notification after few seconds
+            disappear = setTimeout(function() {
+
+                var notification = $('.notification');
+                notification.fadeOut(400)
+
+            }, 2500)
             
         };
 
