@@ -923,34 +923,39 @@ $(document).ready(function() {
                 await lists.animate({
                     opacity: 0
                 },{
-                    duration: 200
-                })
+                    duration: 200,
+                    done: function() {
 
-                
-                // Update lists with new data
-                await lists.each(function(i, list) {
+                        // Update lists with new data
+                        lists.each(function(i, list) {
+                            
+                            // Movies
+                            if ($(list).attr('class').indexOf('movies') > -1) {
+                                
+                                $(list).html(movies);
                     
-                    // Movies
-                    if ($(list).attr('class').indexOf('movies') > -1) {
-                        
-                        $(list).html(movies);
-            
-                    // Directors
-                    } else if ($(list).attr('class').indexOf('directors') > -1) {
-            
-                        $(list).html(directors);
-            
-                    // Genres
-                    } else {
-            
-                        $(list).html(genres);
-            
-                    }
+                            // Directors
+                            } else if ($(list).attr('class').indexOf('directors') > -1) {
+                    
+                                $(list).html(directors);
+                    
+                            // Genres
+                            } else {
+                    
+                                $(list).html(genres);
+                    
+                            }
 
+                        })
+
+                        // Add the event listeners
+                        adminModule.addEventListeners();
+
+                    }
                 })
 
                 // Show lists
-                await lists.animate({
+                lists.animate({
                     opacity: 1
                 },{
                     duration: 200
@@ -966,16 +971,12 @@ $(document).ready(function() {
                     windowBody.find('#search_field').val('');
                     windowBody.find('#clear_search').hide();
 
-
                 })
 
                 // Stop rotating the icon (make one last rotation)
                 icon.css({
                     animationIterationCount: '1'
                 })
-
-                // Add the event listeners
-                adminModule.addEventListeners();
                 
                 // Show a 'success' notification
                 var success = $('.success');

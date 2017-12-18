@@ -145,10 +145,8 @@ module.exports.populate_database = function(req, res, next) {
             name: 'Fantasy'
         };
         var allGenres = [gen1, gen2, gen3, gen4, gen5, gen6, gen7, gen8, gen9, gen10, gen11];
-    
-        var insertGenres = Genre.insertMany(allGenres);
 
-        return insertGenres
+        return allGenres
 
     }
 
@@ -235,9 +233,7 @@ module.exports.populate_database = function(req, res, next) {
         };
         var allDirectors = [dir1, dir2, dir3, dir4, dir5, dir6, dir7, dir8, dir9, dir10, dir11, dir12, dir13];
 
-        var insertDirectors = Director.insertMany(allDirectors);
-
-        return insertDirectors
+        return allDirectors
         
     }
         
@@ -602,43 +598,56 @@ module.exports.populate_database = function(req, res, next) {
 
     }
 
-    var processMovie = function([title, year, storyline, directors, genres]) {
+    var moviePromises = [mov1(), mov2(), mov3(), mov4(), mov5(), mov6(), mov7(), mov8(), mov9(), mov10(), mov11(), mov12(), mov13(), mov14(), mov15()];
 
-        // process the genres
-        var genresFixed = genres.map(function(genre) {
+    var processOneMovie = function([title, year, storyline, directors, genres]) {
+
+        // process the genres for the movie
+        var processedGenres = genres.map(function(genre) {
                 
             return genre._id
 
         })
 
-        // process the directors
-        var directorsFixed = directors.map(function(director) {
+        // process the directors for the movie
+        var processedDirectors = directors.map(function(director) {
 
             return director._id
 
         })
         
-        // Return promise with the new movie
-        var newMovie = new Movie({
+        // Return the processed movie
+        var processedMovie = {
             title: title,
             year: year,
             storyline: storyline,
-            director: directorsFixed,
-            genre: genresFixed
-        }) 
+            director: processedDirectors,
+            genre: processedGenres
+        };
 
-        return newMovie.save()
+        return processedMovie
+
+    }
+
+    var processAllMovies = function(unprocessedMovies) {
+        
+        var processedMovies = unprocessedMovies.map(function(unprocessedMovie) {
+
+            return processOneMovie(unprocessedMovie);
+
+        })
+
+        return processedMovies
 
     }
 
     // Start the chain
     // Empty the genres collection
-    Genre.find().remove()
-    .then(function(outcome) {
+    Genre.find().remove().then(function(outcome) {
 
         console.log(outcome.result.n + " genres removed, genres collection empty");
 
-        return allGenres()
+        return Genre.insertMany(allGenres())
 
     })
     // Insert the genres
@@ -654,7 +663,7 @@ module.exports.populate_database = function(req, res, next) {
 
         console.log(outcome.result.n + " directors removed, directors collection empty");
 
-        return allDirectors();
+        return Director.insertMany(allDirectors())
 
     })
     // Insert the directors
@@ -670,200 +679,25 @@ module.exports.populate_database = function(req, res, next) {
 
         console.log(outcome.result.n + " movies removed, movies collection empty");
 
-        return mov1()
+        return Promise.all(moviePromises);
 
     })
-    .then(function(movieDetails) {
+    // Unpack the movies
+    .then(function(unprocessedMovies) {
+
+        return processAllMovies(unprocessedMovies);
+
+    })
+    // Process the movies
+    .then(function(processedMovies) {
         
-        return processMovie(movieDetails)
+        return Movie.insertMany(processedMovies);
 
     })
-    // Save the 1st movie
-    .then(function() {
+    // Insert the movies
+    .then(function(movies) {
 
-        console.log('Saved the 1st movie');
-
-        return mov2()
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 2nd movie
-    .then(function() {
-
-        console.log("Saved the 2nd movie");
-
-        return mov3()
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 3rd movie
-    .then(function() {
-
-        console.log('Save the 3rd movie');
-
-        return mov4();
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 4th movie
-    .then(function() {
-
-        console.log("Saved the 4th movie");
-
-        return mov5()
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 5th movie
-    .then(function() {
-
-        console.log('Save the 5th movie');
-
-        return mov6()
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 6th movie
-    .then(function() {
-
-        console.log('Saved the 6th movie');
-
-        return mov7()
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 7th movie
-    .then(function() {
-
-        console.log('Saved the 7th movie');
-        
-        return mov8()
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 8th movie
-    .then(function() {
-
-        console.log('Saved the 8th movie');
-
-        return mov9()
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 9th movie
-    .then(function() {
-
-        console.log('Saved the 9th movie');
-
-        return mov10()
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 10th movie
-    .then(function() {
-
-        console.log("Saved the 10th movie");
-
-        return mov11()
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 11th movie
-    .then(function() {
-
-        console.log('Saved the 11th movie');
-
-        return mov12()
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 12th movie
-    .then(function() {
-
-        console.log('Saved the 12th movie');
-        
-        return mov13()
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 13th movie
-    .then(function() {
-
-        console.log('Saved the 13th movie');
-
-        return mov14()
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 14th movie
-    .then(function() {
-
-        console.log('Saved the 14th movie');
-
-        return mov15()
-
-    })
-    .then(function(movieDetails) {
-        
-        return processMovie(movieDetails)
-
-    })
-    // Save the 15th movie
-    .then(function() {
-
-        console.log('Saved the 15th movie.');
+        console.log("Successfully inserted " + movies.length + " new movies");
         console.log('Successfully populated the database.');
 
         // Respond to regular requests
@@ -874,11 +708,11 @@ module.exports.populate_database = function(req, res, next) {
         // Get data for ajax requests
         } else {
             
-            var movies = Movie.find().select('title').sort('title');
-            var directors = Director.find().select('first_name last_name').sort('first_name');
-            var genres = Genre.find().select('name').sort('name');
+            var dbMovies = Movie.find().select('title').sort('title');
+            var dbDirectors = Director.find().select('first_name last_name').sort('first_name');
+            var dbGenres = Genre.find().select('name').sort('name');
 
-            return Promise.all([movies, directors, genres]);
+            return Promise.all([dbMovies, dbDirectors, dbGenres]);
 
         }
         
@@ -889,13 +723,13 @@ module.exports.populate_database = function(req, res, next) {
         // Respond to ajax requests
         if (req.xhr) {
 
-            var serverData = {
+            var everything = {
                 movies: movies,
                 directors: directors,
                 genres: genres
             }
 
-            res.json(serverData)
+            res.json(everything);
         }
 
     })
@@ -903,7 +737,7 @@ module.exports.populate_database = function(req, res, next) {
 
         console.log(err);
         
-        res.send('Something went wrong');
+        res.sendStatus(500);
 
     })
 
