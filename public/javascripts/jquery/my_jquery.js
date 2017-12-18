@@ -926,7 +926,7 @@ $(document).ready(function() {
 
                         // Update lists with new data
                         lists.each(function(i, list) {
-                            
+
                             // Movies
                             if ($(list).attr('class').indexOf('movies') > -1) {
                                 
@@ -941,8 +941,7 @@ $(document).ready(function() {
                             } else {
                     
                                 $(list).html(genres);
-                    
-                            }
+
 
                             // Update the scroll on each window and reset the search input
                             let windowBody = $(list).parent();
@@ -951,17 +950,17 @@ $(document).ready(function() {
                             windowBody.find('#search_field').val('');
                             windowBody.find('#clear_search').hide();
 
-                        })
-                        
-                        // Add the event listeners
-                        adminModule.addEventListeners();
+                            // Add the event listeners
+                            adminModule.addEventListeners();
 
+                            }
+                        })
                     }
                 })
 
                 // Show lists
                 lists.animate({
-                    opacity: 1
+                    opacity: 1,
                 },{
                     duration: 200,
                     done: function() {
