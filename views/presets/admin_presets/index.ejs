@@ -51,7 +51,7 @@
                         <div class = "movies list">
                             <% movies.forEach(function(movie) { %>
         
-                                <p class = "category_items">
+                                <p class = "category_items" data-name = "<%= movie.title %>">
                                     <%= movie.title %>
                                     <a href = "/admin/remove/movies/<%= movie._id %>" class = "material-icons delete" title = "Delete movie">delete</a>
                                 </p>
@@ -104,7 +104,7 @@
                         <div class = "directors list">
                             <% directors.forEach(function(director) { %>
         
-                                <p class = "category_items">
+                                <p class = "category_items" data-name = "<%= director.name %>">
                                     <%= director.name %>
                                     <a href = "/admin/remove/directors/<%= director._id %>" class = "material-icons delete" title = "Delete director">delete</a>
                                 </p>
@@ -157,7 +157,7 @@
                         <div class = "genres list">
                             <% genres.forEach(function(genre) { %>
         
-                                <p class = "category_items">
+                                <p class = "category_items" data-name = "<%= genre.name %>">
                                     <%= genre.name %>
                                     <a href = "/admin/remove/genres/<%= genre._id %>" class = "material-icons delete" title = "Delete genre">delete</a>
                                 </p>

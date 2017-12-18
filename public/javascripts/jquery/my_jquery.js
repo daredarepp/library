@@ -659,9 +659,6 @@ $(document).ready(function() {
 
     /* Admin page ------------------------------------------------------------------------------------------------------- */
 
-    // Notification timer
-    var disappear
-
     var adminModule = function() {
         
         // Scroll up and down
@@ -759,7 +756,6 @@ $(document).ready(function() {
 
             // Hide the first delete button
             button.addClass('active');
-            console.log(button.parent().text())
             
             // Activate the item
             var item = button.parent();
@@ -835,8 +831,8 @@ $(document).ready(function() {
         }
 
         // Reset database
-        var reset = async function(button) {
-
+        var reset = function(button) {
+            
             var lists = $('.list');
             var icon = button.children('i');
 
@@ -844,29 +840,29 @@ $(document).ready(function() {
             var notification = $('.notification');
             notification.hide();
 
-            // Reset the timer for hiding notifications
-            clearTimeout(disappear);
-
             // Start rotating the icon in the button
             icon.css({
                 animation: 'rotation 0.5s linear infinite normal'
             })
 
-            try {
 
-                // Populate the server and get all the data
-                var returnedData = await $.ajax({
-                    url: button.attr('href'),
-                    method: "GET",
-                    timeout: 3000,
-                    dataType: "json"
-                })
+            // Populate the server and get all the data
+            $.ajax({
+                url: button.attr('href'),
+                method: "GET",
+                timeout: 3000,
+                dataType: "json"
+            })
+            .then(function(returnedData) {
+
+                // var newItems = compareData(returnedData);
 
                 // Make an array of movie items
                 var movies = returnedData.movies.map(function(movie) {
 
                     var movieItem = $('<p></p>')
                     movieItem.addClass('category_items');
+                    movieItem.attr('data-name', movie.title);
                     movieItem.text(movie.title);
 
                     var deleteButton = $('<a></a>');
@@ -886,6 +882,7 @@ $(document).ready(function() {
                     
                     var directorItem = $('<p></p>')
                     directorItem.addClass('category_items');
+                    directorItem.attr('data-name', director.first_name + ' ' + director.last_name);
                     directorItem.text(director.first_name + ' ' + director.last_name);
 
                     var deleteButton = $('<a></a>');
@@ -905,6 +902,7 @@ $(document).ready(function() {
                     
                     var genreItem = $('<p></p>')
                     genreItem.addClass('category_items');
+                    genreItem.attr('data-name', genre.name);
                     genreItem.text(genre.name);
 
                     var deleteButton = $('<a></a>');
@@ -920,7 +918,7 @@ $(document).ready(function() {
                 });
 
                 // Hide lists
-                await lists.animate({
+                lists.animate({
                     opacity: 0
                 },{
                     duration: 200,
@@ -946,8 +944,15 @@ $(document).ready(function() {
                     
                             }
 
-                        })
+                            // Update the scroll on each window and reset the search input
+                            let windowBody = $(list).parent();
+                            adminModule.checkVerticalScroll(windowBody);
+            
+                            windowBody.find('#search_field').val('');
+                            windowBody.find('#clear_search').hide();
 
+                        })
+                        
                         // Add the event listeners
                         adminModule.addEventListeners();
 
@@ -958,32 +963,32 @@ $(document).ready(function() {
                 lists.animate({
                     opacity: 1
                 },{
-                    duration: 200
+                    duration: 200,
+                    done: function() {
+
+                        // Stop rotating the icon (make one last rotation)
+                        icon.css({
+                            animationIterationCount: '1'
+                        })
+                        
+                        // Show a 'success' notification
+                        var success = $('.success');
+                        success.fadeIn(400);
+                        
+                        // Set timer to hide notification after few seconds
+                        setTimeout(function() {
+            
+                            success.fadeOut(400)
+            
+                        }, 2500)
+                    }
                 })
 
-                // Update the scroll on each window and reset the search input
-                lists.each(function(i, list) {
-
-                    let windowBody = $(list).parent();
-
-                    adminModule.checkVerticalScroll(windowBody);
-
-                    windowBody.find('#search_field').val('');
-                    windowBody.find('#clear_search').hide();
-
-                })
-
-                // Stop rotating the icon (make one last rotation)
-                icon.css({
-                    animationIterationCount: '1'
-                })
-                
-                // Show a 'success' notification
-                var success = $('.success');
-                success.fadeIn(400);
-
+            })
             // If something goes wrong
-            } catch(err) {
+            .catch(function(err) {
+
+                console.log(err)
 
                 // Stop rotating the icon (make one last rotation)
                 icon.css({
@@ -994,17 +999,183 @@ $(document).ready(function() {
                 var fail = $('.fail');
                 fail.fadeIn(400);
 
-            }
+                // Set timer to hide notification after few seconds
+                setTimeout(function() {
+    
+                    fail.fadeOut(400)
+    
+                }, 2500)
 
-            // Set timer to hide notification after few seconds
-            disappear = setTimeout(function() {
+            })
 
-                var notification = $('.notification');
-                notification.fadeOut(400)
-
-            }, 2500)
-            
         };
+
+        /* var compareData = function(receivedData) {
+
+            
+            // Existing
+            var existingMovieItems = $('.movies.list').find('.category_items');
+            var existingDirectorItems = $('.directors.list').find('.category_items');
+            var existingGenreItems = $('.genres.list').find('.category_items');
+
+            var existingMovies = [];
+            existingMovieItems.each(function(i, item) {
+
+                existingMovies.push($(item).attr('data-name'))
+
+            })
+
+            var existingDirectors = [];
+            existingDirectorItems.each(function(i, item) {
+                
+                existingDirectors.push($(item).attr('data-name'))
+
+            })
+
+            var existingGenres =[];
+            existingGenreItems.each(function(i, item) {
+                
+                existingGenres.push($(item).attr('data-name'))
+
+            })
+
+            // Received
+            var receivedMovies = receivedData.movies.map(function(movie) {
+
+                return movie.title;
+
+            })
+
+            var receivedDirectors = receivedData.directors.map(function(director) {
+
+                return director.first_name + ' ' + director.last_name
+
+            });
+
+            var receivedGenres = receivedData.genres.map(function(genre) {
+
+                return genre.name;
+
+            });
+
+            // New
+            var newMovies = [];
+            receivedMovies.forEach(function(movie) {
+                
+                if (existingMovies.indexOf(movie) === -1) {
+                    
+                    newMovies.push(movie)
+
+                }
+                
+            })
+
+            var newDirectors = [];
+            receivedDirectors.forEach(function(director) {
+                
+                if (existingDirectors.indexOf(director) === -1) {
+                    
+                    newDirectors.push(director)
+
+                }
+                
+            })
+
+            var newGenres = [];
+            receivedGenres.forEach(function(genre) {
+
+                if (existingGenres.indexOf(genre) === -1) {
+
+                    newGenres.push(genre);
+
+                }
+
+            })
+
+            var newMovieItems = []
+            console.log(newMovies);
+            receivedData.movies.forEach(function(rec_movie) {
+                console.log(rec_movie.title)
+                if (newMovies.indexOf(rec_movie.title) > -1) {
+
+                    var movieItem = $('<p></p>')
+                    movieItem.addClass('category_items');
+                    movieItem.attr('data-name', rec_movie.title);
+                    movieItem.text(rec_movie.title);
+
+                    var deleteButton = $('<a></a>');
+                    var deleteUrl = '/admin/remove/movies/' + rec_movie._id;
+                    deleteButton.addClass('material-icons delete');
+                    deleteButton.attr('href', deleteUrl);
+                    deleteButton.attr('title', 'Delete movie');
+                    deleteButton.text('delete');
+
+                    movieItem.append(deleteButton);
+                    newMovieItems.push(movieItem);
+
+                }
+
+            })
+
+            var newDirectorItems = [];
+            receivedData.directors.forEach(function(rec_director) {
+
+                let fullName = rec_director.first_name + ' ' + rec_director.last_name;
+
+                if (newDirectors.indexOf(fullName) > -1) {
+
+                    var directorItem = $('<p></p>')
+                    directorItem.addClass('category_items');
+                    directorItem.attr('data-name', fullName);
+                    directorItem.text(fullName);
+
+                    var deleteButton = $('<a></a>');
+                    var deleteUrl = '/admin/remove/directors/' + rec_director._id;
+                    deleteButton.addClass('material-icons delete');
+                    deleteButton.attr('href', deleteUrl);
+                    deleteButton.attr('title', 'Delete director');
+                    deleteButton.text('delete');
+
+                    directorItem.append(deleteButton);
+                    newDirectorItems.push(directorItem);
+
+                }
+
+            })
+
+            var newGenreItems = [];
+            receivedData.genres.forEach(function(rec_genre) {
+
+                if (newGenres.indexOf(rec_genre.name) > -1) {
+
+                    var genreItem = $('<p></p>')
+                    genreItem.addClass('category_items');
+                    genreItem.attr('data-name', rec_genre.name);
+                    genreItem.text(rec_genre.name);
+
+                    var deleteButton = $('<a></a>');
+                    var deleteUrl = '/admin/remove/genres/' + rec_genre._id;
+                    deleteButton.addClass('material-icons delete');
+                    deleteButton.attr('href', deleteUrl);
+                    deleteButton.attr('title', 'Delete genre');
+                    deleteButton.text('delete');
+
+                    genreItem.append(deleteButton);
+                    newGenreItems.push(genreItem);
+
+                }
+
+            })
+
+            var newItems = {
+                movies: newMovieItems,
+                directors: newDirectorItems,
+                genres: newGenreItems
+            }
+            
+            return newItems
+
+        } */
 
         // Add event listeners
         var addEventListeners = function() {
@@ -1041,7 +1212,7 @@ $(document).ready(function() {
 
         };
 
-        return {scrollUpAndDown: scrollUpAndDown, checkVerticalScroll: checkVerticalScroll, deleteItem: deleteItem, deleteFinal: deleteFinal, cancelDelete: cancelDelete, reset: reset, addEventListeners: addEventListeners}
+        return {scrollUpAndDown: scrollUpAndDown, checkVerticalScroll: checkVerticalScroll, deleteItem: deleteItem, deleteFinal: deleteFinal, cancelDelete: cancelDelete, reset: reset, /* compareData: compareData, */ addEventListeners: addEventListeners}
     
     }();
 
