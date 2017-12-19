@@ -775,6 +775,38 @@ p {
   text-align: left;
 }
 
+@keyframes darken {
+  25% {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+  30% {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+  50% {
+    background-color: rgba(0, 0, 0, 0.025);
+  }
+  55% {
+    background-color: rgba(0, 0, 0, 0.025);
+  }
+  75% {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+  80% {
+    background-color: rgba(0, 0, 0, 0.075);
+  }
+  100% {
+    background-color: white;
+  }
+
+}
+
+/* Admin new items */
+.admin .category_items.new {
+  display: none;
+  animation: darken 5s linear 1;
+
+}
+
 .admin .category_items:hover {
   background-color: rgba(0, 0, 0, 0.075);
 }
@@ -1033,14 +1065,6 @@ p {
   .notification.success, .notification.fail {
     top: 15px;
     right: 100px;
-  }
-  
-  .notification.success {
-    /* right: 105px; */
-  }
-
-  .notification.fail {
-    /* right: 100px; */
   }
   
 }

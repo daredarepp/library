@@ -47,7 +47,7 @@ module.exports.index_get = function(req, res, next) {
 
                 director.url= "/catalog/directors/" + director._id;
                 director.name = director.first_name + ' ' + director.last_name;
-                director.numberOfMovies > 1 ? director.numberOfMovies += ' movies' : director.numberOfMovies += ' movie'
+                director.numberOfMovies === 1 ? director.numberOfMovies += ' movie' : director.numberOfMovies += ' movies'
 
             })
         
