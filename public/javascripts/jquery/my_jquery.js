@@ -277,21 +277,24 @@ $(document).ready(function() {
         // Load catalog content
         var loadCatalogContent = function(url, category) {
 
+            // Remove old spinners
+            $('.spinner').remove();
+            
+            // Remove the old catalog
+            var oldCatalog = $('.catalog');
+            oldCatalog.remove();
+            
+            // Add new spinner
+            var spinner = $('<div></div>').addClass('spinner');
+            spinner.html('<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>');
+            wrapper.append(spinner);
+            
             // Highlight the active category
             var oldActiveCategory = $('.selection_bar a').filter('.active');
             oldActiveCategory.removeClass('active');
             
             var newActiveCategory = $('.selection_bar a').filter(`.${category}`);
             newActiveCategory.addClass('active');
-
-            // Remove the old catalog
-            var oldCatalog = $('.catalog');
-            oldCatalog.remove();
-
-            // Add the spinner
-            var spinner = $('<div></div>').addClass('spinner');
-            spinner.html('<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>');
-            wrapper.append(spinner);
 
             // Send ajax request
             $.ajax({
@@ -312,9 +315,8 @@ $(document).ready(function() {
                 // Add the event listeners
                 catalogModule.addEventListeners();
 
-                // Remove the spinner (after one last spin)
-                spinner.children('div').css({animationIterationCount: '1'})
-                setTimeout(function(){spinner.remove()}, 1000)
+                // Remove the spinner
+                spinner.remove()
 
                 // Update the URL
                 catalogModule.updateURL(url);
@@ -487,13 +489,16 @@ $(document).ready(function() {
         var openSingleItem = function(url) {
             
             var catalog = $('.catalog');
-            var spinner = $('<div></div>').addClass('spinner');
-            spinner.html('<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>');
+
+            // Remove old spinners
+            $('.spinner').remove()
             
             // Hide the old items
             $('.list, .single_item').css({opacity: 0});
 
-            // Add the spinner
+            // Add new spinner
+            var spinner = $('<div></div>').addClass('spinner');
+            spinner.html('<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>');
             wrapper.append(spinner);
                 
             // Send ajax request
@@ -518,19 +523,19 @@ $(document).ready(function() {
                 var existingActiveCategory = $('.selection_bar a').filter('.active');
                 existingActiveCategory.removeClass('active');
 
-                if (url.indexOf('/movies') > -1 ) { 
+                if (url.indexOf('movies') > -1 ) { 
 
                     let newActiveCategory = $('.selection_bar a').filter('.movies');
                     newActiveCategory.addClass('active');
                     catalog.attr('data-category', 'movies');
 
-                } else if (url.indexOf('/directors') > -1) {
+                } else if (url.indexOf('directors') > -1) {
 
                     let newActiveCategory = $('.selection_bar a').filter('.directors');
                     newActiveCategory.addClass('active');
                     catalog.attr('data-category', 'directors');
 
-                } else if (url.indexOf('/genres') > -1) {
+                } else if (url.indexOf('genres') > -1) {
 
                     let newActiveCategory = $('.selection_bar a').filter('.genres');
                     newActiveCategory.addClass('active');
@@ -541,9 +546,8 @@ $(document).ready(function() {
                 // Scroll to the top
                 $('html').scrollTop(0);
 
-                // Remove the spinner (after one last spin)
-                spinner.children('div').css({animationIterationCount: '1'})
-                setTimeout(function(){spinner.remove()}, 1000)
+                // Remove the spinner
+                spinner.remove()
 
                 // Update the URL
                 catalogModule.updateURL(url);
