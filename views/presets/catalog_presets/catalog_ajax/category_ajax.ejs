@@ -57,7 +57,7 @@
             <% <!-- Movies list --> %>
             <% if (category === 'Movies') { %>
                 
-                <div class = "movies">
+                <div class = "list movies">
                     <% result.forEach(function(movie) { %>
 
                         <a href = '<%= movie.url %>' class = 'category_items movie' >
@@ -72,7 +72,7 @@
             <% <!-- Directors list --> %>
             <% } else if (category === 'Directors') { %>
 
-                <div class = "directors">
+                <div class = "list directors">
                     <% result.forEach(function(director) { %>
 
                         <a href = '<%= director.url %>' class = 'category_items director' >
@@ -87,7 +87,7 @@
             <% <!-- Genres list --> %>
             <% } else if (category === 'Genres') { %>
 
-                <div class = "genres">
+                <div class = "list genres">
                     <% result.forEach(function(genre) { %>
 
                         <a href = '<%= genre.url %>' class = 'category_items genre' ><%= genre.name %></a>

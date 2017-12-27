@@ -244,52 +244,55 @@ $(document).ready(function() {
         // Open catalog
         var openCatalog = function(category) {
             
+            // Hide the selection windows
             var selectionWindows = $('.selection_window');
             selectionWindows.hide();
             
+            // Show the selection bar
             var selectionBar = $('.selection_bar');
             selectionBar.show();
             
-            // Highlight the active category
-            var activeCategory = $('.selection_bar a').filter(`.${category}`);
-            activeCategory.addClass('active');
-            
             // Load the catalog
-            catalogModule.loadCatalogContent(activeCategory.attr('href'));
+            var activeCategory = $('.selection_bar a').filter(`.${category}`);
+            catalogModule.loadCatalogContent(activeCategory.attr('href'), category);
 
         };
 
         // Change catalog
         var changeCatalog = function(category) {
             
-            // If the link is already active
+            // If the link is already active, do nothing
             if (category.indexOf('active') > -1) {
                 
                 return;    
 
-            } else {
-                
-                // Highlight the active category
-                var oldActiveCategory = $('.selection_bar a').filter('.active');
-                oldActiveCategory.removeClass('active');
-                
-                var newActiveCategory = $('.selection_bar a').filter(`.${category}`);
-                newActiveCategory.addClass('active');
-    
-                // Remove the old catalog
-                var oldCatalog = $('.catalog');
-                oldCatalog.remove();
-    
-                // Load the new catalog
-                catalogModule.loadCatalogContent(newActiveCategory.attr('href'));
-
             }
+                
+            var newActiveCategory = $('.selection_bar a').filter(`.${category}`);
+            catalogModule.loadCatalogContent(newActiveCategory.attr('href'), category)
+            
 
         };
 
         // Load catalog content
-        var loadCatalogContent = function(url) {
+        var loadCatalogContent = function(url, category) {
+
+            // Highlight the active category
+            var oldActiveCategory = $('.selection_bar a').filter('.active');
+            oldActiveCategory.removeClass('active');
             
+            var newActiveCategory = $('.selection_bar a').filter(`.${category}`);
+            newActiveCategory.addClass('active');
+
+            // Remove the old catalog
+            var oldCatalog = $('.catalog');
+            oldCatalog.remove();
+
+            // Add the spinner
+            var spinner = $('<div></div>').addClass('spinner');
+            spinner.html('<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>');
+            wrapper.append(spinner);
+
             // Send ajax request
             $.ajax({
                 url: url,
@@ -300,11 +303,18 @@ $(document).ready(function() {
             // When done
             .done(function(catalog) {
 
-                // Display the catalog
+                // Remove previous late opened catalog
+                $('.catalog').remove();
+
+                // Display the new catalog
                 wrapper.append(catalog);
-                
+
                 // Add the event listeners
                 catalogModule.addEventListeners();
+
+                // Remove the spinner (after one last spin)
+                spinner.children('div').css({animationIterationCount: '1'})
+                setTimeout(function(){spinner.remove()}, 1000)
 
                 // Update the URL
                 catalogModule.updateURL(url);
@@ -476,29 +486,16 @@ $(document).ready(function() {
         // Open single item
         var openSingleItem = function(url) {
             
-            var existingCatalog = $('.catalog');
+            var catalog = $('.catalog');
+            var spinner = $('<div></div>').addClass('spinner');
+            spinner.html('<div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>');
+            
+            // Hide the old items
+            $('.list, .single_item').css({opacity: 0});
 
-            // Highlight the active category even when opening cross-category items
-            var existingActiveCategory = $('.selection_bar a').filter('.active');
-            existingActiveCategory.removeClass('active');
-
-            if (url.indexOf('/movies') > -1 ) { 
-
-                let newActiveCategory = $('.selection_bar a').filter('.movies');
-                newActiveCategory.addClass('active');
-
-            } else if (url.indexOf('/directors') > -1) {
-
-                let newActiveCategory = $('.selection_bar a').filter('.directors');
-                newActiveCategory.addClass('active');
-
-            } else if (url.indexOf('/genres') > -1) {
-
-                let newActiveCategory = $('.selection_bar a').filter('.genres');
-                newActiveCategory.addClass('active');
-
-            }
-
+            // Add the spinner
+            wrapper.append(spinner);
+                
             // Send ajax request
             $.ajax({
                 url: url,
@@ -506,23 +503,51 @@ $(document).ready(function() {
                 method: 'GET'
             })
 
-            // When done
             .done(function(item) {
-                
-                // Display the item
-                existingCatalog.html(item);
+
+                // Remove the old items
+                catalog.children('.list, .single_item').remove()
+
+                // Add the new item
+                catalog.html(item);
 
                 // Add the event listeners
                 catalogModule.addEventListeners();
 
+                // Highlight the active category
+                var existingActiveCategory = $('.selection_bar a').filter('.active');
+                existingActiveCategory.removeClass('active');
+
+                if (url.indexOf('/movies') > -1 ) { 
+
+                    let newActiveCategory = $('.selection_bar a').filter('.movies');
+                    newActiveCategory.addClass('active');
+                    catalog.attr('data-category', 'movies');
+
+                } else if (url.indexOf('/directors') > -1) {
+
+                    let newActiveCategory = $('.selection_bar a').filter('.directors');
+                    newActiveCategory.addClass('active');
+                    catalog.attr('data-category', 'directors');
+
+                } else if (url.indexOf('/genres') > -1) {
+
+                    let newActiveCategory = $('.selection_bar a').filter('.genres');
+                    newActiveCategory.addClass('active');
+                    catalog.attr('data-category', 'genres');
+
+                }
+
+                // Scroll to the top
+                $('html').scrollTop(0);
+
+                // Remove the spinner (after one last spin)
+                spinner.children('div').css({animationIterationCount: '1'})
+                setTimeout(function(){spinner.remove()}, 1000)
+
                 // Update the URL
                 catalogModule.updateURL(url);
-
-                // Smoothly scroll to the top
-                $('html').animate({
-                    scrollTop: 0
-                }, 200);
-
+                    
             })
 
         };
